@@ -3,6 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlumniNetMobile.App">
     <Application.Resources>
-
+        <Style x:Key="FrameCard" TargetType="Frame">
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="BackgroundColor" Value="Wheat"/>
+            <Setter Property="HeightRequest" Value="60"/>
+        </Style>
     </Application.Resources>
 </Application>
