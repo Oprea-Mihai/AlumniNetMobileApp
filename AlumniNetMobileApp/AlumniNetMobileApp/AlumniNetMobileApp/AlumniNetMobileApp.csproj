@@ -14,4 +14,44 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\AuthenticationView.xaml.cs">
+      <DependentUpon>AuthenticationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SignUpView.xaml.cs">
+      <DependentUpon>SignUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\UserValidationView.xaml.cs">
+      <DependentUpon>UserValidationView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\AuthenticationView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ProfileView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SearchView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SignUpView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\UserValidationView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

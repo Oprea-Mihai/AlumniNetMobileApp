@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24CA0BF4-765D-41A0-8EE2-B1C892523F99}</ProjectGuid>
+    <ProjectGuid>{AE7C0EE1-F566-4DEF-97FC-43655C2C3BD4}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>AlumniNetMobileApp.Droid</RootNamespace>
-    <AssemblyName>AlumniNetMobileApp.Android</AssemblyName>
+    <RootNamespace>AlumniNetMobile.Droid</RootNamespace>
+    <AssemblyName>AlumniNetMobile.Android</AssemblyName>
     <Deterministic>True</Deterministic>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
@@ -17,7 +17,7 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v13.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -86,9 +86,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\AlumniNetMobileApp\AlumniNetMobileApp.csproj">
-      <Project>{11176E3F-B197-4D98-8F41-A91628435C30}</Project>
-      <Name>AlumniNetMobileApp</Name>
+    <ProjectReference Include="..\AlumniNetMobile\AlumniNetMobile.csproj">
+      <Project>{B2AC9BB3-24E5-44BA-9FD4-8A7056FFD8C6}</Project>
+      <Name>AlumniNetMobile</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
