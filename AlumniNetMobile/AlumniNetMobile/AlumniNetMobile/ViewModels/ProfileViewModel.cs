@@ -15,11 +15,11 @@ namespace AlumniNetMobileApp.ViewModels
             get { return _programs; }
             set { SetProperty(ref _programs, value); }
         }
-        private ObservableRangeCollection<FinishedProgramModel> _experience;
-        public ObservableRangeCollection<FinishedProgramModel> Experience
+        private ObservableRangeCollection<JobModel> _jobs;
+        public ObservableRangeCollection<JobModel> Jobs
          {
-            get { return _experience; }
-            set { SetProperty(ref _experience, value); }
+            get { return _jobs; }
+            set { SetProperty(ref _jobs, value); }
          }
         public ProfileViewModel()
         {
@@ -35,6 +35,17 @@ namespace AlumniNetMobileApp.ViewModels
             Programs.Add(programModel);
             Programs.Add(programModel);
 
+            Jobs = new ObservableRangeCollection<JobModel>();
+
+            JobModel jobModel = new JobModel
+            {
+                CompanyName ="Talenting Software",
+                JobTitle ="Software Engineer",
+                StartEndDate = "2018 - Prezent"
+            };
+
+            Jobs.Add(jobModel);
+            Jobs.Add(jobModel);
         }
     }
 }

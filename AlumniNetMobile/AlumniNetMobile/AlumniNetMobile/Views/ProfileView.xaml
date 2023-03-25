@@ -15,11 +15,13 @@
 
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout>
-                <StackLayout BackgroundColor="White">
+
+        <StackLayout Margin="5,5,5,0">
+            <Frame Style="{StaticResource BigFrameCard}"
+                   BackgroundColor="#95c7f3">
+                <StackLayout >
                     <StackLayout Orientation="Horizontal" 
-                         Margin="10,12,0,0" 
+                         Margin="5,5,0,0" 
                          HeightRequest="128" 
                          Padding="0">
                         <Frame CornerRadius="100"
@@ -31,16 +33,20 @@
                         <StackLayout Orientation="Vertical">
                             <Label Text="Oprea"                                
                                FontSize="32" 
-                               Margin="0,20,0,0"/>
+                               Margin="0,20,0,0"  
+                               Style="{StaticResource OpenSans-BoldTextLabel}"/>
                             <Label Text="Mihai Lucian" 
-                                       FontSize="20"/>
+                                       FontSize="20"
+                               Style="{StaticResource OpenSans-BoldTextLabel}"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
-
-                <StackLayout BackgroundColor="White">
+            </Frame>
+            <Frame Style="{StaticResource BigFrameCard}">
+                <StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Despre"></Label>
+                        <Label Text="Despre" 
+                           Style="{StaticResource Key=OpenSans-BoldTextLabel}"></Label>
                         <Button HorizontalOptions="EndAndExpand"
                             WidthRequest="25"
                             HeightRequest="25"
@@ -54,12 +60,18 @@
                             </Button.ImageSource>
                         </Button>
                     </StackLayout>
-                    <Label Text="Aici vin informatii despre persoana"></Label>
+                    <Label TextColor="Black"
+                       LineBreakMode="TailTruncation"
+                       MaxLines="3"
+                    Text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.."></Label>
                 </StackLayout>
+            </Frame>
 
-                <StackLayout BackgroundColor="White" >
+            <Frame Style="{StaticResource BigFrameCard}">
+                <StackLayout >
                     <StackLayout Orientation="Horizontal">
-                        <Label>Specializari absolvite</Label>
+                        <Label Text="Specializari absolvite"
+                           Style="{StaticResource OpenSans-BoldTextLabel}"/>
                         <Button HorizontalOptions="EndAndExpand"
                             WidthRequest="25"
                             HeightRequest="25"
@@ -76,18 +88,14 @@
 
                     <CollectionView ItemsSource="{Binding Programs}"
                                 SelectionMode="None"
-                                HeightRequest="120"
-                                HorizontalScrollBarVisibility="Always">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Horizontal"/>
-                        </CollectionView.ItemsLayout>
+                                HeightRequest="750">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:FinishedProgramModel">
-                                <StackLayout Padding="15,4,5,95">
+                                <StackLayout Padding="0,4,0,10">
                                     <Frame Style="{StaticResource FrameCard}" 
-                                           Padding="10,10,0,30">
-                                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                            <Image Margin="0,10,0,0" HorizontalOptions="End">
+                                           Padding="10,10,0,40">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Margin="0,10,0,0">
                                                 <Image.Source>
                                                     <FontImageSource 
                                                     FontFamily="FontAwesome"
@@ -99,7 +107,8 @@
                                             </Image>
                                             <StackLayout>
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Label Text="{Binding Specialization}"></Label>
+                                                    <Label Text="{Binding Specialization}"
+                                                         Style="{StaticResource OpenSans-SemiBoldTextLabel}"/>
                                                     <Image>
                                                         <Image.Source>
                                                             <FontImageSource 
@@ -156,22 +165,39 @@
                     </CollectionView>
 
                 </StackLayout>
+            </Frame>
 
-                <StackLayout BackgroundColor="White">
-                    <Label>Experienta</Label>
+            <Frame Style="{StaticResource BigFrameCard}">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Experienta"
+                       Style="{StaticResource OpenSans-BoldTextLabel}"/>
+                        <Button HorizontalOptions="EndAndExpand"
+                            WidthRequest="25"
+                            HeightRequest="25"
+                            BackgroundColor="Transparent">
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                FontFamily="FontAwesome"
+                                Glyph="{x:Static fa:FontAwesomeIcons.Plus}"
+                                Size="16"                                
+                                Color="Black"/>
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
                     <StackLayout>
-                        <CollectionView ItemsSource="{Binding Programs}"
+                        <CollectionView ItemsSource="{Binding Jobs}"
                                 SelectionMode="None">
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:FinishedProgramModel">
-                                    <StackLayout Padding="5,4,5,5">
+                                <DataTemplate x:DataType="models:JobModel">
+                                    <StackLayout Padding="0,4,0,5">
                                         <Frame Style="{StaticResource FrameCard}" Padding="0,10,0,30">
-                                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                                <Image Margin="0,10,0,0" HorizontalOptions="End">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Image Margin="20,10,0,0">
                                                     <Image.Source>
                                                         <FontImageSource 
                                                     FontFamily="FontAwesome"
-                                                    Glyph="{x:Static fa:FontAwesomeIcons.GraduationCap}"
+                                                    Glyph="{x:Static fa:FontAwesomeIcons.UserTie}"
                                                     Size="50"
                                                     Color="Black"
                                                     />
@@ -179,20 +205,13 @@
                                                 </Image>
                                                 <StackLayout>
                                                     <StackLayout Orientation="Horizontal">
-                                                        <Label Text="{Binding Specialization}"></Label>
-                                                        <Image>
-                                                            <Image.Source>
-                                                                <FontImageSource 
-                                                    FontFamily="FontAwesome"
-                                                    Glyph="{x:Static fa:FontAwesomeIcons.CircleCheck}"
-                                                    Size="16"
-                                                    Color="Black"/>
-                                                            </Image.Source>
-                                                        </Image>
+                                                        <Label   Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                                                             Text="{Binding JobTitle}"/>
                                                     </StackLayout>
-                                                    <Label Text="{Binding FacultyName}"></Label>
-                                                    <StackLayout Orientation="Horizontal">
+                                                    <Label Text="{Binding CompanyName}"
+                                                       Style="{StaticResource StandardTextLabel}"/>
 
+                                                    <StackLayout Orientation="Horizontal">
                                                         <Image HorizontalOptions="Center">
                                                             <Image.Source>
                                                                 <FontImageSource 
@@ -202,30 +221,8 @@
                                                     Color="Black"/>
                                                             </Image.Source>
                                                         </Image>
-                                                        <Label Text="{Binding GraduationYear}"></Label>
-
-                                                        <Image HorizontalOptions="Center">
-                                                            <Image.Source>
-                                                                <FontImageSource 
-                                                    FontFamily="FontAwesome"
-                                                    Glyph="{x:Static fa:FontAwesomeIcons.Clock}"
-                                                    Size="10"
-                                                    Color="Black"/>
-                                                            </Image.Source>
-                                                        </Image>
-                                                        <Label Text="{Binding LearningSchedule}"></Label>
-
-                                                        <Image HorizontalOptions="Center">
-                                                            <Image.Source>
-                                                                <FontImageSource 
-                                                    FontFamily="FontAwesome"
-                                                    Glyph="{x:Static fa:FontAwesomeIcons.Book}"
-                                                    Size="10"
-                                                    Color="Black"/>
-                                                            </Image.Source>
-                                                        </Image>
-                                                        <Label Text="{Binding Program}"></Label>
-
+                                                        <Label Text="{Binding StartEndDate}"
+                                                             Style="{StaticResource StandardTextLabel}"/>
                                                     </StackLayout>
                                                 </StackLayout>
                                             </StackLayout>
@@ -234,10 +231,11 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                        
+
                     </StackLayout>
                 </StackLayout>
-            </StackLayout>
-        </ScrollView>
+            </Frame>
+
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
