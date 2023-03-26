@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace AlumniNetMobileApp.Views
+namespace AlumniNetMobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserValidationView : ContentPage

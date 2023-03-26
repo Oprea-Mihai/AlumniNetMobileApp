@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace AlumniNetMobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ProfileView : ContentPage
+    public partial class ForgotPasswordView : ContentPage
     {
-        public ProfileView()
+        public ForgotPasswordView()
         {
             InitializeComponent();
-            BindingContext = new ProfileViewModel();
+            BindingContext = new ForgotPasswordViewModel();
         }
     }
 }

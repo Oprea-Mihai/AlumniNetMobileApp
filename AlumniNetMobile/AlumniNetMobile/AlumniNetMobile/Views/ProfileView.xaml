@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewmodels="clr-namespace:AlumniNetMobileApp.ViewModels"
-             x:Class="AlumniNetMobileApp.Views.ProfileView"
+             xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+             x:Class="AlumniNetMobile.Views.ProfileView"
              xmlns:fa="clr-namespace:FontAwesome" 
              xmlns:models="clr-namespace:AlumniNetMobile.Models"
              BackgroundColor="#E5E5E5"
@@ -19,7 +19,7 @@
         <StackLayout Margin="5,5,5,0">
             <Frame Style="{StaticResource BigFrameCard}"
                    BackgroundColor="#95c7f3">
-                <StackLayout >
+                <StackLayout Orientation="Horizontal">
                     <StackLayout Orientation="Horizontal" 
                          Margin="5,5,0,0" 
                          HeightRequest="128" 
@@ -40,6 +40,9 @@
                                Style="{StaticResource OpenSans-BoldTextLabel}"/>
                         </StackLayout>
                     </StackLayout>
+                    <Button VerticalOptions="Start"
+                            HorizontalOptions="End"
+                            Command="{Binding SignOutCommand}"/>
                 </StackLayout>
             </Frame>
             <Frame Style="{StaticResource BigFrameCard}">

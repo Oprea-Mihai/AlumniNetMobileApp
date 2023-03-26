@@ -1,9 +1,14 @@
-﻿using AlumniNetMobile.Models;
+﻿using AlumniNetMobile.Common;
+using AlumniNetMobile.Models;
+using AlumniNetMobile.Views;
+using CommunityToolkit.Mvvm.Input;
+using System.Net;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
-namespace AlumniNetMobileApp.ViewModels
+namespace AlumniNetMobile.ViewModels
 {
-    public class ProfileViewModel :ObservableObject
+    public partial class ProfileViewModel : ObservableObject
     {
         private ObservableRangeCollection<FinishedProgramModel> _programs;
         public ObservableRangeCollection<FinishedProgramModel> Programs
@@ -42,6 +47,16 @@ namespace AlumniNetMobileApp.ViewModels
 
             Jobs.Add(jobModel);
             Jobs.Add(jobModel);
+        }
+
+        [RelayCommand]
+        public void SignOut()
+        {
+            var authService = DependencyService.Resolve<IAuthenticationService>();
+            authService.SignOut();
+
+            var newNavigationPage = new NavigationPage(new LoginView());
+            Application.Current.MainPage = newNavigationPage;
         }
     }
 }

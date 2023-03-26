@@ -1,6 +1,6 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.Views;
-using AlumniNetMobileApp.Views;
+using AlumniNetMobile.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

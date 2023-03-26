@@ -65,10 +65,10 @@
       <Version>2.0.5</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Auth">
-      <Version>121.1.0.1</Version>
+      <Version>71.1605.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Core">
-      <Version>121.1.1.1</Version>
+      <Version>71.1601.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.5" />
