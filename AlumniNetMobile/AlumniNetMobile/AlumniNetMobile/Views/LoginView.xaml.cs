@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlumniNetMobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace AlumniNetMobile.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NewSpecialisationView : ContentView
+	public partial class LoginView : ContentPage
 	{
-		public NewSpecialisationView ()
+		public LoginView ()
 		{
 			InitializeComponent ();
+			BindingContext = new LoginViewModel();
 		}
 	}
 }

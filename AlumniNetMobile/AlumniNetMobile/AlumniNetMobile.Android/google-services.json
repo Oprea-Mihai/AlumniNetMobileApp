@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "110473090199",
-    "project_id": "alumniauthentication",
-    "storage_bucket": "alumniauthentication.appspot.com"
+    "project_number": "113225677443",
+    "project_id": "alumniauth-4a276",
+    "storage_bucket": "alumniauth-4a276.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:110473090199:android:66c46d56931a087b7c85d2",
+        "mobilesdk_app_id": "1:113225677443:android:bb28e89a48051335d879b6",
         "android_client_info": {
           "package_name": "com.companyname.alumninetmobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "110473090199-fi96pl4g21n2e2231t7p84lv504c9ql6.apps.googleusercontent.com",
+          "client_id": "113225677443-kpb090np45kk122mjl8jn5sejugcig9i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBRsrTB2c4zY1w373RVR4F5tyCrj1q78Po"
+          "current_key": "AIzaSyBKR2R8O9DD4ZFl1VMd81Qr2BRfc-77xfo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "110473090199-fi96pl4g21n2e2231t7p84lv504c9ql6.apps.googleusercontent.com",
+              "client_id": "113225677443-kpb090np45kk122mjl8jn5sejugcig9i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
