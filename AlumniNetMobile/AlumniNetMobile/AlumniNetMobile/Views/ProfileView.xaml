@@ -19,10 +19,10 @@
         <StackLayout Margin="5,5,5,0">
             <Frame Style="{StaticResource BigFrameCard}"
                    BackgroundColor="#95c7f3">
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" >
                     <StackLayout Orientation="Horizontal" 
-                         Margin="5,5,0,0" 
-                         HeightRequest="128" 
+                         Margin="0,5,0,0" 
+                         HeightRequest="90" 
                          Padding="0">
                         <Frame CornerRadius="100"
                                Padding="0"
@@ -33,27 +33,42 @@
                         <StackLayout Orientation="Vertical">
                             <Label Text="Oprea"                                
                                FontSize="32" 
-                               Margin="0,20,0,0"  
+                               Margin="0,0,0,0"  
                                Style="{StaticResource OpenSans-BoldTextLabel}"/>
                             <Label Text="Mihai Lucian" 
                                        FontSize="20"
                                Style="{StaticResource OpenSans-BoldTextLabel}"/>
                         </StackLayout>
                     </StackLayout>
-                    <Button VerticalOptions="Start"
-                            HorizontalOptions="End"
-                            Command="{Binding SignOutCommand}"/>
+                    <Button VerticalOptions="StartAndExpand"
+                            HorizontalOptions="EndAndExpand"
+                            WidthRequest="25"
+                            HeightRequest="25"
+                            BackgroundColor="RoyalBlue"
+                            CornerRadius="9"
+                            Command="{Binding SignOutCommand}">
+                        <Button.ImageSource>
+                            <FontImageSource 
+                                FontFamily="FontAwesome"
+                                Glyph="{x:Static fa:FontAwesomeIcons.RightFromBracket}"
+                                Size="16"
+                                Color="Black"/>
+                        </Button.ImageSource>
+                    </Button>
                 </StackLayout>
             </Frame>
             <Frame Style="{StaticResource BigFrameCard}">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Despre" 
-                           Style="{StaticResource Key=OpenSans-BoldTextLabel}"></Label>
+                           Style="{StaticResource Key=OpenSans-BoldTextLabel}">
+                        </Label>
                         <Button HorizontalOptions="EndAndExpand"
                             WidthRequest="25"
                             HeightRequest="25"
-                            BackgroundColor="Transparent">
+                            BackgroundColor="Transparent"
+                            Command="{Binding EditDescriptionCommand}"
+                            IsVisible="{Binding IsNotEditing}">
                             <Button.ImageSource>
                                 <FontImageSource 
                                 FontFamily="FontAwesome"
@@ -62,11 +77,34 @@
                                 Color="Black"/>
                             </Button.ImageSource>
                         </Button>
+
+                        <Button HorizontalOptions="EndAndExpand"
+                            WidthRequest="25"
+                            HeightRequest="25"
+                            BackgroundColor="Transparent"
+                            Command="{Binding SaveDescriptionCommand}"
+                            IsVisible="{Binding IsEditing}">
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                FontFamily="FontAwesome"
+                                Glyph="{x:Static fa:FontAwesomeIcons.FloppyDisk}"
+                                Size="16"
+                                Color="ForestGreen"/>
+                            </Button.ImageSource>
+                        </Button>
                     </StackLayout>
+
                     <Label TextColor="Black"
-                       LineBreakMode="TailTruncation"
-                       MaxLines="3"
-                    Text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.."></Label>
+                           LineBreakMode="TailTruncation"
+                           MaxLines="3"
+                           FontSize="16"
+                           IsVisible="{Binding IsNotEditing}"
+                           Text="{Binding Description}"/>
+
+                    <Editor
+                           FontSize="16"                        
+                        IsVisible="{Binding IsEditing}"
+                        Text="{Binding Description}"></Editor>
                 </StackLayout>
             </Frame>
 
