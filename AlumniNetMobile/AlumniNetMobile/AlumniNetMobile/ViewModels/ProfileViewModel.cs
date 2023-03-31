@@ -25,8 +25,17 @@ namespace AlumniNetMobile.ViewModels
                 GraduationYear = 2020,
                 Program = "Licenta"
             };
+
+            FinishedProgramModel programModel2 = new FinishedProgramModel
+            {
+                FacultyName = "Facultatea de Turism",
+                Specialization = "Turism",
+                LearningSchedule = "Zi",
+                GraduationYear = 2018,
+                Program = "Licenta"
+            };
             Programs.Add(programModel);
-            Programs.Add(programModel);
+            Programs.Add(programModel2);
 
             Jobs = new ObservableRangeCollection<JobModel>();
 
@@ -122,9 +131,9 @@ namespace AlumniNetMobile.ViewModels
             {
                 return;
             }
-            //FinishedProgramModel selected = SelectedFinishedProgram;
-            //SelectedFinishedProgram =null;
-            await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditSpecializationView(SelectedFinishedProgram));
+            FinishedProgramModel selected = SelectedFinishedProgram;
+            SelectedFinishedProgram = null;
+            await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditSpecializationView(selected));
         }
 
         #endregion

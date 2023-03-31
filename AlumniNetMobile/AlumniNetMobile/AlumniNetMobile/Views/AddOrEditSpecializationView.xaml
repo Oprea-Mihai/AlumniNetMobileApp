@@ -5,14 +5,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+    xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.BindingContext>
         <viewmodels:AddOrEditSpecializationViewModel />
     </ContentPage.BindingContext>
+
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+            <StackLayout
+                Padding="10,0,0,0"
+                HeightRequest="90"
+                Orientation="Horizontal">
                 <Image Margin="0">
                     <Image.Source>
                         <FontImageSource
@@ -22,21 +27,38 @@
                             Color="Black" />
                     </Image.Source>
                 </Image>
-                <input:AutoCompleteEntry
-                    Margin="0"
-                    BackgroundColor="Transparent"
-                    BorderColor="Transparent"
-                    ItemsSource="{Binding FacultyNames}"
-                    Text="{Binding SearchedName, Mode=TwoWay}"
-                    TextColor="Black"
+                <renderer:BorderlessEditor
+                    Margin="10,15,0,0"
+                    HeightRequest="70"
+                    Text="{Binding SearchedName}"
                     WidthRequest="300">
-                    <input:AutoCompleteEntry.Behaviors>
-                        <xct:EventToCommandBehavior Command="{Binding TextChangedCommand}" EventName="TextChanged" />
-                    </input:AutoCompleteEntry.Behaviors>
-                </input:AutoCompleteEntry>
+                    <renderer:BorderlessEditor.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
+                    </renderer:BorderlessEditor.Behaviors>
+                </renderer:BorderlessEditor>
             </StackLayout>
 
-
+            <StackLayout>
+                <CollectionView
+                    HeightRequest="100"
+                    IsVisible="{Binding AreFacultySugestionsVisible}"
+                    ItemsSource="{Binding DisplayedNames}"
+                    SelectedItem="{Binding SelectedFaculty}"
+                    SelectionMode="Single">
+                    <CollectionView.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
+                    </CollectionView.Behaviors>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame Style="{StaticResource SmallFrameCard}">
+                                    <Label Text="{Binding}" VerticalTextAlignment="Center" />
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
 
             <Line
                 Stroke="#5AA7C8"
@@ -46,7 +68,10 @@
                 Y1="0"
                 Y2="0" />
 
-            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+            <StackLayout
+                Padding="10,0,0,0"
+                HeightRequest="90"
+                Orientation="Horizontal">
                 <Image>
                     <Image.Source>
                         <FontImageSource
@@ -56,7 +81,37 @@
                             Color="Black" />
                     </Image.Source>
                 </Image>
+
+                <renderer:BorderlessEditor
+                    Margin="10,15,0,0"
+                    HeightRequest="70"
+                    Text="{Binding SearchedSpecialization}"
+                    WidthRequest="300">
+                    <renderer:BorderlessEditor.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding SpecializationTextChangedCommand}" EventName="TextChanged" />
+                    </renderer:BorderlessEditor.Behaviors>
+                </renderer:BorderlessEditor>
             </StackLayout>
+
+            <CollectionView
+                HeightRequest="100"
+                IsVisible="{Binding AreSpecializationSugestionsVisible}"
+                ItemsSource="{Binding DisplayedSpecializations}"
+                SelectedItem="{Binding SelectedSpecialization}"
+                SelectionMode="Single">
+                <CollectionView.Behaviors>
+                    <xct:EventToCommandBehavior Command="{Binding SpecializationSelectedCommand}" EventName="SelectionChanged" />
+                </CollectionView.Behaviors>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame Style="{StaticResource SmallFrameCard}">
+                                <Label Text="{Binding}" VerticalTextAlignment="Center" />
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <Line
                 Stroke="#5AA7C8"
@@ -66,7 +121,10 @@
                 Y1="0"
                 Y2="0" />
 
-            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+            <StackLayout
+                Padding="10,0,0,0"
+                HeightRequest="90"
+                Orientation="Horizontal">
                 <Image>
                     <Image.Source>
                         <FontImageSource
@@ -78,14 +136,13 @@
                 </Image>
 
                 <input:Dropdown
-                    Grid.Row="0"
-                    Grid.Column="1"
                     FontFamily="Montserrat"
                     FontSize="16"
                     ItemsSource="{Binding TypesList}"
                     Placeholder="Selectati un tip de invatamant"
                     Style="{StaticResource DropdownStyle}"
-                    TitleFontSize="16" />
+                    TitleFontSize="16"
+                    VerticalOptions="Center" />
             </StackLayout>
 
             <Line
@@ -96,7 +153,10 @@
                 Y1="0"
                 Y2="0" />
 
-            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+            <StackLayout
+                Padding="10,0,0,0"
+                HeightRequest="90"
+                Orientation="Horizontal">
                 <Image>
                     <Image.Source>
                         <FontImageSource
@@ -116,7 +176,10 @@
                 Y1="0"
                 Y2="0" />
 
-            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+            <StackLayout
+                Padding="10,0,0,0"
+                HeightRequest="90"
+                Orientation="Horizontal">
                 <Image>
                     <Image.Source>
                         <FontImageSource

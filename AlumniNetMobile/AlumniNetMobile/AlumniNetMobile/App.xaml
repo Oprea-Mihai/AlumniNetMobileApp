@@ -12,8 +12,16 @@
             <Color x:Key="Blue">#00bcd4</Color>
             <Color x:Key="Orange">#ff5722</Color>
             <Color x:Key="Red">#dd2c00</Color>
-            <Color x:Key="Summer">#b2ebf2</Color>
 
+            <Style x:Key="SmallFrameCard" TargetType="Frame">
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="BackgroundColor" Value="ForestGreen" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="Margin" Value="5,5,5,5" />
+                <Setter Property="Padding" Value="10,0,0,0" />
+                <Setter Property="BorderColor" Value="Black" />
+            </Style>
 
             <Style x:Key="FrameCard" TargetType="Frame">
                 <Setter Property="HasShadow" Value="True" />
@@ -63,7 +71,7 @@
             <Style x:Key="DropdownStyle" TargetType="input:Dropdown">
                 <Setter Property="PlaceholderColor" Value="#0C5071" />
                 <Setter Property="Color" Value="#0C5071" />
-                <Setter Property="TextColor" Value="#5AA7C8" />
+                <Setter Property="TextColor" Value="Black" />
                 <Setter Property="Margin" Value="-8, 0, 0, 0" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="ArrowImage" Value="dropdown_arrow.png" />
