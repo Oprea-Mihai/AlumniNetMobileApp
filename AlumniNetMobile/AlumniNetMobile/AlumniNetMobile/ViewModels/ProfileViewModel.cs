@@ -88,7 +88,7 @@ namespace AlumniNetMobile.ViewModels
         private FinishedProgramModel _selectedFinishedProgram;
 
         [ObservableProperty]
-        private FinishedProgramModel _selectedJobExperience;
+        private JobModel _selectedJobExperience;
         #endregion
 
         #region Commands
@@ -139,6 +139,18 @@ namespace AlumniNetMobile.ViewModels
             FinishedProgramModel selected = SelectedFinishedProgram;
             SelectedFinishedProgram = null;
             await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditSpecializationView(selected));
+        }
+
+        [RelayCommand]
+        public async Task EditWorkExperience(object obj)
+        {
+            if (SelectedJobExperience == null)
+            {
+                return;
+            }
+            JobModel selected = SelectedJobExperience;
+            SelectedFinishedProgram = null;
+            await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditExperienceView(selected));
         }
 
         #endregion

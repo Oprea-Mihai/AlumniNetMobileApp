@@ -141,6 +141,7 @@
                     FontFamily="Montserrat"
                     FontSize="16"
                     ItemsSource="{Binding TypesList}"
+                    Placeholder="Selectati un program de studii"
                     SelectedItem="{Binding SelectedStudyProgram}"
                     Style="{StaticResource DropdownStyle}"
                     TitleFontSize="16"

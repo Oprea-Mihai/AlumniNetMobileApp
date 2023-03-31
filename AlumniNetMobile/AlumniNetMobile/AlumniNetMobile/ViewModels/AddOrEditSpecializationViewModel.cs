@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,16 @@ namespace AlumniNetMobile.ViewModels
         public AddOrEditSpecializationViewModel()
         {
 
-            _specializationNames= new List<string> 
+            _specializationNames = new List<string>
             { "Informatica",
             "Drept",
-            "Magie"
+                "Magie"
+            };
+
+            TypesList = new List<string>
+            {
+                "ZI",
+                "IFR"
             };
 
             _facultyNames = new List<string>
@@ -34,14 +41,14 @@ namespace AlumniNetMobile.ViewModels
             SearchedSpecialization = "";
             _areFacultySugestionsVisible = false;
             _areSpecializationSugestionsVisible = false;
-            SelectedSchedule = "Selectati un tip de invatamant";
-            SelectedStudyProgram="Selectati un program de studii";
-            GraduationYear =null;
+            SelectedSchedule = null;
+            SelectedStudyProgram = null;
+            GraduationYear = null;
         }
 
         public AddOrEditSpecializationViewModel(FinishedProgramModel selectedProgram)
         {
-            _specializationNames= new List<string>
+            _specializationNames = new List<string>
             { "Informatica",
             "Drept",
             "Magie"
@@ -54,7 +61,7 @@ namespace AlumniNetMobile.ViewModels
                 "Facultatea de turism"
             };
 
-            SelectedProgram = selectedProgram;
+            _selectedProgram = selectedProgram;
 
             TypesList = new List<string>
             {
@@ -64,8 +71,8 @@ namespace AlumniNetMobile.ViewModels
 
             _areSpecializationSugestionsVisible = false;
             _areFacultySugestionsVisible = false;
-            SearchedName = SelectedProgram.FacultyName;
-            SearchedSpecialization = SelectedProgram.Specialization;
+            SearchedName = _selectedProgram.FacultyName;
+            SearchedSpecialization = _selectedProgram.Specialization;
             SelectedSchedule = selectedProgram.LearningSchedule;
             SelectedStudyProgram = selectedProgram.Program;
             GraduationYear = selectedProgram.GraduationYear;
@@ -77,14 +84,12 @@ namespace AlumniNetMobile.ViewModels
 
         private List<string> _facultyNames;
         private List<string> _specializationNames;
+        private FinishedProgramModel _selectedProgram;
 
         #endregion
 
 
         #region Observables
-
-        [ObservableProperty]
-        private FinishedProgramModel _selectedProgram;
 
         [ObservableProperty]
         private List<string> _typesList;
@@ -142,27 +147,37 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public void FacultyTextChanged()
         {
-            var names = _facultyNames.Where(x => x.Contains(SearchedName))?.ToList();
-            if (names.Count() != 0)
-            {
-                DisplayedNames = new ObservableRangeCollection<string>(names);
-                AreFacultySugestionsVisible = true;
-            }
+            if (SearchedName == "")
+                AreFacultySugestionsVisible = false;
             else
-                DisplayedNames = new ObservableRangeCollection<string>();
+            {
+                var names = _facultyNames.Where(x => x.ToLower().Contains(SearchedName.ToLower()))?.ToList();
+                if (names.Count() != 0)
+                {
+                    DisplayedNames = new ObservableRangeCollection<string>(names);
+                    AreFacultySugestionsVisible = true;
+                }
+                else
+                    DisplayedNames = new ObservableRangeCollection<string>();
+            }
         }
 
         [RelayCommand]
         public void SpecializationTextChanged()
         {
-            var specializations = _specializationNames.Where(x => x.Contains(SearchedSpecialization))?.ToList();
-            if (specializations.Count() != 0)
-            {
-                DisplayedSpecializations = new ObservableRangeCollection<string>(specializations);
-                AreSpecializationSugestionsVisible = true;
-            }
+            if (SearchedSpecialization == "")
+                AreSpecializationSugestionsVisible = false;
             else
-                DisplayedSpecializations = new ObservableRangeCollection<string>();
+            {
+                var specializations = _specializationNames.Where(x => x.ToLower().Contains(SearchedSpecialization.ToLower()))?.ToList();
+                if (specializations.Count() != 0)
+                {
+                    DisplayedSpecializations = new ObservableRangeCollection<string>(specializations);
+                    AreSpecializationSugestionsVisible = true;
+                }
+                else
+                    DisplayedSpecializations = new ObservableRangeCollection<string>();
+            }
         }
 
         [RelayCommand]

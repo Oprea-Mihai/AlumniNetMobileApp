@@ -239,7 +239,13 @@
                         </Button>
                     </StackLayout>
                     <StackLayout>
-                        <CollectionView ItemsSource="{Binding Jobs}" SelectionMode="None">
+                        <CollectionView
+                            ItemsSource="{Binding Jobs}"
+                            SelectedItem="{Binding SelectedJobExperience, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <CollectionView.Behaviors>
+                                <xct:EventToCommandBehavior Command="{Binding EditWorkExperienceCommand}" EventName="SelectionChanged" />
+                            </CollectionView.Behaviors>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="models:JobModel">
                                     <StackLayout Padding="0,4,0,5">

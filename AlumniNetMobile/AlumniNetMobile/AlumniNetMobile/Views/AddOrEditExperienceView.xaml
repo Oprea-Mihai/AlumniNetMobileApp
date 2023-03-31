@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
-             x:Class="AlumniNetMobile.Views.AddOrEditExperienceView">
+<ContentPage
+    x:Class="AlumniNetMobile.Views.AddOrEditExperienceView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels">
 
     <ContentPage.BindingContext>
         <viewmodels:AddOrEditExperienceViewModel />
@@ -11,9 +14,154 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to experience!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout
+                Padding="10,0,0,0"
+                HeightRequest="90"
+                Orientation="Horizontal">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.UserTie}"
+                            Size="30"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+                <renderer:BorderlessEditor
+                    Placeholder="Numele postului"
+                    Text="{Binding GraduationYear}"
+                    VerticalOptions="Center"
+                    WidthRequest="300" />
+            </StackLayout>
+
+            <Line
+                Stroke="#5AA7C8"
+                StrokeThickness="1"
+                X1="0"
+                X2="3900"
+                Y1="0"
+                Y2="0" />
+
+            <StackLayout
+                Padding="10,0,0,0"
+                HeightRequest="90"
+                Orientation="Horizontal">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.BuildingColumns}"
+                            Size="30"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+                <renderer:BorderlessEditor
+                    Placeholder="Numele companiei"
+                    Text="{Binding GraduationYear}"
+                    VerticalOptions="Center"
+                    WidthRequest="300" />
+            </StackLayout>
+
+            <Line
+                Stroke="#5AA7C8"
+                StrokeThickness="1"
+                X1="0"
+                X2="3900"
+                Y1="0"
+                Y2="0" />
+
+            <Frame Style="{StaticResource FrameCard}">
+                <StackLayout
+                    Padding="10,0,0,0"
+                    HeightRequest="90"
+                    Orientation="Horizontal">
+                    <Image>
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="FontAwesome"
+                                Glyph="{x:Static fa:FontAwesomeIcons.CalendarCheck}"
+                                Size="30"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                    <renderer:BorderlessEditor
+                        Keyboard="Numeric"
+                        MaxLength="4"
+                        Placeholder="Anul inceperii"
+                        Text="{Binding GraduationYear}"
+                        VerticalOptions="Center"
+                        WidthRequest="300" />
+                </StackLayout>
+            </Frame>
+
+            <Line
+                Stroke="#5AA7C8"
+                StrokeThickness="1"
+                X1="0"
+                X2="3900"
+                Y1="0"
+                Y2="0" />
+
+            <StackLayout
+                Padding="10,0,0,0"
+                HeightRequest="90"
+                Orientation="Horizontal">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.Calendar}"
+                            Size="30"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+                <renderer:BorderlessEditor
+                    Keyboard="Numeric"
+                    MaxLength="4"
+                    Placeholder="Anul incetarii"
+                    Text="{Binding GraduationYear}"
+                    VerticalOptions="Center"
+                    WidthRequest="300" />
+            </StackLayout>
+
+            <Line
+                Stroke="#5AA7C8"
+                StrokeThickness="1"
+                X1="0"
+                X2="3900"
+                Y1="0"
+                Y2="0" />
+
+            <StackLayout
+                Margin="0,20,10,0"
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+                <Button
+                    Padding="2,0,2,0"
+                    BackgroundColor="Gray"
+                    Command="{Binding CancelCommand}"
+                    CornerRadius="5"
+                    FontFamily="Montserrat"
+                    FontSize="16"
+                    HeightRequest="40"
+                    Text="Anulati"
+                    TextColor="White"
+                    TextTransform="None"
+                    WidthRequest="130" />
+                <Button
+                    Padding="2,0,2,0"
+                    BackgroundColor="#1C698A"
+                    Command="{Binding SaveCommand}"
+                    CornerRadius="5"
+                    FontFamily="Montserrat"
+                    FontSize="16"
+                    HeightRequest="40"
+                    Text="Salvati"
+                    TextColor="White"
+                    TextTransform="None"
+                    WidthRequest="130" />
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

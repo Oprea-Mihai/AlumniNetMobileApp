@@ -12,27 +12,52 @@ namespace AlumniNetMobile.ViewModels
 
         public AddOrEditExperienceViewModel()
         {
-            
+            JobTitle =null;
+            CompanyName =null;
+
         }
 
         public AddOrEditExperienceViewModel(JobModel selectedJob)
         {
-            SelectedJob = selectedJob;
+            _selectedJob = selectedJob;
+            StartEndDate = selectedJob.StartEndDate;
+            JobTitle=selectedJob.JobTitle;
+            CompanyName = selectedJob.CompanyName;
         }
 
         #endregion
 
-        #region Observables
 
-        [ObservableProperty]
+        #region Private fields
+
         private JobModel _selectedJob;
 
         #endregion
 
+
+        #region Observables
+
+        [ObservableProperty]
+        private string _startEndDate;
+
+        [ObservableProperty]
+        private string _endDate;
+
+        [ObservableProperty]
+        private string _jobTitle;
+
+        [ObservableProperty]
+        private string _companyName;
+
+        #endregion
+
         #region Commands
+
+
+
         #endregion
 
 
-       
+
     }
 }
