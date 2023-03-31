@@ -7,7 +7,8 @@
     xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
     xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="#E5E5E5">
     <ContentPage.BindingContext>
         <viewmodels:AddOrEditSpecializationViewModel />
     </ContentPage.BindingContext>
@@ -30,6 +31,7 @@
                 <renderer:BorderlessEditor
                     Margin="10,15,0,0"
                     HeightRequest="70"
+                    Placeholder="Numele facultatii"
                     Text="{Binding SearchedName}"
                     WidthRequest="300">
                     <renderer:BorderlessEditor.Behaviors>
@@ -85,6 +87,7 @@
                 <renderer:BorderlessEditor
                     Margin="10,15,0,0"
                     HeightRequest="70"
+                    Placeholder="Specializarea"
                     Text="{Binding SearchedSpecialization}"
                     WidthRequest="300">
                     <renderer:BorderlessEditor.Behaviors>
@@ -129,17 +132,16 @@
                     <Image.Source>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static fa:FontAwesomeIcons.Clock}"
+                            Glyph="{x:Static fa:FontAwesomeIcons.BookOpen}"
                             Size="30"
                             Color="Black" />
                     </Image.Source>
                 </Image>
-
                 <input:Dropdown
                     FontFamily="Montserrat"
                     FontSize="16"
                     ItemsSource="{Binding TypesList}"
-                    Placeholder="Selectati un tip de invatamant"
+                    SelectedItem="{Binding SelectedStudyProgram}"
                     Style="{StaticResource DropdownStyle}"
                     TitleFontSize="16"
                     VerticalOptions="Center" />
@@ -153,6 +155,7 @@
                 Y1="0"
                 Y2="0" />
 
+
             <StackLayout
                 Padding="10,0,0,0"
                 HeightRequest="90"
@@ -161,11 +164,21 @@
                     <Image.Source>
                         <FontImageSource
                             FontFamily="FontAwesome"
-                            Glyph="{x:Static fa:FontAwesomeIcons.Calendar}"
+                            Glyph="{x:Static fa:FontAwesomeIcons.Clock}"
                             Size="30"
                             Color="Black" />
                     </Image.Source>
                 </Image>
+
+                <input:Dropdown
+                    FontFamily="Montserrat"
+                    FontSize="16"
+                    ItemsSource="{Binding TypesList}"
+                    Placeholder="Selectati un tip de invatamant"
+                    SelectedItem="{Binding SelectedSchedule}"
+                    Style="{StaticResource DropdownStyle}"
+                    TitleFontSize="16"
+                    VerticalOptions="Center" />
             </StackLayout>
 
             <Line
@@ -175,6 +188,7 @@
                 X2="3900"
                 Y1="0"
                 Y2="0" />
+
 
             <StackLayout
                 Padding="10,0,0,0"
@@ -189,6 +203,13 @@
                             Color="Black" />
                     </Image.Source>
                 </Image>
+                <renderer:BorderlessEditor
+                    Keyboard="Numeric"
+                    MaxLength="4"
+                    Placeholder="Anul absolvirii"
+                    Text="{Binding GraduationYear}"
+                    VerticalOptions="Center"
+                    WidthRequest="300" />
             </StackLayout>
 
             <Line
@@ -199,6 +220,36 @@
                 Y1="0"
                 Y2="0" />
 
+
+            <StackLayout
+                Margin="0,20,10,0"
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+                <Button
+                    Padding="2,0,2,0"
+                    BackgroundColor="Gray"
+                    Command="{Binding CancelCommand}"
+                    CornerRadius="5"
+                    FontFamily="Montserrat"
+                    FontSize="16"
+                    HeightRequest="40"
+                    Text="Anulati"
+                    TextColor="White"
+                    TextTransform="None"
+                    WidthRequest="130" />
+                <Button
+                    Padding="2,0,2,0"
+                    BackgroundColor="#1C698A"
+                    Command="{Binding SaveCommand}"
+                    CornerRadius="5"
+                    FontFamily="Montserrat"
+                    FontSize="16"
+                    HeightRequest="40"
+                    Text="Salvati"
+                    TextColor="White"
+                    TextTransform="None"
+                    WidthRequest="130" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

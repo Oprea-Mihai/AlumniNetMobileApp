@@ -123,6 +123,11 @@ namespace AlumniNetMobile.ViewModels
             SelectedFinishedProgram = null;
             SelectedJobExperience = null;
         }
+        [RelayCommand]
+        public async Task AddFinishedProgram()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditSpecializationView());
+        }
 
         [RelayCommand]
         public async Task EditFinishedProgram(object obj)

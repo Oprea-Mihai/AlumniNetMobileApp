@@ -123,6 +123,7 @@
                         <Label Style="{StaticResource OpenSans-BoldTextLabel}" Text="Specializari absolvite" />
                         <Button
                             BackgroundColor="Transparent"
+                            Command="{Binding AddFinishedProgramCommand}"
                             HeightRequest="25"
                             HorizontalOptions="EndAndExpand"
                             WidthRequest="25">
@@ -155,7 +156,7 @@
                                                         FontFamily="FontAwesome"
                                                         Glyph="{x:Static fa:FontAwesomeIcons.GraduationCap}"
                                                         Size="50"
-                                                        Color="Black" />
+                                                        Color="black" />
                                                 </Image.Source>
                                             </Image>
                                             <StackLayout>

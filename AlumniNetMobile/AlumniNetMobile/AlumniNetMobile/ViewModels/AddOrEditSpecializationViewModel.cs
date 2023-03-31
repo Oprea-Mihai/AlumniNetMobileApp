@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels
 {
@@ -17,13 +18,13 @@ namespace AlumniNetMobile.ViewModels
         public AddOrEditSpecializationViewModel()
         {
 
-            _facultyNames = new List<string> 
+            _specializationNames= new List<string> 
             { "Informatica",
             "Drept",
             "Magie"
             };
 
-            _specializationNames = new List<string>
+            _facultyNames = new List<string>
             {
                 "Facultatea de stiinte economice si administrarea afacerilor",
                 "Facultatea de silvicultura",
@@ -33,6 +34,9 @@ namespace AlumniNetMobile.ViewModels
             SearchedSpecialization = "";
             _areFacultySugestionsVisible = false;
             _areSpecializationSugestionsVisible = false;
+            SelectedSchedule = "Selectati un tip de invatamant";
+            SelectedStudyProgram="Selectati un program de studii";
+            GraduationYear =null;
         }
 
         public AddOrEditSpecializationViewModel(FinishedProgramModel selectedProgram)
@@ -62,6 +66,9 @@ namespace AlumniNetMobile.ViewModels
             _areFacultySugestionsVisible = false;
             SearchedName = SelectedProgram.FacultyName;
             SearchedSpecialization = SelectedProgram.Specialization;
+            SelectedSchedule = selectedProgram.LearningSchedule;
+            SelectedStudyProgram = selectedProgram.Program;
+            GraduationYear = selectedProgram.GraduationYear;
         }
 
         #endregion
@@ -95,10 +102,19 @@ namespace AlumniNetMobile.ViewModels
         private string _selectedSpecialization;
 
         [ObservableProperty]
+        private string _selectedSchedule;
+
+        [ObservableProperty]
+        private string _selectedStudyProgram;
+
+        [ObservableProperty]
         private bool _areFacultySugestionsVisible;
 
         [ObservableProperty]
         private bool _areSpecializationSugestionsVisible;
+
+        [ObservableProperty]
+        private int? _graduationYear;
 
 
 
@@ -169,6 +185,17 @@ namespace AlumniNetMobile.ViewModels
             AreSpecializationSugestionsVisible = false;
         }
 
+        [RelayCommand]
+        public void Cancel()
+        {
+            Application.Current.MainPage.Navigation.PopAsync();
+        }
+
+        [RelayCommand]
+        public void Save()
+        {
+            Application.Current.MainPage.Navigation.PopAsync();
+        }
         #endregion
 
 
