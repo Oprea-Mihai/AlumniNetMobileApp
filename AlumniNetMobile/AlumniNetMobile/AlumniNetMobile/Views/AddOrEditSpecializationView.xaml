@@ -1,16 +1,141 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
-             x:Class="AlumniNetMobile.Views.AddOrEditSpecializationView">
+<ContentPage
+    x:Class="AlumniNetMobile.Views.AddOrEditSpecializationView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.BindingContext>
         <viewmodels:AddOrEditSpecializationViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+                <Image Margin="0">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.School}"
+                            Size="30"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+                <input:AutoCompleteEntry
+                    Margin="0"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    ItemsSource="{Binding FacultyNames}"
+                    Text="{Binding SearchedName, Mode=TwoWay}"
+                    TextColor="Black"
+                    WidthRequest="300">
+                    <input:AutoCompleteEntry.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding TextChangedCommand}" EventName="TextChanged" />
+                    </input:AutoCompleteEntry.Behaviors>
+                </input:AutoCompleteEntry>
+            </StackLayout>
+
+
+
+            <Line
+                Stroke="#5AA7C8"
+                StrokeThickness="1"
+                X1="0"
+                X2="3900"
+                Y1="0"
+                Y2="0" />
+
+            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.Book}"
+                            Size="30"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+            </StackLayout>
+
+            <Line
+                Stroke="#5AA7C8"
+                StrokeThickness="1"
+                X1="0"
+                X2="3900"
+                Y1="0"
+                Y2="0" />
+
+            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.Clock}"
+                            Size="30"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+
+                <input:Dropdown
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    FontFamily="Montserrat"
+                    FontSize="16"
+                    ItemsSource="{Binding TypesList}"
+                    Placeholder="Selectati un tip de invatamant"
+                    Style="{StaticResource DropdownStyle}"
+                    TitleFontSize="16" />
+            </StackLayout>
+
+            <Line
+                Stroke="#5AA7C8"
+                StrokeThickness="1"
+                X1="0"
+                X2="3900"
+                Y1="0"
+                Y2="0" />
+
+            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.Calendar}"
+                            Size="30"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+            </StackLayout>
+
+            <Line
+                Stroke="#5AA7C8"
+                StrokeThickness="1"
+                X1="0"
+                X2="3900"
+                Y1="0"
+                Y2="0" />
+
+            <StackLayout Padding="10,10,0,10" Orientation="Horizontal">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.GraduationCap}"
+                            Size="30"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+            </StackLayout>
+
+            <Line
+                Stroke="#5AA7C8"
+                StrokeThickness="1"
+                X1="0"
+                X2="3900"
+                Y1="0"
+                Y2="0" />
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

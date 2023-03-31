@@ -1,4 +1,5 @@
-﻿using AlumniNetMobile.ViewModels;
+﻿using AlumniNetMobile.Models;
+using AlumniNetMobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,7 @@ namespace AlumniNetMobile.Views
             InitializeComponent();
             BindingContext = new AddOrEditExperienceViewModel();
         }
+
+        
     }
 }

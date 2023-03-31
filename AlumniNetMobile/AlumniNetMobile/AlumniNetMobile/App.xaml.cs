@@ -1,9 +1,7 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.Views;
-using AlumniNetMobile.Views;
 using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AlumniNetMobile
 {
@@ -18,7 +16,7 @@ namespace AlumniNetMobile
                 var authenticationService = DependencyService.Resolve<IAuthenticationService>();
                 if (!authenticationService.IsSignedIn())
                     MainPage = new NavigationPage(new LoginView());
-                else  MainPage = new NavigationPage(new ProfileView()); 
+                else MainPage = new NavigationPage(new ProfileView());
 
             }
             catch (Exception e)

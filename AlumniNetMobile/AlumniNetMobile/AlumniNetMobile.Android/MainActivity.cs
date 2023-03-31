@@ -5,6 +5,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Firebase;
+using Plugin.CurrentActivity;
 
 namespace AlumniNetMobile.Droid
 {
@@ -16,7 +17,8 @@ namespace AlumniNetMobile.Droid
             try
             {
                 base.OnCreate(savedInstanceState);
-
+                CrossCurrentActivity.Current.Init(this, savedInstanceState);
+                Plugin.InputKit.Platforms.Droid.Config.Init(this, savedInstanceState);
                 Xamarin.Essentials.Platform.Init(this, savedInstanceState);
                 global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 

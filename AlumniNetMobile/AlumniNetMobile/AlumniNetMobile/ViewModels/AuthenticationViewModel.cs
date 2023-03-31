@@ -1,10 +1,6 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.Views;
-using AlumniNetMobile.Views;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels

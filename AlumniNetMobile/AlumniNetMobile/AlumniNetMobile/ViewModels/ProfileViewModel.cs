@@ -4,6 +4,7 @@ using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Net;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -63,7 +64,7 @@ namespace AlumniNetMobile.ViewModels
         {
             get { return _jobs; }
             set { SetProperty(ref _jobs, value); }
-        }       
+        }
 
         [ObservableProperty]
         private string _description;
@@ -73,6 +74,12 @@ namespace AlumniNetMobile.ViewModels
 
         [ObservableProperty]
         private bool _isNotEditing;
+
+        [ObservableProperty]
+        private FinishedProgramModel _selectedFinishedProgram;
+
+        [ObservableProperty]
+        private FinishedProgramModel _selectedJobExperience;
         #endregion
 
         #region Commands
@@ -90,15 +97,34 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public void EditDescription()
         {
-           IsEditing = true;
-           IsNotEditing= false;
+            IsEditing = true;
+            IsNotEditing = false;
         }
 
         [RelayCommand]
         public void SaveDescription()
         {
             IsEditing = false;
-            IsNotEditing= true;
+            IsNotEditing = true;
+        }
+
+        [RelayCommand]
+        public void PageAppearing() 
+        { 
+            SelectedFinishedProgram = null;
+            SelectedJobExperience = null;
+        }
+
+        [RelayCommand]
+        public async Task EditFinishedProgram(object obj)
+        {
+            if (SelectedFinishedProgram == null)
+            {
+                return;
+            }
+            //FinishedProgramModel selected = SelectedFinishedProgram;
+            //SelectedFinishedProgram =null;
+            await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditSpecializationView(SelectedFinishedProgram));
         }
 
         #endregion
