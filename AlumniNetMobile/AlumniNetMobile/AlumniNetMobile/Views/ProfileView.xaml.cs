@@ -15,6 +15,7 @@ namespace AlumniNetMobile.Views
     {
         public ProfileView()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
             BindingContext = new ProfileViewModel();
         }

@@ -226,6 +226,7 @@
                         <Label Style="{StaticResource OpenSans-BoldTextLabel}" Text="Experienta" />
                         <Button
                             BackgroundColor="Transparent"
+                            Command="{Binding AddJobExperienceCommand}"
                             HeightRequest="25"
                             HorizontalOptions="EndAndExpand"
                             WidthRequest="25">

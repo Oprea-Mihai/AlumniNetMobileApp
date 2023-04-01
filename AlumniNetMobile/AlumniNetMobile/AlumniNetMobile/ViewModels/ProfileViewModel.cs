@@ -130,6 +130,12 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
+        public async Task AddJobExperience()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditExperienceView());
+        }
+
+        [RelayCommand]
         public async Task EditFinishedProgram(object obj)
         {
             if (SelectedFinishedProgram == null)

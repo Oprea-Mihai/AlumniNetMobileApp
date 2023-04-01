@@ -121,13 +121,6 @@
                 </StackLayout>
             </Frame>
 
-            <Line
-                Stroke="#5AA7C8"
-                StrokeThickness="1"
-                X1="0"
-                X2="3900"
-                Y1="0"
-                Y2="0" />
 
             <Frame Margin="5,10,5,0" Style="{StaticResource FrameCardNoRequests}">
                 <StackLayout
@@ -189,44 +182,33 @@
                         VerticalOptions="Center" />
                 </StackLayout>
             </Frame>
-            <Line
-                Stroke="#5AA7C8"
-                StrokeThickness="1"
-                X1="0"
-                X2="3900"
-                Y1="0"
-                Y2="0" />
 
 
-            <StackLayout
-                Padding="10,0,0,0"
-                HeightRequest="90"
-                Orientation="Horizontal">
-                <Image>
-                    <Image.Source>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static fa:FontAwesomeIcons.GraduationCap}"
-                            Size="30"
-                            Color="Black" />
-                    </Image.Source>
-                </Image>
-                <renderer:BorderlessEditor
-                    Keyboard="Numeric"
-                    MaxLength="4"
-                    Placeholder="Anul absolvirii"
-                    Text="{Binding GraduationYear}"
-                    VerticalOptions="Center"
-                    WidthRequest="300" />
-            </StackLayout>
+            <Frame Margin="5,10,5,0" Style="{StaticResource FrameCardNoRequests}">
+                <StackLayout
+                    Padding="10,0,0,0"
+                    HeightRequest="90"
+                    Orientation="Horizontal">
+                    <Image>
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="FontAwesome"
+                                Glyph="{x:Static fa:FontAwesomeIcons.GraduationCap}"
+                                Size="30"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                    <renderer:BorderlessEditor
+                        Keyboard="Numeric"
+                        MaxLength="4"
+                        Placeholder="Anul absolvirii"
+                        Text="{Binding GraduationYear}"
+                        VerticalOptions="Center"
+                        WidthRequest="300" />
+                </StackLayout>
+            </Frame>
 
-            <Line
-                Stroke="#5AA7C8"
-                StrokeThickness="1"
-                X1="0"
-                X2="3900"
-                Y1="0"
-                Y2="0" />
+
 
 
 

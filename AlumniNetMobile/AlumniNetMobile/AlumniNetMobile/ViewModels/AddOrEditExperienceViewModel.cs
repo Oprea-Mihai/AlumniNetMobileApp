@@ -1,8 +1,10 @@
 ﻿using AlumniNetMobile.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels
 {
@@ -14,7 +16,7 @@ namespace AlumniNetMobile.ViewModels
         {
             JobTitle =null;
             CompanyName =null;
-
+            StartEndDate =null;
         }
 
         public AddOrEditExperienceViewModel(JobModel selectedJob)
@@ -53,8 +55,24 @@ namespace AlumniNetMobile.ViewModels
 
         #region Commands
 
+        [RelayCommand]
+        public void Cancel()
+        {
+            Application.Current.MainPage.Navigation.PopAsync();
+        }
+
+        [RelayCommand]
+        public void Save()
+        {
+            Application.Current.MainPage.Navigation.PopAsync();
+        }
 
 
+        [RelayCommand]
+        public void StillEmployed()
+        {
+
+        }
         #endregion
 
 
