@@ -61,7 +61,7 @@
 
                     <CollectionView
                         Grid.Row="1"
-                        MinimumHeightRequest="50"
+                        HeightRequest="100"
                         IsVisible="{Binding AreFacultySugestionsVisible}"
                         ItemsSource="{Binding DisplayedNames}"
                         SelectedItem="{Binding SelectedFaculty}"
