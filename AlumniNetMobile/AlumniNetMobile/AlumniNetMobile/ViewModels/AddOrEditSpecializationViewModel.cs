@@ -44,12 +44,15 @@ namespace AlumniNetMobile.ViewModels
             SelectedSchedule = null;
             SelectedStudyProgram = null;
             GraduationYear = null;
+            wasFacultyTextChanged = wasSpecializationTextChanged = false;
+
         }
 
         public AddOrEditSpecializationViewModel(FinishedProgramModel selectedProgram)
         {
             _specializationNames = new List<string>
             { "Informatica",
+            "Informatica economica",
             "Drept",
             "Magie"
             };
@@ -76,6 +79,7 @@ namespace AlumniNetMobile.ViewModels
             SelectedSchedule = selectedProgram.LearningSchedule;
             SelectedStudyProgram = selectedProgram.Program;
             GraduationYear = selectedProgram.GraduationYear;
+            wasFacultyTextChanged = wasSpecializationTextChanged = false;
         }
 
         #endregion
@@ -85,6 +89,8 @@ namespace AlumniNetMobile.ViewModels
         private List<string> _facultyNames;
         private List<string> _specializationNames;
         private FinishedProgramModel _selectedProgram;
+        private bool wasFacultyTextChanged;
+        private bool wasSpecializationTextChanged;
 
         #endregion
 
@@ -121,6 +127,11 @@ namespace AlumniNetMobile.ViewModels
         [ObservableProperty]
         private int? _graduationYear;
 
+        [ObservableProperty]
+        private bool _specializationNotFoundVisible;
+
+        [ObservableProperty]
+        private bool _facultyNotFoundVisible;
 
 
         public ObservableRangeCollection<string> _displayedSpecializations;
@@ -147,9 +158,15 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public void FacultyTextChanged()
         {
-            if (SearchedName == "")
-                AreFacultySugestionsVisible = false;
-            else
+            wasFacultyTextChanged = true;
+        }
+
+        [RelayCommand]
+        public void SearchFaculty()
+        {
+            FacultyNotFoundVisible = false;
+
+            if (wasFacultyTextChanged)
             {
                 var names = _facultyNames.Where(x => x.ToLower().Contains(SearchedName.ToLower()))?.ToList();
                 if (names.Count() != 0)
@@ -158,32 +175,25 @@ namespace AlumniNetMobile.ViewModels
                     AreFacultySugestionsVisible = true;
                 }
                 else
-                    DisplayedNames = new ObservableRangeCollection<string>();
+                {
+                    AreFacultySugestionsVisible = false;
+                    FacultyNotFoundVisible = true;
+                }
             }
         }
 
         [RelayCommand]
         public void SpecializationTextChanged()
         {
-            if (SearchedSpecialization == "")
-                AreSpecializationSugestionsVisible = false;
-            else
-            {
-                var specializations = _specializationNames.Where(x => x.ToLower().Contains(SearchedSpecialization.ToLower()))?.ToList();
-                if (specializations.Count() != 0)
-                {
-                    DisplayedSpecializations = new ObservableRangeCollection<string>(specializations);
-                    AreSpecializationSugestionsVisible = true;
-                }
-                else
-                    DisplayedSpecializations = new ObservableRangeCollection<string>();
-            }
+            wasSpecializationTextChanged = true;
         }
 
         [RelayCommand]
         public void SearchSpecialization()
         {
-            if (AreSpecializationSugestionsVisible)
+            SpecializationNotFoundVisible = false;
+
+            if (wasSpecializationTextChanged)
             {
                 var specializations = _specializationNames.Where(x => x.ToLower().Contains(SearchedSpecialization.ToLower()))?.ToList();
                 if (specializations.Count() != 0)
@@ -192,7 +202,10 @@ namespace AlumniNetMobile.ViewModels
                     AreSpecializationSugestionsVisible = true;
                 }
                 else
-                    DisplayedSpecializations = new ObservableRangeCollection<string>();
+                {
+                    AreSpecializationSugestionsVisible = false;
+                    SpecializationNotFoundVisible = true;
+                }
             }
         }
 

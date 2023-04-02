@@ -46,6 +46,11 @@
                                     StoppedTypingTimeThreshold="500" />
                             </renderer:BorderlessEditor.Behaviors>
                         </renderer:BorderlessEditor>
+                        <Label
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding FacultyNotFoundVisible}"
+                            Text="Facultatea nu a fost gasita"
+                            TextColor="DarkRed" />
                     </StackLayout>
 
 
@@ -93,7 +98,6 @@
 
                         <renderer:BorderlessEditor
                             Margin="10,20,0,0"
-                            HeightRequest="70"
                             Placeholder="Specializarea"
                             Text="{Binding SearchedSpecialization}"
                             WidthRequest="300">
@@ -106,9 +110,13 @@
                             </renderer:BorderlessEditor.Behaviors>
                         </renderer:BorderlessEditor>
                     </StackLayout>
-
+                    <Label
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding SpecializationNotFoundVisible}"
+                        Text="Specializarea nu a fost gasita"
+                        TextColor="DarkRed" />
                     <CollectionView
-                        HeightRequest="100"
+                        HeightRequest="300"
                         IsVisible="{Binding AreSpecializationSugestionsVisible}"
                         ItemsSource="{Binding DisplayedSpecializations}"
                         SelectedItem="{Binding SelectedSpecialization}"
