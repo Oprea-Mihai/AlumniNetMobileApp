@@ -45,7 +45,7 @@ namespace AlumniNetMobile.ViewModels
             SelectedStudyProgram = null;
             GraduationYear = null;
             wasFacultyTextChanged = wasSpecializationTextChanged = false;
-
+            WasFacultySelected = false;
         }
 
         public AddOrEditSpecializationViewModel(FinishedProgramModel selectedProgram)
@@ -80,6 +80,7 @@ namespace AlumniNetMobile.ViewModels
             SelectedStudyProgram = selectedProgram.Program;
             GraduationYear = selectedProgram.GraduationYear;
             wasFacultyTextChanged = wasSpecializationTextChanged = false;
+            WasFacultySelected = false;
         }
 
         #endregion
@@ -133,6 +134,10 @@ namespace AlumniNetMobile.ViewModels
         [ObservableProperty]
         private bool _facultyNotFoundVisible;
 
+        [ObservableProperty]
+        private bool _wasFacultySelected;
+
+
 
         public ObservableRangeCollection<string> _displayedSpecializations;
 
@@ -165,6 +170,7 @@ namespace AlumniNetMobile.ViewModels
         public void SearchFaculty()
         {
             FacultyNotFoundVisible = false;
+            WasFacultySelected = false;
 
             if (wasFacultyTextChanged)
             {
@@ -217,6 +223,8 @@ namespace AlumniNetMobile.ViewModels
             SearchedName = SelectedFaculty;
             SelectedFaculty = null;
             AreFacultySugestionsVisible = false;
+            wasFacultyTextChanged = false;
+            WasFacultySelected = true;
         }
 
         [RelayCommand]
@@ -227,6 +235,8 @@ namespace AlumniNetMobile.ViewModels
             SearchedSpecialization = SelectedSpecialization;
             SelectedSpecialization = null;
             AreSpecializationSugestionsVisible = false;
+            wasSpecializationTextChanged = false;
+
         }
 
         [RelayCommand]

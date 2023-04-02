@@ -51,12 +51,12 @@
                                     StoppedTypingTimeThreshold="500" />
                             </renderer:BorderlessEditor.Behaviors>
                         </renderer:BorderlessEditor>
-                        <Label
-                            HorizontalOptions="Center"
-                            IsVisible="{Binding FacultyNotFoundVisible}"
-                            Text="Facultatea nu a fost gasita"
-                            TextColor="DarkRed" />
                     </StackLayout>
+                    <Label
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding FacultyNotFoundVisible}"
+                        Text="Facultatea nu a fost gasita"
+                        TextColor="DarkRed" />
 
 
                     <CollectionView
@@ -86,8 +86,13 @@
 
 
             <Frame Margin="5,10,5,0" Style="{StaticResource FrameCardNoRequests}">
-                <StackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <StackLayout
+                        Grid.Row="0"
                         Padding="10,0,0,0"
                         HeightRequest="90"
                         Orientation="Horizontal">
@@ -103,6 +108,7 @@
 
                         <renderer:BorderlessEditor
                             Margin="10,20,0,0"
+                            IsEnabled="{Binding WasFacultySelected}"
                             Placeholder="Specializarea"
                             Text="{Binding SearchedSpecialization}"
                             WidthRequest="300">
@@ -121,7 +127,8 @@
                         Text="Specializarea nu a fost gasita"
                         TextColor="DarkRed" />
                     <CollectionView
-                        HeightRequest="300"
+                        Grid.Row="1"
+                        HeightRequest="100"
                         IsVisible="{Binding AreSpecializationSugestionsVisible}"
                         ItemsSource="{Binding DisplayedSpecializations}"
                         SelectedItem="{Binding SelectedSpecialization}"
@@ -139,7 +146,7 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </StackLayout>
+                </Grid>
             </Frame>
 
 
