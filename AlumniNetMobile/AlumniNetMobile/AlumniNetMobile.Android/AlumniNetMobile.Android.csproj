@@ -108,7 +108,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\UniTBv_Logo.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlumniNetMobile\AlumniNetMobile.csproj">
       <Project>{B2AC9BB3-24E5-44BA-9FD4-8A7056FFD8C6}</Project>

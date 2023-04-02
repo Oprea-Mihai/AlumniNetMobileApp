@@ -10,13 +10,14 @@ using Xamarin.Forms.Xaml;
 
 namespace AlumniNetMobile.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SearchView : ContentPage
-    {
-        public SearchView()
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class HomeView : ContentPage
+	{
+		public HomeView ()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
-            BindingContext = new SearchViewModel();
-        }
-    }
+			BindingContext = new HomeViewModel();
+		}
+	}
 }

@@ -181,6 +181,22 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
+        public void SearchSpecialization()
+        {
+            if (AreSpecializationSugestionsVisible)
+            {
+                var specializations = _specializationNames.Where(x => x.ToLower().Contains(SearchedSpecialization.ToLower()))?.ToList();
+                if (specializations.Count() != 0)
+                {
+                    DisplayedSpecializations = new ObservableRangeCollection<string>(specializations);
+                    AreSpecializationSugestionsVisible = true;
+                }
+                else
+                    DisplayedSpecializations = new ObservableRangeCollection<string>();
+            }
+        }
+
+        [RelayCommand]
         public void FacultySelected()
         {
             if (SelectedFaculty == null)

@@ -1,12 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AlumniNetMobile.Views.SearchView">
+<ContentPage
+    x:Class="AlumniNetMobile.Views.SearchView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <ContentPage.BindingContext>
+        <viewmodels:SearchViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <SearchBar Placeholder="Cautare" SearchCommand="{Binding SearchCommand}">
+                <SearchBar.Behaviors>
+                    <xct:UserStoppedTypingBehavior
+                        Command="{Binding SearchCommand}"
+                        MinimumLengthThreshold="3"
+                        StoppedTypingTimeThreshold="500" />
+                </SearchBar.Behaviors>
+            </SearchBar>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

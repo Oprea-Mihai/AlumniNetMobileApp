@@ -40,6 +40,10 @@
                             WidthRequest="300">
                             <renderer:BorderlessEditor.Behaviors>
                                 <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
+                                <xct:UserStoppedTypingBehavior
+                                    Command="{Binding SearchFacultyCommand}"
+                                    MinimumLengthThreshold="1"
+                                    StoppedTypingTimeThreshold="500" />
                             </renderer:BorderlessEditor.Behaviors>
                         </renderer:BorderlessEditor>
                     </StackLayout>
@@ -95,6 +99,10 @@
                             WidthRequest="300">
                             <renderer:BorderlessEditor.Behaviors>
                                 <xct:EventToCommandBehavior Command="{Binding SpecializationTextChangedCommand}" EventName="TextChanged" />
+                                <xct:UserStoppedTypingBehavior
+                                    Command="{Binding SearchSpecializationCommand}"
+                                    MinimumLengthThreshold="1"
+                                    StoppedTypingTimeThreshold="500" />
                             </renderer:BorderlessEditor.Behaviors>
                         </renderer:BorderlessEditor>
                     </StackLayout>
@@ -211,11 +219,11 @@
 
 
 
-
             <StackLayout
-                Margin="0,120,10,0"
+                Margin="0,0,10,30"
                 HeightRequest="40"
-                Orientation="Horizontal">
+                Orientation="Horizontal"
+                VerticalOptions="EndAndExpand">
                 <Button
                     Margin="0,0,120,0"
                     BackgroundColor="Transparent"
