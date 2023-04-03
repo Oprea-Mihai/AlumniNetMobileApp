@@ -31,20 +31,38 @@ namespace AlumniNetMobile.ViewModels
                 FirstName="Antal",
                 LastName="Claudiu"}
             };
+            _recentSearches = new List<UserModel>(_users);
+            SearchResults = new ObservableRangeCollection<UserModel>();
+            AreRecentSearchesVisible = true;
+            SearchResults.ReplaceRange(_users);
         }
         #endregion
 
         #region Private fields
 
         private List<UserModel> _users;
+        private List<UserModel> _recentSearches;
+
 
         #endregion
 
         #region Observables
-        ObservableRangeCollection<UserModel> SearchResults;
+
+        private ObservableRangeCollection<UserModel> _searchResults;
+        public ObservableRangeCollection<UserModel> SearchResults
+        {
+            get { return _searchResults; }
+            set { SetProperty(ref _searchResults, value); }
+        }
 
         [ObservableProperty]
         private string _searchedName;
+
+        [ObservableProperty]
+        private bool _areRecentSearchesVisible;
+
+        [ObservableProperty]
+        private UserModel _selectedUser;
 
         #endregion
 
@@ -52,9 +70,32 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public void Search()
         {
-
-            SearchResults.ReplaceRange(_users.Where(x => x.FirstName.Contains(SearchedName)|| x.LastName.Contains(SearchedName)));
+            AreRecentSearchesVisible = false;
+            SearchResults.ReplaceRange(_users.Where
+                (x => x.FirstName.ToLower().Contains(SearchedName.ToLower()) ||
+                x.LastName.ToLower().Contains(SearchedName.ToLower())).Select(x => new UserModel
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    FacultyName = char.ToUpper((x.FacultyName.Substring(14))[0]) + x.FacultyName.Substring(15)
+                })); ;
         }
+
+        [RelayCommand]
+        public void SearchBarTextChanged()
+        {
+            if (SearchedName.Length == 0) { 
+            AreRecentSearchesVisible = true;
+            SearchResults.ReplaceRange(_recentSearches);
+            }
+        }
+
+        [RelayCommand]
+        public void UserSelected()
+        {
+
+        }
+
         #endregion
     }
 }

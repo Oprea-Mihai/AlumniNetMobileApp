@@ -3,6 +3,7 @@
     x:Class="AlumniNetMobile.Views.SearchView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:AlumniNetMobile.Models"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
@@ -12,15 +13,61 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar Placeholder="Cautare" SearchCommand="{Binding SearchCommand}">
+            <SearchBar
+                Placeholder="Cautare"
+                SearchCommand="{Binding SearchCommand}"
+                Text="{Binding SearchedName}">
                 <SearchBar.Behaviors>
                     <xct:UserStoppedTypingBehavior
                         Command="{Binding SearchCommand}"
-                        MinimumLengthThreshold="3"
-                        StoppedTypingTimeThreshold="500" />
+                        MinimumLengthThreshold="2"
+                        StoppedTypingTimeThreshold="250" />
+                    <xct:EventToCommandBehavior Command="{Binding SearchBarTextChangedCommand}" EventName="TextChanged" />
                 </SearchBar.Behaviors>
             </SearchBar>
-            
+            <Label
+                Margin="5,0,0,0"
+                FontSize="15"
+                IsVisible="{Binding AreRecentSearchesVisible}"
+                Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                Text="Recent:" />
+            <CollectionView
+                ItemsSource="{Binding SearchResults}"
+                SelectedItem="{Binding SelectedUser}"
+                SelectionMode="Single"
+                VerticalOptions="FillAndExpand">
+                <CollectionView.Behaviors>
+                    <xct:EventToCommandBehavior Command="{Binding UserSelectedCommand}" EventName="SelectionChanged" />
+                </CollectionView.Behaviors>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:UserModel">
+                        <StackLayout
+                            Margin="5,5,5,5"
+                            Padding="5"
+                            Orientation="Horizontal">
+                            <Image Source="user.png" WidthRequest="50" />
+                            <StackLayout
+                                Orientation="Vertical"
+                                Spacing="0"
+                                VerticalOptions="Center">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        FontSize="17"
+                                        Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                                        Text="{Binding FirstName}" />
+                                    <Label
+                                        FontSize="17"
+                                        Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                                        Text="{Binding LastName}" />
+                                </StackLayout>
+                                <Label FontSize="13" Text="{Binding FacultyName}" />
+                            </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

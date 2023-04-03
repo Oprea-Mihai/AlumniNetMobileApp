@@ -15,8 +15,8 @@ namespace AlumniNetMobile
             {
                 var authenticationService = DependencyService.Resolve<IAuthenticationService>();
                 if (!authenticationService.IsSignedIn())
-                    MainPage = new NavigationPage(new LoginView());
-                   // MainPage = new NavigationPage(new HomeView());
+                   // MainPage = new NavigationPage(new LoginView());
+                    MainPage = new NavigationPage(new HomeView());
                 else MainPage = new NavigationPage(new ProfileView());
 
             }
