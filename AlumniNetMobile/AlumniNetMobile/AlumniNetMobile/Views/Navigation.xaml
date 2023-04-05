@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    x:Class="AlumniNetMobile.Views.Navigation"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:views="clr-namespace:AlumniNetMobile.Views"
+    android:TabbedPage.ToolbarPlacement="Bottom"
+    BackgroundColor="AliceBlue"
+    NavigationPage.HasNavigationBar="False"
+    SelectedTabColor="#0074f2">
+
+
+    <views:ProfileView>
+        <views:ProfileView.IconImageSource>
+            <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static fa:FontAwesomeIcons.Newspaper}" />
+        </views:ProfileView.IconImageSource>
+    </views:ProfileView>
+
+    <views:HomeView IconImageSource="UniTBv_Logo.png" />
+
+    <views:ProfileView>
+        <views:ProfileView.IconImageSource>
+            <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static fa:FontAwesomeIcons.User}" />
+        </views:ProfileView.IconImageSource>
+    </views:ProfileView>
+</TabbedPage>

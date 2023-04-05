@@ -20,7 +20,7 @@
 
     <ContentPage.Content>
 
-        <StackLayout Margin="5,5,5,0">
+        <StackLayout Margin="5,5,5,5">
             <Frame BackgroundColor="#95c7f3" Style="{StaticResource BigFrameCard}">
                 <StackLayout Orientation="Horizontal">
                     <StackLayout
