@@ -7,7 +7,7 @@
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:views="clr-namespace:AlumniNetMobile.Views"
     android:TabbedPage.ToolbarPlacement="Bottom"
-    BackgroundColor="AliceBlue"
+    BackgroundColor="White"
     NavigationPage.HasNavigationBar="False"
     SelectedTabColor="#0074f2">
 

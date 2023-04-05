@@ -14,7 +14,7 @@
     <ContentPage.Content>
         <StackLayout>
             <SearchBar
-                Placeholder="Cautare"
+                Placeholder="Cautati nume / specializare / an"
                 SearchCommand="{Binding SearchCommand}"
                 Text="{Binding SearchedName}">
                 <SearchBar.Behaviors>

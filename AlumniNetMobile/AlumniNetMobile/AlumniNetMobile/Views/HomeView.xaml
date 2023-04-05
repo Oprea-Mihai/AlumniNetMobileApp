@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:local="clr-namespace:AlumniNetMobile.Converters"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     BackgroundColor="#E5E5E5">
 
@@ -11,48 +12,149 @@
         <viewmodels:HomeViewModel />
     </ContentPage.BindingContext>
 
+    <ContentPage.Resources>
+        <local:BooleanToColorConverter x:Key="booleanToColorConverter" />
+    </ContentPage.Resources>
+
     <ContentPage.Content>
-        <StackLayout Margin="10,10,10,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image
-                    Grid.Column="0"
-                    Source="UniTBv_Logo.png"
-                    WidthRequest="40" />
-                <StackLayout
-                    Grid.Column="1"
-                    HorizontalOptions="End"
-                    Orientation="Horizontal">
-                    <Button
-                        CornerRadius="30"
-                        HeightRequest="40"
-                        WidthRequest="40">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="FontAwesome"
-                                Glyph="{x:Static fa:FontAwesomeIcons.Plus}"
-                                Size="16"
-                                Color="Black" />
-                        </Button.ImageSource>
-                    </Button>
-                    <Button
-                        Command="{Binding SeachButtonClickedCommand}"
-                        CornerRadius="30"
-                        HeightRequest="40"
-                        WidthRequest="40">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="FontAwesome"
-                                Glyph="{x:Static fa:FontAwesomeIcons.MagnifyingGlass}"
-                                Size="16"
-                                Color="Black" />
-                        </Button.ImageSource>
-                    </Button>
-                </StackLayout>
-            </Grid>
+        <StackLayout>
+            <StackLayout Padding="0,10,0,10" BackgroundColor="#0074f2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Column="0"
+                        Source="UniTBv_Logo.png"
+                        WidthRequest="40" />
+                    <StackLayout
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Orientation="Horizontal">
+                        <Button
+                            CornerRadius="30"
+                            HeightRequest="40"
+                            WidthRequest="40">
+                            <Button.ImageSource>
+                                <FontImageSource
+                                    FontFamily="FontAwesome"
+                                    Glyph="{x:Static fa:FontAwesomeIcons.Plus}"
+                                    Size="16"
+                                    Color="Black" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button
+                            Command="{Binding SeachButtonClickedCommand}"
+                            CornerRadius="30"
+                            HeightRequest="40"
+                            WidthRequest="40">
+                            <Button.ImageSource>
+                                <FontImageSource
+                                    FontFamily="FontAwesome"
+                                    Glyph="{x:Static fa:FontAwesomeIcons.MagnifyingGlass}"
+                                    Size="16"
+                                    Color="Black" />
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+            <StackLayout Margin="0,10,0,10">
+
+
+                <CollectionView HorizontalOptions="FillAndExpand" ItemsSource="{Binding Posts}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="0,4,0,10" BackgroundColor="Transparent">
+                                <Frame
+                                    Margin="0,5,0,5"
+                                    Padding="20,10,20,0"
+                                    BackgroundColor="White"
+                                    BorderColor="Gray"
+                                    CornerRadius="10">
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Frame
+                                                Padding="0"
+                                                CornerRadius="300"
+                                                HeightRequest="30"
+                                                IsClippedToBounds="True">
+                                                <Image Source="user.png" />
+                                            </Frame>
+                                            <Label
+                                                FontSize="Medium"
+                                                Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                                                Text="{Binding Username}"
+                                                VerticalOptions="Center" />
+                                        </StackLayout>
+                                        <Label
+                                            FontSize="15"
+                                            Style="{StaticResource StandardTextLabel}"
+                                            Text="{Binding Text}" />
+                                        <Image Source="DemoPostImage.jpg" />
+                                        <StackLayout
+                                            Margin="0,5,0,5"
+                                            HorizontalOptions="End"
+                                            Orientation="Horizontal"
+                                            Spacing="20"
+                                            VerticalOptions="Start">
+                                            <Button
+                                                BackgroundColor="Transparent"
+                                                HeightRequest="25"
+                                                VerticalOptions="Start"
+                                                WidthRequest="25">
+                                                <Button.ImageSource>
+                                                    <FontImageSource
+                                                        FontFamily="FontAwesome"
+                                                        Glyph="{x:Static fa:FontAwesomeIcons.Comment}"
+                                                        Size="26"
+                                                        Color="Gray" />
+                                                </Button.ImageSource>
+                                            </Button>
+                                            <Button
+                                                BackgroundColor="Transparent"
+                                                HeightRequest="25"
+                                                VerticalOptions="Start"
+                                                WidthRequest="25">
+                                                <Button.ImageSource>
+                                                    <FontImageSource
+                                                        FontFamily="FontAwesome"
+                                                        Glyph="{x:Static fa:FontAwesomeIcons.Bookmark}"
+                                                        Size="26"
+                                                        Color="LightGray" />
+                                                </Button.ImageSource>
+                                            </Button>
+                                            <StackLayout>
+                                                <!--  BackgroundColor="{Binding IsLikeButtonClicked, Converter={StaticResource booleanToColorConverter}}"  -->
+                                                <Button
+                                                    BackgroundColor="Transparent"
+                                                    Command="{Binding LikeButtonClickedCommand}"
+                                                    HeightRequest="25"
+                                                    WidthRequest="25">
+                                                    <Button.ImageSource>
+                                                        <FontImageSource
+                                                            FontFamily="FontAwesome"
+                                                            Glyph="{x:Static fa:FontAwesomeIcons.Heart}"
+                                                            Size="26"
+                                                            Color="LightGray" />
+                                                    </Button.ImageSource>
+                                                </Button>
+                                                <!--  Color="{Binding IsLikeButtonClicked, Converter={StaticResource booleanToColorConverter}}"  -->
+                                                <Label
+                                                    FontSize="10"
+                                                    HorizontalOptions="Center"
+                                                    Text="123" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
