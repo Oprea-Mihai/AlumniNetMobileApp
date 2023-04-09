@@ -45,7 +45,7 @@
                             </Button.ImageSource>
                         </Button>
                         <Button
-                            Command="{Binding SeachButtonClickedCommand}"
+                            Command="{Binding SearchButtonClickedCommand}"
                             CornerRadius="30"
                             HeightRequest="40"
                             WidthRequest="40">
@@ -63,7 +63,10 @@
             <StackLayout Margin="0,10,0,10">
 
 
-                <CollectionView HorizontalOptions="FillAndExpand" ItemsSource="{Binding Posts}">
+                <CollectionView
+                    x:Name="postsCollectionView"
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding Posts}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Padding="0,4,0,10" BackgroundColor="Transparent">
@@ -126,10 +129,10 @@
                                                 </Button.ImageSource>
                                             </Button>
                                             <StackLayout>
-                                                <!--  BackgroundColor="{Binding IsLikeButtonClicked, Converter={StaticResource booleanToColorConverter}}"  -->
                                                 <Button
-                                                    BackgroundColor="Transparent"
-                                                    Command="{Binding LikeButtonClickedCommand}"
+                                                    BackgroundColor="{Binding IsLikeButtonClicked, Converter={StaticResource booleanToColorConverter}}"
+                                                    Command="{Binding BindingContext.LikeButtonClickedCommand, Source={x:Reference postsCollectionView}}"
+                                                    CommandParameter="{Binding .}"
                                                     HeightRequest="25"
                                                     WidthRequest="25">
                                                     <Button.ImageSource>
@@ -137,10 +140,10 @@
                                                             FontFamily="FontAwesome"
                                                             Glyph="{x:Static fa:FontAwesomeIcons.Heart}"
                                                             Size="26"
-                                                            Color="LightGray" />
+                                                            Color="{Binding IsLikeButtonClicked, Converter={StaticResource booleanToColorConverter}}" />
                                                     </Button.ImageSource>
                                                 </Button>
-                                                <!--  Color="{Binding IsLikeButtonClicked, Converter={StaticResource booleanToColorConverter}}"  -->
+
                                                 <Label
                                                     FontSize="10"
                                                     HorizontalOptions="Center"

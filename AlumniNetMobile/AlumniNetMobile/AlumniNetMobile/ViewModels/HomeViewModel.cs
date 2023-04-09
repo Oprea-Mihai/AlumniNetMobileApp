@@ -2,10 +2,6 @@
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -48,17 +44,19 @@ namespace AlumniNetMobile.ViewModels
         #endregion
 
         #region Commands
+
         [RelayCommand]
-        public void SeachButtonClicked()
+        public void SearchButtonClicked()
         {
             Application.Current.MainPage.Navigation.PushAsync(new SearchView());
         }
 
         [RelayCommand]
-        public void LikeButtonClicked()
+        public void LikeButtonClicked(PostModel obj)
         {
             IsLikeButtonClicked = !IsLikeButtonClicked;
         }
+
         #endregion
 
     }

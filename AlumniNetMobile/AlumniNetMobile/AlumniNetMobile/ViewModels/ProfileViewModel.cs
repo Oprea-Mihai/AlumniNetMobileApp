@@ -1,8 +1,10 @@
 ﻿using AlumniNetMobile.Common;
+using AlumniNetMobile.DataHandlingStrategy;
 using AlumniNetMobile.Models;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -16,6 +18,8 @@ namespace AlumniNetMobile.ViewModels
 
         public ProfileViewModel()
         {
+            _manageData = new ManageData();
+
             Programs = new ObservableRangeCollection<FinishedProgramModel>();
             FinishedProgramModel programModel = new FinishedProgramModel
             {
@@ -55,6 +59,30 @@ namespace AlumniNetMobile.ViewModels
 
             IsEditing = false;
             IsNotEditing = true;
+
+        }
+
+        #endregion
+
+        #region Private fields
+
+        private readonly ManageData _manageData;
+
+        #endregion
+
+        #region Private methods
+        private async Task GetProfileData(int id)
+        {
+            
+            try
+            {
+                _manageData.SetStrategy(new GetData());
+                var profile = await _manageData.GetDataAndDeserializeIt<string>($"Profile/GetProfileByUserId?userId={1}", "");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         #endregion
@@ -118,8 +146,9 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public void PageAppearing() 
-        { 
+        public async void PageAppearing() 
+        {
+            await GetProfileData(1);
             SelectedFinishedProgram = null;
             SelectedJobExperience = null;
         }
@@ -158,6 +187,8 @@ namespace AlumniNetMobile.ViewModels
             SelectedFinishedProgram = null;
             await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditExperienceView(selected));
         }
+
+        
 
         #endregion
     }

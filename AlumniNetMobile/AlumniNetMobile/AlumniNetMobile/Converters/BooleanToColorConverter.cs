@@ -11,7 +11,7 @@ namespace AlumniNetMobile.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool isClicked = (bool)value;
-            return isClicked ? Color.Red : Color.LightGray;
+            return isClicked ? Color.Red : Color.Blue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
