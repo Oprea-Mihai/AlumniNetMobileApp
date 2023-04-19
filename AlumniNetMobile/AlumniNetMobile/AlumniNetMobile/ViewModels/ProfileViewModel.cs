@@ -41,7 +41,7 @@ namespace AlumniNetMobile.ViewModels
             Programs.Add(programModel);
             Programs.Add(programModel2);
 
-            Jobs = new ObservableRangeCollection<ExperienceDTO>();
+            Jobs = new ObservableRangeCollection<ExperienceModel>();
 
             //JobModel jobModel = new JobModel
             //{
@@ -114,8 +114,8 @@ namespace AlumniNetMobile.ViewModels
             set { SetProperty(ref _programs, value); }
         }
 
-        private ObservableRangeCollection<ExperienceDTO> _jobs;
-        public ObservableRangeCollection<ExperienceDTO> Jobs
+        private ObservableRangeCollection<ExperienceModel> _jobs;
+        public ObservableRangeCollection<ExperienceModel> Jobs
         {
             get { return _jobs; }
             set { SetProperty(ref _jobs, value); }
@@ -140,7 +140,7 @@ namespace AlumniNetMobile.ViewModels
         private FinishedProgramModel _selectedFinishedProgram;
 
         [ObservableProperty]
-        private ExperienceDTO _selectedJobExperience;
+        private ExperienceModel _selectedJobExperience;
         #endregion
 
         #region Commands
@@ -218,7 +218,7 @@ namespace AlumniNetMobile.ViewModels
             {
                 return;
             }
-            ExperienceDTO selected = SelectedJobExperience;
+            ExperienceModel selected = SelectedJobExperience;
             SelectedJobExperience = null;
             await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditExperienceView(selected));
         }

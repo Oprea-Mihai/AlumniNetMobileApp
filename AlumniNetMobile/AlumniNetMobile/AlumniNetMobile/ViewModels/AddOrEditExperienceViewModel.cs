@@ -21,7 +21,7 @@ namespace AlumniNetMobile.ViewModels
             IsStillEmployedChecked = false;
         }
 
-        public AddOrEditExperienceViewModel(ExperienceDTO selectedJob)
+        public AddOrEditExperienceViewModel(ExperienceModel selectedJob)
         {
             _selectedJob = selectedJob;
             StartDate = "2020";
@@ -39,7 +39,7 @@ namespace AlumniNetMobile.ViewModels
 
         #region Private fields
 
-        private ExperienceDTO _selectedJob;
+        private ExperienceModel _selectedJob;
 
         #endregion
 

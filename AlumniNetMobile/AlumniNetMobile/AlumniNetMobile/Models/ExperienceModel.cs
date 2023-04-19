@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AlumniNetMobile.DTOs
+namespace AlumniNetMobile.Models
 {
-    public class ExperienceDTO
+    public class ExperienceModel
     {
         public int ExperienceId { get; set; }
         public string JobTitle { get; set; }

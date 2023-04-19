@@ -21,7 +21,7 @@ namespace AlumniNetMobile.Views
             BindingContext = new AddOrEditExperienceViewModel();
         }
 
-        public AddOrEditExperienceView(ExperienceDTO workExperience)
+        public AddOrEditExperienceView(ExperienceModel workExperience)
         {
             InitializeComponent();
             BindingContext = new AddOrEditExperienceViewModel(workExperience);

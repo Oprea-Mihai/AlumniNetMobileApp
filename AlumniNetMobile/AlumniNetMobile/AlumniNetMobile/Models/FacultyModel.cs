@@ -1,6 +1,6 @@
-﻿namespace AlumniNetMobile.DTOs
+﻿namespace AlumniNetMobile.Models
 {
-    public class FacultyDTO
+    public class FacultyModel
     {
         public int FacultyId { get; set; }
         public string FacultyName { get; set; } = null!;

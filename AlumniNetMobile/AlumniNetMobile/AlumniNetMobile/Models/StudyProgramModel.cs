@@ -1,6 +1,6 @@
-﻿namespace AlumniNetMobile.DTOs
+﻿namespace AlumniNetMobile.Models
 {
-    public class StudyProgramDTO
+    public class StudyProgramModel
     {
         public string ProgramName { get; set; } = null!;
     }

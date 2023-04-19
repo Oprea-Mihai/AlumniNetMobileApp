@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AlumniNetMobile.Models;
 
 namespace AlumniNetMobile.DTOs
 {
@@ -21,9 +22,9 @@ namespace AlumniNetMobile.DTOs
         public string Email { get; set; }
 
         //experiences
-        public List<ExperienceDTO> Experiences { get; set; }
+        public List<ExperienceModel> Experiences { get; set; }
 
         //finished studies
-        public List<FinishedStudyDetailedDTO> FinishedStudiesDetailed { get; set; }
+        public List<FinishedStudyDetailedModel> FinishedStudiesDetailed { get; set; }
     }
 }

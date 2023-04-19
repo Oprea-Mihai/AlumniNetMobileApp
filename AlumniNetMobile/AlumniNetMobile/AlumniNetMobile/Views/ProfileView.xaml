@@ -7,7 +7,7 @@
     xmlns:models="clr-namespace:AlumniNetMobile.Models"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
-    xmlns:models1="clr-namespace:AlumniNetMobile.DTOs" xmlns:local="clr-namespace:AlumniNetMobile.Converters"
+    xmlns:local="clr-namespace:AlumniNetMobile.Converters"
     BackgroundColor="#E5E5E5">
 
 
@@ -255,7 +255,7 @@
                                 <xct:EventToCommandBehavior Command="{Binding EditWorkExperienceCommand}" EventName="SelectionChanged" />
                             </CollectionView.Behaviors>
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models1:ExperienceDTO">
+                                <DataTemplate x:DataType="models:ExperienceModel">
                                     <StackLayout Padding="0,4,0,5">
                                         <Frame Padding="0,10,0,30" Style="{StaticResource FrameCard}">
                                             <StackLayout Orientation="Horizontal">
