@@ -71,7 +71,7 @@
 
                     <CollectionView
                     x:Name="postsCollectionView"
-                    RemainingItemsThreshold="1"
+                    RemainingItemsThreshold="2"
                     RemainingItemsThresholdReachedCommand="{Binding LoadMorePostsAsyncCommand}"
                     HorizontalOptions="FillAndExpand"
                     ItemsSource="{Binding Posts}">

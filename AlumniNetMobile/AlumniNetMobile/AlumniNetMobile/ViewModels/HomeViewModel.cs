@@ -26,7 +26,7 @@ namespace AlumniNetMobile.ViewModels
             IsLikeButtonClicked = true;
 
             _currentIndex = 0;
-            _batchSize = 6;
+            _batchSize = 5;
         }
         #endregion
 
