@@ -1,4 +1,5 @@
 ﻿using AlumniNetMobile.Common;
+using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -35,9 +36,9 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public void SignUp()
+        public async void SignUp()
         {
-
+            await Application.Current.MainPage.Navigation.PushAsync(new SignUpView());
         }
     }
 }

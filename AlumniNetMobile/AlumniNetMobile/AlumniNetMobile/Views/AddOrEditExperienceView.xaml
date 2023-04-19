@@ -81,7 +81,7 @@
                         Keyboard="Numeric"
                         MaxLength="4"
                         Placeholder="Anul inceperii"
-                        Text="{Binding GraduationYear}"
+                        Text="{Binding StartDate}"
                         VerticalOptions="Center"
                         WidthRequest="300" />
                 </StackLayout>
@@ -104,13 +104,13 @@
                     </Image>
                     <renderer:BorderlessEditor
                         Keyboard="Numeric"
-                        MaxLength="4"
+                        MaxLength="4"                        
                         Placeholder="Anul incetarii"
-                        Text="{Binding GraduationYear}"
+                        Text="{Binding EndDate}"
                         VerticalOptions="Center"
                         WidthRequest="200" />
                     <Label Text="Inca angajat" VerticalOptions="Center" />
-                    <CheckBox Color="black">
+                    <CheckBox Color="black" IsChecked="{Binding IsStillEmployedChecked}">
                         <CheckBox.Behaviors>
                             <xct:EventToCommandBehavior Command="{Binding StillEmployedCommand}" EventName="CheckedChanged" />
                         </CheckBox.Behaviors>

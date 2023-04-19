@@ -1,7 +1,11 @@
-﻿using AlumniNetMobile.Models;
+﻿using AlumniNetMobile.Common;
+using AlumniNetMobile.DataHandlingStrategy;
+using AlumniNetMobile.DTOs;
+using AlumniNetMobile.Models;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.Generic;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -13,6 +17,9 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public HomeViewModel()
         {
+
+            _manageData = new ManageData();
+
             Posts = new ObservableRangeCollection<PostModel>
                 {
                     new PostModel { Username = "John Doe", Text = "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.", Title = "My First Post" },
@@ -24,11 +31,15 @@ namespace AlumniNetMobile.ViewModels
         #endregion
 
         #region Private fields
+
+        private ManageData _manageData;
+
         #endregion
 
         #region Observables
 
         private ObservableRangeCollection<PostModel> _posts;
+
         public ObservableRangeCollection<PostModel> Posts
         {
             get { return _posts; }
@@ -57,6 +68,12 @@ namespace AlumniNetMobile.ViewModels
             IsLikeButtonClicked = !IsLikeButtonClicked;
         }
 
+        [RelayCommand]
+        public async void PageAppearing()
+        {
+           
+
+        }
         #endregion
 
     }

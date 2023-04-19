@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlumniNetMobile.Models
 {
-    public class UserModel
+    public class SearchUserModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

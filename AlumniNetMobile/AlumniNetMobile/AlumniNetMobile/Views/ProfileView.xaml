@@ -6,13 +6,20 @@
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:models="clr-namespace:AlumniNetMobile.Models"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+    xmlns:models1="clr-namespace:AlumniNetMobile.DTOs" xmlns:local="clr-namespace:AlumniNetMobile.Converters"
     BackgroundColor="#E5E5E5">
 
 
     <ContentPage.BindingContext>
         <viewmodels:ProfileViewModel />
     </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ZeroToTextConverter x:Key="ZeroToTextConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Behaviors>
         <xct:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing" />
@@ -40,11 +47,11 @@
                                 Margin="0,0,0,0"
                                 FontSize="32"
                                 Style="{StaticResource OpenSans-BoldTextLabel}"
-                                Text="Oprea" />
+                                Text="{Binding LastName}" />
                             <Label
                                 FontSize="20"
                                 Style="{StaticResource OpenSans-BoldTextLabel}"
-                                Text="Mihai Lucian" />
+                                Text="{Binding FirstName}" />
                         </StackLayout>
                     </StackLayout>
                     <Button
@@ -248,7 +255,7 @@
                                 <xct:EventToCommandBehavior Command="{Binding EditWorkExperienceCommand}" EventName="SelectionChanged" />
                             </CollectionView.Behaviors>
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:JobModel">
+                                <DataTemplate x:DataType="models1:ExperienceDTO">
                                     <StackLayout Padding="0,4,0,5">
                                         <Frame Padding="0,10,0,30" Style="{StaticResource FrameCard}">
                                             <StackLayout Orientation="Horizontal">
@@ -277,7 +284,24 @@
                                                                     Color="Black" />
                                                             </Image.Source>
                                                         </Image>
-                                                        <Label Style="{StaticResource StandardTextLabel}" Text="{Binding StartEndDate}" />
+                                                        <Label Style="{StaticResource StandardTextLabel}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding StartDate}" />
+                                                                    <Span Text=" - " />
+                                                                    <Span Text="{Binding EndDate, Converter={StaticResource ZeroToTextConverter}}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                        <!--<Label Style="{StaticResource StandardTextLabel}" IsVisible="{Binding EndDate, Converter={StaticResource NullToInvisibleConverter}}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding StartDate}" />
+                                                                    <Span Text=" - " />
+                                                                    <Span Text="{Binding EndDate, StringFormat='{0:dd/MM/yyyy}'}"  />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>-->
                                                     </StackLayout>
                                                 </StackLayout>
                                             </StackLayout>

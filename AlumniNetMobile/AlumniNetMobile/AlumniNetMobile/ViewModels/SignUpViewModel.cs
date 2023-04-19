@@ -1,22 +1,46 @@
 ﻿using AlumniNetMobile.Common;
+using AlumniNetMobile.DataHandlingStrategy;
+using AlumniNetMobile.DTOs;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels
 {
-    public partial class SignUpViewModel:ObservableObject
+    public partial class SignUpViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private string _username;
+
+        #region Constructors
+
+        public SignUpViewModel()
+        {
+            ExceptionOccured = false;
+            _manageData = new ManageData();
+            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
+        }
+
+        #endregion
+
+        #region Private fields
+
+        private readonly ManageData _manageData;
+        private IAuthenticationService _authenticationService;
+
+        #endregion
+
+        #region Observables
 
         [ObservableProperty]
-        private string _email;
+        private string _firstName;
+
+        [ObservableProperty]
+        private string _lastName;
+
+        [ObservableProperty]
+        private string _userEmail;
 
         [ObservableProperty]
         private string _password;
@@ -24,22 +48,50 @@ namespace AlumniNetMobile.ViewModels
         [ObservableProperty]
         private bool _exceptionOccured;
 
-        public SignUpViewModel()
-        {
-            ExceptionOccured = false;
-        }
+        #endregion
 
+
+        #region Commands
         [RelayCommand]
         private async void OnSignUp()
         {
-            var authService=DependencyService.Resolve<IAuthenticationService>();
-            
-            if(await authService.CreateUser(Username,Email,Password))
+            try
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new ProfileView());
+
+
+                if (await _authenticationService.CreateUser(FirstName + " " + LastName, UserEmail, Password))
+                {
+                    UserDTO newUser = new UserDTO();
+
+                    newUser.FirstName = FirstName;
+                    newUser.LastName = LastName;
+                    newUser.Email = UserEmail;
+                    newUser.IsValid = false;
+
+                    string json = JsonConvert.SerializeObject(newUser);
+                    var a = await _authenticationService.GetCurrentToken();
+                    _manageData.SetStrategy(new CreateData());
+                    await _manageData.GetDataAndDeserializeIt<UserDTO>("User/AddUser", json, a);
+
+
+                    await Application.Current.MainPage.Navigation.PushAsync(new Navigation());
+                }
+                else ExceptionOccured = true;
             }
-            else ExceptionOccured = true;
-                
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
         }
+
+        [RelayCommand]
+        public async void SignIn()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new LoginView());
+        }
+        #endregion
+
     }
 }

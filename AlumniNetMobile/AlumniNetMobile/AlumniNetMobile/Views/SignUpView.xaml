@@ -8,11 +8,14 @@
             <Label Text="Sign up"
                     Style="{StaticResource HeaderLabel}"/>
 
-            <Entry Placeholder="Name"
-                   Text="{Binding Username}" />
+            <Entry Placeholder="First name"
+                   Text="{Binding FirstName}" />
+
+            <Entry Placeholder="Last name"
+                   Text="{Binding LastName}" />
 
             <Entry Placeholder="Email"
-                   Text="{Binding Email}" />
+                   Text="{Binding UserEmail}" />
 
             <Entry Placeholder="Password"
                    IsPassword="True"
@@ -22,8 +25,8 @@
                     Command="{Binding SignUpCommand}"
                     Style="{StaticResource PrimaryButton}"/>
 
-            <Button Text="Already have an account ? sign-in"
-                    Command="{Binding SignUpCommand}"
+            <Button Text="Already have an account ? Sign in"
+                    Command="{Binding SignInCommand}"
                     Style="{StaticResource SecondaryButton}" />
 
         </StackLayout>

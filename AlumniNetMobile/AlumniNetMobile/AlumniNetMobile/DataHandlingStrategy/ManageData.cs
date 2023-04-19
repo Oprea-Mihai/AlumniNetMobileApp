@@ -1,6 +1,7 @@
 ﻿using AlumniNetMobile.Common;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -16,10 +17,27 @@ namespace AlumniNetMobile.DataHandlingStrategy
             _manageDataStrategy = manageDataStrategy;
         }
 
-        public async Task<T> GetDataAndDeserializeIt<T>(string url, string json)
+        //public async Task<T> GetDataAndDeserializeIt<T>(string url, string json)
+        //{
+        //    _httpClient = new HttpClient(DependencyService.Get<IHttpClientHandlerService>().GetInsecureHandler());
+        //    _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+        //    var data = await _manageDataStrategy.ManageData(_httpClient, url, json);
+
+        //    if (data == string.Empty)
+        //        throw new TaskCanceledException();
+
+        //    var deserializedData = JsonConvert.DeserializeObject<T>(data);
+        //    return deserializedData;
+        //}
+
+        public async Task<T> GetDataAndDeserializeIt<T>(string url, string json="", string token="")
         {
             _httpClient = new HttpClient(DependencyService.Get<IHttpClientHandlerService>().GetInsecureHandler());
             _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            if(token.Length > 0)
+               _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var data = await _manageDataStrategy.ManageData(_httpClient, url, json);
 

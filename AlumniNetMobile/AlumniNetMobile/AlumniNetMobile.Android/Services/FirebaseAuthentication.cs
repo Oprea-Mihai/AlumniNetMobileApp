@@ -25,7 +25,7 @@ namespace AlumniNetMobile.Droid.Services
         public async Task<string> SignIn(string email, string password)
         {
             var authResult = await FirebaseAuth.Instance.SignInWithEmailAndPasswordAsync(email, password);
-            var token = await authResult.User.GetIdTokenAsync(false);
+            var token = await authResult.User.GetIdTokenAsync(true);
             return token.Token;
         }
 
@@ -38,5 +38,11 @@ namespace AlumniNetMobile.Droid.Services
 
         public async Task ResetPassword(string email)
             => await FirebaseAuth.Instance.SendPasswordResetEmailAsync(email);
+
+        public async Task<string> GetCurrentToken()
+        {
+            var token= await FirebaseAuth.Instance.CurrentUser.GetIdTokenAsync(true);
+            return token.Token;
+        }
     }
 }

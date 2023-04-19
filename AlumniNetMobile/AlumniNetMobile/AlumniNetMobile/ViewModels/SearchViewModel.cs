@@ -12,27 +12,27 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public SearchViewModel()
         {
-            _users = new List<UserModel>
+            _users = new List<SearchUserModel>
             {
-                new UserModel
+                new SearchUserModel
                 {FacultyName="Facultatea de stiinte economice si administrarea afacerilor",
                 FirstName="Oprea",
                 LastName="Mihai-Lucian"},
-                 new UserModel
+                 new SearchUserModel
                  {FacultyName="Facultatea de stiinte economice si administrarea afacerilor",
                 FirstName="Cojocaru",
                 LastName="Andrei"},
-                 new UserModel
+                 new SearchUserModel
                  {FacultyName="Facultatea de stiinte economice si administrarea afacerilor",
                 FirstName="Sorojan",
                 LastName="Marian"},
-                   new UserModel
+                   new SearchUserModel
                    {FacultyName="Facultatea de stiinte economice si administrarea afacerilor",
                 FirstName="Antal",
                 LastName="Claudiu"}
             };
-            _recentSearches = new List<UserModel>(_users);
-            SearchResults = new ObservableRangeCollection<UserModel>();
+            _recentSearches = new List<SearchUserModel>(_users);
+            SearchResults = new ObservableRangeCollection<SearchUserModel>();
             AreRecentSearchesVisible = true;
             SearchResults.ReplaceRange(_users);
         }
@@ -40,16 +40,16 @@ namespace AlumniNetMobile.ViewModels
 
         #region Private fields
 
-        private List<UserModel> _users;
-        private List<UserModel> _recentSearches;
+        private List<SearchUserModel> _users;
+        private List<SearchUserModel> _recentSearches;
 
 
         #endregion
 
         #region Observables
 
-        private ObservableRangeCollection<UserModel> _searchResults;
-        public ObservableRangeCollection<UserModel> SearchResults
+        private ObservableRangeCollection<SearchUserModel> _searchResults;
+        public ObservableRangeCollection<SearchUserModel> SearchResults
         {
             get { return _searchResults; }
             set { SetProperty(ref _searchResults, value); }
@@ -62,7 +62,7 @@ namespace AlumniNetMobile.ViewModels
         private bool _areRecentSearchesVisible;
 
         [ObservableProperty]
-        private UserModel _selectedUser;
+        private SearchUserModel _selectedUser;
 
         #endregion
 
@@ -72,8 +72,8 @@ namespace AlumniNetMobile.ViewModels
         {
             AreRecentSearchesVisible = false;
             SearchResults.ReplaceRange(_users.Where
-                (x => x.FirstName.ToLower().Contains(SearchedName.ToLower()) ||
-                x.LastName.ToLower().Contains(SearchedName.ToLower())).Select(x => new UserModel
+                ((System.Func<SearchUserModel, bool>)(x => x.FirstName.ToLower().Contains((string)this.SearchedName.ToLower()) ||
+                x.LastName.ToLower().Contains((string)this.SearchedName.ToLower()))).Select(x => new SearchUserModel
                 {
                     FirstName = x.FirstName,
                     LastName = x.LastName,

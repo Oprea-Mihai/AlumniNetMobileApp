@@ -1,11 +1,11 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.DataHandlingStrategy;
+using AlumniNetMobile.DTOs;
 using AlumniNetMobile.Models;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -19,7 +19,7 @@ namespace AlumniNetMobile.ViewModels
         public ProfileViewModel()
         {
             _manageData = new ManageData();
-
+            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             Programs = new ObservableRangeCollection<FinishedProgramModel>();
             FinishedProgramModel programModel = new FinishedProgramModel
             {
@@ -41,21 +41,18 @@ namespace AlumniNetMobile.ViewModels
             Programs.Add(programModel);
             Programs.Add(programModel2);
 
-            Jobs = new ObservableRangeCollection<JobModel>();
+            Jobs = new ObservableRangeCollection<ExperienceDTO>();
 
-            JobModel jobModel = new JobModel
-            {
-                CompanyName = "Talenting Software",
-                JobTitle = "Software Engineer",
-                StartEndDate = "2018 - Prezent"
-            };
+            //JobModel jobModel = new JobModel
+            //{
+            //    CompanyName = "Talenting Software",
+            //    JobTitle = "Software Engineer",
+            //    StartEndDate = "2018 - Prezent"
+            //};
 
-            Jobs.Add(jobModel);
-            Jobs.Add(jobModel);
+            //Jobs.Add(jobModel);
+            //Jobs.Add(jobModel);
 
-            Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown" +
-                " printer took a galley of type and scrambled it to make a type specimen book..";
 
             IsEditing = false;
             IsNotEditing = true;
@@ -67,17 +64,25 @@ namespace AlumniNetMobile.ViewModels
         #region Private fields
 
         private readonly ManageData _manageData;
+        private IAuthenticationService _authenticationService;
 
         #endregion
 
         #region Private methods
-        private async Task GetProfileData(int id)
+        private async Task GetProfileData()
         {
-            
+
             try
             {
+                string token = await _authenticationService.GetCurrentToken();
                 _manageData.SetStrategy(new GetData());
-                var profile = await _manageData.GetDataAndDeserializeIt<string>($"Profile/GetProfileByUserId?userId={1}", "");
+                var profile = await _manageData.GetDataAndDeserializeIt<EntireProfileDTO>
+                    ($"Profile/GetProfileByUserId", "", token);
+                
+                FirstName=profile.FirstName;
+                LastName=profile.LastName;
+                Description = profile.Description;
+                Jobs.ReplaceRange(profile.Experiences);
             }
             catch (Exception e)
             {
@@ -85,6 +90,19 @@ namespace AlumniNetMobile.ViewModels
             }
         }
 
+        private async Task GetExperiences()
+        {
+
+        }
+
+        private async Task GetFinishedStudies()
+        {
+
+        }
+        private async Task InitializePage()
+        {
+
+        }
         #endregion
 
         #region Observables
@@ -96,8 +114,8 @@ namespace AlumniNetMobile.ViewModels
             set { SetProperty(ref _programs, value); }
         }
 
-        private ObservableRangeCollection<JobModel> _jobs;
-        public ObservableRangeCollection<JobModel> Jobs
+        private ObservableRangeCollection<ExperienceDTO> _jobs;
+        public ObservableRangeCollection<ExperienceDTO> Jobs
         {
             get { return _jobs; }
             set { SetProperty(ref _jobs, value); }
@@ -110,13 +128,19 @@ namespace AlumniNetMobile.ViewModels
         private bool _isEditing;
 
         [ObservableProperty]
+        private string _firstName;
+
+        [ObservableProperty]
+        private string _lastName;
+
+        [ObservableProperty]
         private bool _isNotEditing;
 
         [ObservableProperty]
         private FinishedProgramModel _selectedFinishedProgram;
 
         [ObservableProperty]
-        private JobModel _selectedJobExperience;
+        private ExperienceDTO _selectedJobExperience;
         #endregion
 
         #region Commands
@@ -139,16 +163,27 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public void SaveDescription()
+        public async void SaveDescription()
         {
             IsEditing = false;
             IsNotEditing = true;
+
+            try
+            {
+                string token = await _authenticationService.GetCurrentToken();
+                _manageData.SetStrategy(new UpdateData());
+                await _manageData.GetDataAndDeserializeIt<ProfileDTO>($"Profile/UpdateProfileDescriptionByUserId?profileDescription={Description}", "",token);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         [RelayCommand]
-        public async void PageAppearing() 
+        public async void PageAppearing()
         {
-            await GetProfileData(1);
+            await GetProfileData();
             SelectedFinishedProgram = null;
             SelectedJobExperience = null;
         }
@@ -183,12 +218,12 @@ namespace AlumniNetMobile.ViewModels
             {
                 return;
             }
-            JobModel selected = SelectedJobExperience;
-            SelectedFinishedProgram = null;
+            ExperienceDTO selected = SelectedJobExperience;
+            SelectedJobExperience = null;
             await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditExperienceView(selected));
         }
 
-        
+
 
         #endregion
     }

@@ -2,7 +2,7 @@
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Net;
+using System;
 using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels
@@ -18,9 +18,17 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void SignIn()
         {
-            var authService = DependencyService.Resolve<IAuthenticationService>();
-            var token = await authService.SignIn(Email, Password);
-            await Application.Current.MainPage.Navigation.PushAsync(new ProfileView());
+            try
+            {
+                var authService = DependencyService.Resolve<IAuthenticationService>();
+                var token = await authService.SignIn(Email, Password);
+                await Application.Current.MainPage.Navigation.PushAsync(new Navigation());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
 
         [RelayCommand]

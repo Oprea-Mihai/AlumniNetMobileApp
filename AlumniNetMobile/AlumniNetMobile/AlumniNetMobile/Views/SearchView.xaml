@@ -40,7 +40,7 @@
                     <xct:EventToCommandBehavior Command="{Binding UserSelectedCommand}" EventName="SelectionChanged" />
                 </CollectionView.Behaviors>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:UserModel">
+                    <DataTemplate x:DataType="models:SearchUserModel">
                         <StackLayout
                             Margin="5,5,5,5"
                             Padding="5"

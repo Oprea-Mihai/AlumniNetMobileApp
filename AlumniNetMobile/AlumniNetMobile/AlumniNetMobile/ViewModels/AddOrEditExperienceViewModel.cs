@@ -1,4 +1,5 @@
-﻿using AlumniNetMobile.Models;
+﻿using AlumniNetMobile.DTOs;
+using AlumniNetMobile.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -8,22 +9,28 @@ using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels
 {
-    public partial class AddOrEditExperienceViewModel:ObservableObject
+    public partial class AddOrEditExperienceViewModel : ObservableObject
     {
         #region Constructors
 
         public AddOrEditExperienceViewModel()
         {
-            JobTitle =null;
-            CompanyName =null;
-            StartEndDate =null;
+            JobTitle = null;
+            CompanyName = null;
+            StartDate = null;
+            IsStillEmployedChecked = false;
         }
 
-        public AddOrEditExperienceViewModel(JobModel selectedJob)
+        public AddOrEditExperienceViewModel(ExperienceDTO selectedJob)
         {
             _selectedJob = selectedJob;
-            StartEndDate = selectedJob.StartEndDate;
-            JobTitle=selectedJob.JobTitle;
+            StartDate = "2020";
+            EndDate = selectedJob.EndDate == 0 ? "" : selectedJob.EndDate.ToString();
+            if (selectedJob.EndDate == 0)
+                IsStillEmployedChecked = true;
+            else
+                IsStillEmployedChecked = false;
+            JobTitle = selectedJob.JobTitle;
             CompanyName = selectedJob.CompanyName;
         }
 
@@ -32,7 +39,7 @@ namespace AlumniNetMobile.ViewModels
 
         #region Private fields
 
-        private JobModel _selectedJob;
+        private ExperienceDTO _selectedJob;
 
         #endregion
 
@@ -40,7 +47,7 @@ namespace AlumniNetMobile.ViewModels
         #region Observables
 
         [ObservableProperty]
-        private string _startEndDate;
+        private string _startDate;
 
         [ObservableProperty]
         private string _endDate;
@@ -50,6 +57,9 @@ namespace AlumniNetMobile.ViewModels
 
         [ObservableProperty]
         private string _companyName;
+
+        [ObservableProperty]
+        private bool _isStillEmployedChecked;
 
         #endregion
 
