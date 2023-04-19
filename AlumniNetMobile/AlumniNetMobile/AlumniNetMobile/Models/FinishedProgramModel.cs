@@ -6,6 +6,7 @@ namespace AlumniNetMobile.Models
 {
     public class FinishedProgramModel
     {
+        public int FinishedStudyId { get; set; }
         public string FacultyName { get; set; }
         public string Specialization { get; set; }
         public string Program { get; set; }

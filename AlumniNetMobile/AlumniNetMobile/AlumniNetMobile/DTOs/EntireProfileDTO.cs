@@ -25,6 +25,6 @@ namespace AlumniNetMobile.DTOs
         public List<ExperienceModel> Experiences { get; set; }
 
         //finished studies
-        public List<FinishedStudyDetailedModel> FinishedStudiesDetailed { get; set; }
+        public List<FinishedStudyDetailedDTO> FinishedStudiesDetailed { get; set; }
     }
 }

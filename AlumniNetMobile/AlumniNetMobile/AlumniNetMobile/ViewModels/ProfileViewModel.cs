@@ -6,6 +6,8 @@ using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -43,17 +45,6 @@ namespace AlumniNetMobile.ViewModels
 
             Jobs = new ObservableRangeCollection<ExperienceModel>();
 
-            //JobModel jobModel = new JobModel
-            //{
-            //    CompanyName = "Talenting Software",
-            //    JobTitle = "Software Engineer",
-            //    StartEndDate = "2018 - Prezent"
-            //};
-
-            //Jobs.Add(jobModel);
-            //Jobs.Add(jobModel);
-
-
             IsEditing = false;
             IsNotEditing = true;
 
@@ -78,11 +69,21 @@ namespace AlumniNetMobile.ViewModels
                 _manageData.SetStrategy(new GetData());
                 var profile = await _manageData.GetDataAndDeserializeIt<EntireProfileDTO>
                     ($"Profile/GetProfileByUserId", "", token);
-                
-                FirstName=profile.FirstName;
-                LastName=profile.LastName;
+
+                FirstName = profile.FirstName;
+                LastName = profile.LastName;
                 Description = profile.Description;
                 Jobs.ReplaceRange(profile.Experiences);
+
+                Programs.ReplaceRange(profile.FinishedStudiesDetailed.Select(x => new FinishedProgramModel
+                {
+                    FinishedStudyId = x.FinishedStudyId,
+                    FacultyName=x.Specialization.Faculty.FacultyName,
+                    Specialization = x.Specialization.SpecializationName,
+                    Program = x.StudyProgram.ProgramName,
+                    LearningSchedule = x.LearningSchedule.ScheduleName,
+                    GraduationYear = x.Year
+                })) ;
             }
             catch (Exception e)
             {
@@ -90,19 +91,6 @@ namespace AlumniNetMobile.ViewModels
             }
         }
 
-        private async Task GetExperiences()
-        {
-
-        }
-
-        private async Task GetFinishedStudies()
-        {
-
-        }
-        private async Task InitializePage()
-        {
-
-        }
         #endregion
 
         #region Observables
@@ -172,7 +160,7 @@ namespace AlumniNetMobile.ViewModels
             {
                 string token = await _authenticationService.GetCurrentToken();
                 _manageData.SetStrategy(new UpdateData());
-                await _manageData.GetDataAndDeserializeIt<ProfileDTO>($"Profile/UpdateProfileDescriptionByUserId?profileDescription={Description}", "",token);
+                await _manageData.GetDataAndDeserializeIt<ProfileDTO>($"Profile/UpdateProfileDescriptionByUserId?profileDescription={Description}", "", token);
             }
             catch (Exception e)
             {
