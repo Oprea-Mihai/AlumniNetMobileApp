@@ -5,7 +5,9 @@ using AlumniNetMobile.Models;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -20,20 +22,40 @@ namespace AlumniNetMobile.ViewModels
 
             _manageData = new ManageData();
 
-            Posts = new ObservableRangeCollection<PostModel>
-                {
-                    new PostModel { Username = "John Doe", Text = "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.", Title = "My First Post" },
-                    new PostModel { Username = "Jane Doe", Text = "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.", Title = "Another Post" },
-                    new PostModel { Username = "Bob Smith", Text = "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.", Title = "Third Post" }
-                };
+            Posts = new ObservableRangeCollection<PostModel>();
             IsLikeButtonClicked = true;
+
+            _currentIndex = 0;
+            _batchSize = 6;
         }
         #endregion
 
         #region Private fields
 
         private ManageData _manageData;
+        public int _currentIndex;
+        private readonly int _batchSize;
 
+        #endregion
+
+        #region Private methods
+
+        private async Task<List<PostModel>> GetBatchOfPostsAsync(int batchSize, int index)
+        {
+            List<PostModel> leavesBatch = new();
+            try
+            {
+                _manageData.SetStrategy(new GetData());
+                leavesBatch = await _manageData.GetDataAndDeserializeIt
+                    <List<PostModel>>
+                    ($"Post/GetBatchOfPostsSorted?batchSize={batchSize}&currentIndex={index}", "");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return leavesBatch;
+        }
         #endregion
 
         #region Observables
@@ -52,6 +74,9 @@ namespace AlumniNetMobile.ViewModels
         [ObservableProperty]
         private bool _isSaveButtonClicked;
 
+        [ObservableProperty]
+        private bool _isBusy;
+
         #endregion
 
         #region Commands
@@ -69,10 +94,37 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
+        public async void LoadMorePostsAsync()
+        {
+            if (IsBusy) return;
+
+            IsBusy = true;
+
+            Posts.AddRange(await GetBatchOfPostsAsync(_batchSize, _currentIndex));
+
+            _currentIndex++;
+            IsBusy = false;
+        }
+
+
+        [RelayCommand]
+        public async void InitializeAsync()
+        {
+            if (IsBusy) return;
+
+            IsBusy = true;
+
+            _currentIndex = 1;
+
+            Posts.ReplaceRange(await GetBatchOfPostsAsync(_batchSize, 0));
+
+            IsBusy = false;
+        }
+
+        [RelayCommand]
         public async void PageAppearing()
         {
-           
-
+            InitializeAsync();
         }
         #endregion
 

@@ -42,7 +42,7 @@ namespace AlumniNetMobile.DataHandlingStrategy
             var data = await _manageDataStrategy.ManageData(_httpClient, url, json);
 
             if (data == string.Empty)
-                throw new TaskCanceledException();
+                throw new TaskCanceledException();//DO NOT REMOVE BKPOINT
 
             var deserializedData = JsonConvert.DeserializeObject<T>(data);
             return deserializedData;
