@@ -11,7 +11,7 @@ namespace AlumniNetMobile.Models
         public string Specialization { get; set; }
         public string Program { get; set; }
         public string LearningSchedule { get; set; }
-        public int GraduationYear { get; set; }
+        public int Year { get; set; }
         public int SpecializationId { get; set; }
         public int LearningScheduleId { get; set; }
         public int StudyProgramId { get; set; }

@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:local="clr-namespace:AlumniNetMobile.Converters"
-    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="#E5E5E5">
 
     <ContentPage.BindingContext>
@@ -21,8 +22,7 @@
     </ContentPage.Behaviors>
 
     <ContentPage.Content>
-        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                         Command="{Binding InitializeAsyncCommand}">
+        <RefreshView Command="{Binding InitializeAsyncCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <StackLayout>
                 <StackLayout Padding="0,10,0,10" BackgroundColor="#0074f2">
                     <Grid>
@@ -31,36 +31,36 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Image
-                        Grid.Column="0"
-                        Source="UniTBv_Logo.png"
-                        WidthRequest="40" />
+                            Grid.Column="0"
+                            Source="UniTBv_Logo.png"
+                            WidthRequest="40" />
                         <StackLayout
-                        Grid.Column="1"
-                        HorizontalOptions="End"
-                        Orientation="Horizontal">
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Orientation="Horizontal">
                             <Button
-                            CornerRadius="30"
-                            HeightRequest="40"
-                            WidthRequest="40">
+                                CornerRadius="30"
+                                HeightRequest="40"
+                                WidthRequest="40">
                                 <Button.ImageSource>
                                     <FontImageSource
-                                    FontFamily="FontAwesome"
-                                    Glyph="{x:Static fa:FontAwesomeIcons.Plus}"
-                                    Size="16"
-                                    Color="Black" />
+                                        FontFamily="FontAwesome"
+                                        Glyph="{x:Static fa:FontAwesomeIcons.Plus}"
+                                        Size="16"
+                                        Color="Black" />
                                 </Button.ImageSource>
                             </Button>
                             <Button
-                            Command="{Binding SearchButtonClickedCommand}"
-                            CornerRadius="30"
-                            HeightRequest="40"
-                            WidthRequest="40">
+                                Command="{Binding SearchButtonClickedCommand}"
+                                CornerRadius="30"
+                                HeightRequest="40"
+                                WidthRequest="40">
                                 <Button.ImageSource>
                                     <FontImageSource
-                                    FontFamily="FontAwesome"
-                                    Glyph="{x:Static fa:FontAwesomeIcons.MagnifyingGlass}"
-                                    Size="16"
-                                    Color="Black" />
+                                        FontFamily="FontAwesome"
+                                        Glyph="{x:Static fa:FontAwesomeIcons.MagnifyingGlass}"
+                                        Size="16"
+                                        Color="Black" />
                                 </Button.ImageSource>
                             </Button>
                         </StackLayout>
@@ -70,34 +70,34 @@
 
 
                     <CollectionView
-                    x:Name="postsCollectionView"
-                    RemainingItemsThreshold="2"
-                    RemainingItemsThresholdReachedCommand="{Binding LoadMorePostsAsyncCommand}"
-                    HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding Posts}">
+                        x:Name="postsCollectionView"
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding Posts}"
+                        RemainingItemsThreshold="2"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadMorePostsAsyncCommand}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="0,4,0,10" BackgroundColor="Transparent">
                                     <Frame
-                                    Margin="0,5,0,5"
-                                    Padding="20,10,20,0"
-                                    BackgroundColor="White"
-                                    BorderColor="Gray"
-                                    CornerRadius="10">                                        
+                                        Margin="0,5,0,5"
+                                        Padding="20,10,20,0"
+                                        BackgroundColor="White"
+                                        BorderColor="Gray"
+                                        CornerRadius="10">
                                         <StackLayout>
                                             <StackLayout Orientation="Horizontal">
                                                 <Frame
-                                                Padding="0"
-                                                CornerRadius="300"
-                                                HeightRequest="30"
-                                                IsClippedToBounds="True">
+                                                    Padding="0"
+                                                    CornerRadius="300"
+                                                    HeightRequest="30"
+                                                    IsClippedToBounds="True">
                                                     <Image Source="user.png" />
                                                 </Frame>
                                                 <Label
-                                                FontSize="Medium"
-                                                Style="{StaticResource OpenSans-SemiBoldTextLabel}"
-                                                Text="{Binding Username}"
-                                                VerticalOptions="Center">
+                                                    FontSize="Medium"
+                                                    Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                                                    Text="{Binding Username}"
+                                                    VerticalOptions="Center">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{Binding LastName}" />
@@ -108,63 +108,63 @@
                                                 </Label>
                                             </StackLayout>
                                             <Label
-                                            FontSize="15"
-                                            Style="{StaticResource StandardTextLabel}"
-                                            Text="{Binding Text}" />
+                                                FontSize="15"
+                                                Style="{StaticResource StandardTextLabel}"
+                                                Text="{Binding Text}" />
                                             <Image Source="DemoPostImage.jpg" />
                                             <StackLayout
-                                            Margin="0,5,0,5"
-                                            HorizontalOptions="End"
-                                            Orientation="Horizontal"
-                                            Spacing="20"
-                                            VerticalOptions="Start">
+                                                Margin="0,5,0,5"
+                                                HorizontalOptions="End"
+                                                Orientation="Horizontal"
+                                                Spacing="20"
+                                                VerticalOptions="Start">
                                                 <Button
-                                                BackgroundColor="Transparent"
-                                                HeightRequest="25"
-                                                VerticalOptions="Start"
-                                                WidthRequest="25">
+                                                    BackgroundColor="Transparent"
+                                                    HeightRequest="25"
+                                                    VerticalOptions="Start"
+                                                    WidthRequest="25">
                                                     <Button.ImageSource>
                                                         <FontImageSource
-                                                        FontFamily="FontAwesome"
-                                                        Glyph="{x:Static fa:FontAwesomeIcons.Comment}"
-                                                        Size="26"
-                                                        Color="Gray" />
+                                                            FontFamily="FontAwesome"
+                                                            Glyph="{x:Static fa:FontAwesomeIcons.Comment}"
+                                                            Size="26"
+                                                            Color="Gray" />
                                                     </Button.ImageSource>
                                                 </Button>
                                                 <Button
-                                                BackgroundColor="Transparent"
-                                                HeightRequest="25"
-                                                VerticalOptions="Start"
-                                                WidthRequest="25">
+                                                    BackgroundColor="Transparent"
+                                                    HeightRequest="25"
+                                                    VerticalOptions="Start"
+                                                    WidthRequest="25">
                                                     <Button.ImageSource>
                                                         <FontImageSource
-                                                        FontFamily="FontAwesome"
-                                                        Glyph="{x:Static fa:FontAwesomeIcons.Bookmark}"
-                                                        Size="26"
-                                                        Color="LightGray" />
+                                                            FontFamily="FontAwesome"
+                                                            Glyph="{x:Static fa:FontAwesomeIcons.Bookmark}"
+                                                            Size="26"
+                                                            Color="LightGray" />
                                                     </Button.ImageSource>
                                                 </Button>
                                                 <StackLayout>
-                                                    <!--BackgroundColor="{Binding IsLikeButtonClicked, Converter={StaticResource booleanToColorConverter}}"-->
+                                                    <!--  BackgroundColor="{Binding IsLikeButtonClicked, Converter={StaticResource booleanToColorConverter}}"  -->
                                                     <Button
-                                                    BackgroundColor="Transparent"
-                                                    Command="{Binding BindingContext.LikeButtonClickedCommand, Source={x:Reference postsCollectionView}}"
-                                                    CommandParameter="{Binding .}"
-                                                    HeightRequest="25"
-                                                    WidthRequest="25">
+                                                        BackgroundColor="Transparent"
+                                                        Command="{Binding BindingContext.LikeButtonClickedCommand, Source={x:Reference postsCollectionView}}"
+                                                        CommandParameter="{Binding .}"
+                                                        HeightRequest="25"
+                                                        WidthRequest="25">
                                                         <Button.ImageSource>
                                                             <FontImageSource
-                                                            FontFamily="FontAwesome"
-                                                            Glyph="{x:Static fa:FontAwesomeIcons.Heart}"
-                                                            Size="26"
-                                                            Color="LightGray" />
+                                                                FontFamily="FontAwesome"
+                                                                Glyph="{x:Static fa:FontAwesomeIcons.Heart}"
+                                                                Size="26"
+                                                                Color="LightGray" />
                                                         </Button.ImageSource>
                                                     </Button>
 
                                                     <Label
-                                                    FontSize="10"
-                                                    HorizontalOptions="Center"
-                                                    Text="123" />
+                                                        FontSize="10"
+                                                        HorizontalOptions="Center"
+                                                        Text="123" />
                                                 </StackLayout>
                                             </StackLayout>
                                         </StackLayout>

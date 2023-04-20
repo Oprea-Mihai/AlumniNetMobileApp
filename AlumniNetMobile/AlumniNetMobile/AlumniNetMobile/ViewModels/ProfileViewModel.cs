@@ -63,7 +63,7 @@ namespace AlumniNetMobile.ViewModels
                     Specialization = x.Specialization.SpecializationName,
                     Program = x.StudyProgram.ProgramName,
                     LearningSchedule = x.LearningSchedule.ScheduleName,
-                    GraduationYear = x.Year,
+                    Year = x.Year,
                     SpecializationId=x.SpecializationId,
                     StudyProgramId=x.StudyProgramId,
                     LearningScheduleId=x.LearningScheduleId,

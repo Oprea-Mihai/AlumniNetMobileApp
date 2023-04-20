@@ -4,10 +4,10 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:local="clr-namespace:AlumniNetMobile.Converters"
     xmlns:models="clr-namespace:AlumniNetMobile.Models"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
-    xmlns:local="clr-namespace:AlumniNetMobile.Converters"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="#E5E5E5">
 
 
@@ -191,7 +191,7 @@
                                                                 Color="Black" />
                                                         </Image.Source>
                                                     </Image>
-                                                    <Label Text="{Binding GraduationYear}" />
+                                                    <Label Text="{Binding Year}" />
 
                                                     <Image HorizontalOptions="Center">
                                                         <Image.Source>

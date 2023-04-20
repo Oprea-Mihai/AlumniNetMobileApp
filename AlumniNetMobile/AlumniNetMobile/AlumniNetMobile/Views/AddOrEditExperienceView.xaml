@@ -104,13 +104,13 @@
                     </Image>
                     <renderer:BorderlessEditor
                         Keyboard="Numeric"
-                        MaxLength="4"                        
+                        MaxLength="4"
                         Placeholder="Anul incetarii"
                         Text="{Binding EndDate}"
                         VerticalOptions="Center"
                         WidthRequest="200" />
                     <Label Text="Inca angajat" VerticalOptions="Center" />
-                    <CheckBox Color="black" IsChecked="{Binding IsStillEmployedChecked}">
+                    <CheckBox IsChecked="{Binding IsStillEmployedChecked}" Color="black">
                         <CheckBox.Behaviors>
                             <xct:EventToCommandBehavior Command="{Binding StillEmployedCommand}" EventName="CheckedChanged" />
                         </CheckBox.Behaviors>

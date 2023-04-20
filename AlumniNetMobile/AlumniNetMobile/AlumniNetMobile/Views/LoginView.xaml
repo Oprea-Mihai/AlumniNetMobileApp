@@ -1,33 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AlumniNetMobile.Views.LoginView">
+<ContentPage
+    x:Class="AlumniNetMobile.Views.LoginView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.Content>
         <StackLayout Padding="20" VerticalOptions="Center">
-            <Label Text="Login"
-                       Style="{StaticResource HeaderLabel}"/>
+            <Label Style="{StaticResource HeaderLabel}" Text="Login" />
 
-            <Entry Placeholder="Email"
-                   Text="{Binding Email}"/>
+            <Entry Placeholder="Email" Text="{Binding Email}" />
 
-            <Entry Placeholder="Password"
-                   IsPassword="True"
-                   Text="{Binding Password}"/>
+            <Entry
+                IsPassword="True"
+                Placeholder="Password"
+                Text="{Binding Password}" />
 
-            <Button Text="Sign In"                    
-                    Command="{Binding SignInCommand}"
-                    Style="{StaticResource PrimaryButton}"/>
+            <Button
+                Command="{Binding SignInCommand}"
+                Style="{StaticResource PrimaryButton}"
+                Text="Sign In" />
 
             <StackLayout Orientation="Horizontal">
 
-                <Button Text="Forgot Password"
-                        HorizontalOptions="StartAndExpand"
-                        Command="{Binding ForgotPasswordCommand}"
-                        Style="{StaticResource SecondaryButton}"/>
+                <Button
+                    Command="{Binding ForgotPasswordCommand}"
+                    HorizontalOptions="StartAndExpand"
+                    Style="{StaticResource SecondaryButton}"
+                    Text="Forgot Password" />
 
-                <Button Text="Sign Up"
-                        Command="{Binding SignUpCommand}"
-                        Style="{StaticResource SecondaryButton}"/>
+                <Button
+                    Command="{Binding SignUpCommand}"
+                    Style="{StaticResource SecondaryButton}"
+                    Text="Sign Up" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

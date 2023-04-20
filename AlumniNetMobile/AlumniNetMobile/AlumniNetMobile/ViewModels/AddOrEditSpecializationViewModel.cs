@@ -43,7 +43,7 @@ namespace AlumniNetMobile.ViewModels
             SearchedSpecialization = selectedProgram.Specialization;
             SelectedSchedule = selectedProgram.LearningSchedule;
             SelectedStudyProgram = selectedProgram.Program;
-            GraduationYear = selectedProgram.GraduationYear;
+            GraduationYear = selectedProgram.Year;
             WasFacultySelected = true;
             IsDeleteButtonVisible = true;
         }
@@ -157,9 +157,9 @@ namespace AlumniNetMobile.ViewModels
 
             _learningSchedules = await _manageData.GetDataAndDeserializeIt<List<LearningScheduleModel>>
                 ($"LearningSchedule/GetAllLearningSchedules", "", token);
-            SchedulesToDisplay.ReplaceRange(_learningSchedules.Select(x=>x.ScheduleName));
+            SchedulesToDisplay.ReplaceRange(_learningSchedules.Select(x => x.ScheduleName));
 
-            _studyPrograms= await _manageData.GetDataAndDeserializeIt<List<StudyProgramModel>>
+            _studyPrograms = await _manageData.GetDataAndDeserializeIt<List<StudyProgramModel>>
                 ($"StudyProgram/GetAllStudyPrograms", "", token);
             StudyProgramsToDisplay.ReplaceRange(_studyPrograms.Select(x => x.ProgramName));
 
@@ -191,9 +191,10 @@ namespace AlumniNetMobile.ViewModels
 
             if (wasFacultyTextChanged)
             {
+                string token = await _authenticationService.GetCurrentTokenAsync();
                 _manageData.SetStrategy(new GetData());
                 List<FacultyModel> names = (await _manageData.GetDataAndDeserializeIt<List<FacultyModel>>
-                    ($"Faculty/GetFacultiesSearchSuggestions?searchedString={SearchedFacultyName}"));
+                    ($"Faculty/GetFacultiesSearchSuggestions?searchedString={SearchedFacultyName}", "", token));
                 if (names.Count() != 0)
                 {
                     DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>(names);
@@ -279,25 +280,28 @@ namespace AlumniNetMobile.ViewModels
         public async void Save()
         {
             string token = await _authenticationService.GetCurrentTokenAsync();
-            _manageData.SetStrategy(new UpdateData());
-            string json = JsonConvert.SerializeObject(_programToUpdate);
-            await _manageData.GetDataAndDeserializeIt<FinishedProgramModel>($"FinishedStudy/UpdateFinishedStudy", json, token);
-            await Application.Current.MainPage.Navigation.PopAsync();
+
             if (SelectedSchedule != null)
             {
                 _programToUpdate.LearningSchedule = SelectedSchedule;
                 _programToUpdate.LearningScheduleId = _learningSchedules
-                    .First(x=>x.ScheduleName==SelectedSchedule).LearningScheduleId;
+                    .First(x => x.ScheduleName == SelectedSchedule).LearningScheduleId;
             }
-            if(SelectedStudyProgram!=null)
-            {   _programToUpdate.Program= SelectedStudyProgram;
+            if (SelectedStudyProgram != null)
+            {
+                _programToUpdate.Program = SelectedStudyProgram;
                 _programToUpdate.StudyProgramId = _studyPrograms
                     .First(x => x.ProgramName == SelectedStudyProgram).StudyProgramId;
             }
-            _programToUpdate.GraduationYear = (int)GraduationYear;
+            _programToUpdate.Year = (int)GraduationYear;
+            string json = JsonConvert.SerializeObject(_programToUpdate);
+
+            _manageData.SetStrategy(new UpdateData());
+            await _manageData.GetDataAndDeserializeIt<bool>($"FinishedStudy/UpdateFinishedStudy", json, token);
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
         #endregion
 
-       
+
     }
 }

@@ -1,33 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AlumniNetMobile.Views.SignUpView">
-    <ContentPage.Content>     
+<ContentPage
+    x:Class="AlumniNetMobile.Views.SignUpView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentPage.Content>
 
         <StackLayout Padding="20" VerticalOptions="Center">
-            <Label Text="Sign up"
-                    Style="{StaticResource HeaderLabel}"/>
+            <Label Style="{StaticResource HeaderLabel}" Text="Sign up" />
 
-            <Entry Placeholder="First name"
-                   Text="{Binding FirstName}" />
+            <Entry Placeholder="First name" Text="{Binding FirstName}" />
 
-            <Entry Placeholder="Last name"
-                   Text="{Binding LastName}" />
+            <Entry Placeholder="Last name" Text="{Binding LastName}" />
 
-            <Entry Placeholder="Email"
-                   Text="{Binding UserEmail}" />
+            <Entry Placeholder="Email" Text="{Binding UserEmail}" />
 
-            <Entry Placeholder="Password"
-                   IsPassword="True"
-                   Text="{Binding Password}"/>
+            <Entry
+                IsPassword="True"
+                Placeholder="Password"
+                Text="{Binding Password}" />
 
-            <Button Text="Sign Up"                   
-                    Command="{Binding SignUpCommand}"
-                    Style="{StaticResource PrimaryButton}"/>
+            <Button
+                Command="{Binding SignUpCommand}"
+                Style="{StaticResource PrimaryButton}"
+                Text="Sign Up" />
 
-            <Button Text="Already have an account ? Sign in"
-                    Command="{Binding SignInCommand}"
-                    Style="{StaticResource SecondaryButton}" />
+            <Button
+                Command="{Binding SignInCommand}"
+                Style="{StaticResource SecondaryButton}"
+                Text="Already have an account ? Sign in" />
 
         </StackLayout>
     </ContentPage.Content>
