@@ -69,9 +69,9 @@ namespace AlumniNetMobile.ViewModels
                     newUser.IsValid = false;
 
                     string json = JsonConvert.SerializeObject(newUser);
-                    var a = await _authenticationService.GetCurrentToken();
+                    string token = await _authenticationService.GetCurrentTokenAsync();
                     _manageData.SetStrategy(new CreateData());
-                    await _manageData.GetDataAndDeserializeIt<UserDTO>("User/AddUser", json, a);
+                    await _manageData.GetDataAndDeserializeIt<UserDTO>("User/AddUser", json, token);
 
 
                     await Application.Current.MainPage.Navigation.PushAsync(new Navigation());

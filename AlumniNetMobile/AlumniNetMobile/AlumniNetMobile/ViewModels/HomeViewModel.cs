@@ -108,7 +108,7 @@ namespace AlumniNetMobile.ViewModels
 
 
         [RelayCommand]
-        public async void InitializeAsync()
+        public async Task InitializeAsync()
         {
             if (IsBusy) return;
 
@@ -124,7 +124,7 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void PageAppearing()
         {
-            InitializeAsync();
+            await InitializeAsync();
         }
         #endregion
 

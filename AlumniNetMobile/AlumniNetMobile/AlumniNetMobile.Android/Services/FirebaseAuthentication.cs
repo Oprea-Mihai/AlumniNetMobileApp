@@ -39,7 +39,7 @@ namespace AlumniNetMobile.Droid.Services
         public async Task ResetPassword(string email)
             => await FirebaseAuth.Instance.SendPasswordResetEmailAsync(email);
 
-        public async Task<string> GetCurrentToken()
+        public async Task<string> GetCurrentTokenAsync()
         {
             var token= await FirebaseAuth.Instance.CurrentUser.GetIdTokenAsync(true);
             return token.Token;

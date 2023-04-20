@@ -12,6 +12,6 @@ namespace AlumniNetMobile.Common
         void SignOut();
         Task<string> SignIn(string email, string password);
         Task ResetPassword(string email);
-        Task<string> GetCurrentToken();
+        Task<string> GetCurrentTokenAsync();
     }
 }

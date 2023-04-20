@@ -7,7 +7,8 @@
     xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
     xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:models="clr-namespace:AlumniNetMobile.Models"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+    xmlns:models="clr-namespace:AlumniNetMobile.Models"
     BackgroundColor="#E5E5E5">
     <ContentPage.BindingContext>
         <viewmodels:AddOrEditSpecializationViewModel />
@@ -16,51 +17,50 @@
     <ContentPage.Content>
 
         <StackLayout>
-
             <StackLayout  Margin="5,10,5,0">
-            <Frame Style="{StaticResource FrameCardNoRequests}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <StackLayout
+                <Frame Style="{StaticResource FrameCardNoRequests}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackLayout
                         Grid.Row="0"
                         Padding="10,0,0,0"
                         HeightRequest="90"
                         Orientation="Horizontal">
-                        <Image>
-                            <Image.Source>
-                                <FontImageSource
+                            <Image>
+                                <Image.Source>
+                                    <FontImageSource
                                     FontFamily="FontAwesome"
                                     Glyph="{x:Static fa:FontAwesomeIcons.School}"
                                     Size="30"
                                     Color="Black" />
-                            </Image.Source>
-                        </Image>
-                        <renderer:BorderlessEditor
+                                </Image.Source>
+                            </Image>
+                            <renderer:BorderlessEditor
                             Margin="10,15,0,0"
                             HeightRequest="70"
                             Placeholder="Numele facultatii"
                             Text="{Binding SearchedFacultyName}"
                             WidthRequest="300">
-                            <renderer:BorderlessEditor.Behaviors>
-                                <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
-                                <xct:UserStoppedTypingBehavior
+                                <renderer:BorderlessEditor.Behaviors>
+                                    <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
+                                    <xct:UserStoppedTypingBehavior
                                     Command="{Binding SearchFacultyCommand}"
                                     MinimumLengthThreshold="1"
                                     StoppedTypingTimeThreshold="500" />
-                            </renderer:BorderlessEditor.Behaviors>
-                        </renderer:BorderlessEditor>
-                    </StackLayout>
-                    <Label
+                                </renderer:BorderlessEditor.Behaviors>
+                            </renderer:BorderlessEditor>
+                        </StackLayout>
+                        <Label
                         HorizontalOptions="Center"
                         IsVisible="{Binding FacultyNotFoundVisible}"
                         Text="Facultatea nu a fost gasita"
                         TextColor="DarkRed" />
 
 
-                    <CollectionView
+                        <CollectionView
                         Grid.Row="1"
                         HeightRequest="100"
                         IsVisible="{Binding AreFacultySugestionsVisible}"
@@ -68,21 +68,21 @@
                         SelectedItem="{Binding SelectedFaculty}"
                         SelectionMode="Single"
                         VerticalOptions="StartAndExpand">
-                        <CollectionView.Behaviors>
-                            <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
-                        </CollectionView.Behaviors>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout>
-                                    <Frame Style="{StaticResource SmallFrameCard}" BackgroundColor="ForestGreen">
-                                        <Label Text="{Binding}" VerticalTextAlignment="Center"  />
-                                    </Frame>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </Grid>
-            </Frame>
+                            <CollectionView.Behaviors>
+                                <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
+                            </CollectionView.Behaviors>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:FacultyModel">
+                                    <StackLayout>
+                                        <Frame Style="{StaticResource SmallFrameCard}" BackgroundColor="ForestGreen">
+                                            <Label Text="{Binding FacultyName}" VerticalTextAlignment="Center"  />
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </Frame>
             </StackLayout>
 
 
@@ -138,10 +138,10 @@
                             <xct:EventToCommandBehavior Command="{Binding SpecializationSelectedCommand}" EventName="SelectionChanged" />
                         </CollectionView.Behaviors>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate  x:DataType="models:SpecializationModel">
                                 <StackLayout>
                                     <Frame Style="{StaticResource SmallFrameCard}" BackgroundColor="ForestGreen">
-                                        <Label Text="{Binding}" VerticalTextAlignment="Center" />
+                                        <Label Text="{Binding SpecializationName}" VerticalTextAlignment="Center" />
                                     </Frame>
                                 </StackLayout>
                             </DataTemplate>
@@ -166,17 +166,19 @@
                         </Image.Source>
                     </Image>
                     <input:Dropdown
-                        Margin="5,0,0,0"
+                        Margin="5,0,10,0"
+                       HorizontalOptions="FillAndExpand"
                         BorderColor="LightGray"
                         FontFamily="Montserrat"
                         FontSize="16"
-                        ItemsSource="{Binding TypesList}"
+                        ItemsSource="{Binding StudyProgramsToDisplay}"
                         Placeholder="Selectati un program de studii"
                         SelectedItem="{Binding SelectedStudyProgram}"
                         Style="{StaticResource DropdownStyle}"
                         TextColor="Black"
                         TitleFontSize="16"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center"/>
+
                 </StackLayout>
             </Frame>
 
@@ -197,18 +199,19 @@
                         </Image.Source>
                     </Image>
 
-                    <input:Dropdown
-                        Margin="5,0,0,0"
+                    <input:Dropdown                       
+                        Margin="5,0,10,0"
+                       HorizontalOptions="FillAndExpand"
                         BorderColor="LightGray"
                         FontFamily="Montserrat"
                         FontSize="16"
-                        ItemsSource="{Binding TypesList}"
+                        ItemsSource="{Binding SchedulesToDisplay}"
                         Placeholder="Selectati un tip de invatamant"
                         SelectedItem="{Binding SelectedSchedule}"
                         Style="{StaticResource DropdownStyle}"
                         TextColor="Black"
                         TitleFontSize="16"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center"/>
                 </StackLayout>
             </Frame>
 
@@ -250,6 +253,7 @@
                     BackgroundColor="Transparent"
                     HeightRequest="22"
                     HorizontalOptions="EndAndExpand"
+                    IsVisible="{Binding IsDeleteButtonVisible}"
                     WidthRequest="25">
                     <Button.ImageSource>
                         <FontImageSource

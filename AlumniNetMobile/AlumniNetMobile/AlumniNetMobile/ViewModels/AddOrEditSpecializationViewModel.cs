@@ -1,13 +1,16 @@
-﻿using AlumniNetMobile.DataHandlingStrategy;
+﻿using AlumniNetMobile.Common;
+using AlumniNetMobile.DataHandlingStrategy;
 using AlumniNetMobile.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -19,43 +22,30 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public AddOrEditSpecializationViewModel()
         {
-            _specializationNames = new List<string>();
-            _facultyNames = new List<string>();
-            TypesList = new List<string>();
+            CommonInitialization();
 
-            _manageData = new ManageData();
-
+            _programToUpdate = new FinishedProgramModel();
             SearchedFacultyName = "";
             SearchedSpecialization = "";
-            _areFacultySugestionsVisible = false;
-            _areSpecializationSugestionsVisible = false;
             SelectedSchedule = null;
             SelectedStudyProgram = null;
             GraduationYear = null;
-            wasFacultyTextChanged = wasSpecializationTextChanged = false;
             WasFacultySelected = false;
+            IsDeleteButtonVisible = false;
         }
 
         public AddOrEditSpecializationViewModel(FinishedProgramModel selectedProgram)
         {
-            _specializationNames = new List<string>();
-            _facultyNames = new List<string>();
-            TypesList = new List<string>();
+            CommonInitialization();
 
-            _selectedProgram = selectedProgram;
-
-            _manageData = new ManageData();
-
-            _areSpecializationSugestionsVisible = false;
-            _areFacultySugestionsVisible = false;
-            SearchedFacultyName = _selectedProgram.FacultyName;
-            SearchedSpecialization = _selectedProgram.Specialization;
-            SelectedFaculty = selectedProgram.FacultyName;
+            _programToUpdate = selectedProgram;
+            SearchedFacultyName = selectedProgram.FacultyName;
+            SearchedSpecialization = selectedProgram.Specialization;
             SelectedSchedule = selectedProgram.LearningSchedule;
             SelectedStudyProgram = selectedProgram.Program;
             GraduationYear = selectedProgram.GraduationYear;
-            wasFacultyTextChanged = wasSpecializationTextChanged = false;
             WasFacultySelected = true;
+            IsDeleteButtonVisible = true;
         }
 
         #endregion
@@ -64,18 +54,22 @@ namespace AlumniNetMobile.ViewModels
 
         private List<string> _facultyNames;
         private List<string> _specializationNames;
-        private FinishedProgramModel _selectedProgram;
+        private FinishedProgramModel _programToUpdate;
         private bool wasFacultyTextChanged;
         private bool wasSpecializationTextChanged;
         private ManageData _manageData;
+        private IAuthenticationService _authenticationService;
+        private List<StudyProgramModel> _studyPrograms;
+        private List<LearningScheduleModel> _learningSchedules;
 
         #endregion
 
 
         #region Observables
 
+
         [ObservableProperty]
-        private List<string> _typesList;
+        private bool _isDeleteButtonVisible;
 
         [ObservableProperty]
         private string _searchedFacultyName;
@@ -84,10 +78,10 @@ namespace AlumniNetMobile.ViewModels
         private string _searchedSpecialization;
 
         [ObservableProperty]
-        private string _selectedFaculty;
+        private FacultyModel _selectedFaculty;
 
         [ObservableProperty]
-        private string _selectedSpecialization;
+        private SpecializationModel _selectedSpecialization;
 
         [ObservableProperty]
         private string _selectedSchedule;
@@ -113,26 +107,69 @@ namespace AlumniNetMobile.ViewModels
         [ObservableProperty]
         private bool _wasFacultySelected;
 
+        public ObservableRangeCollection<string> _schedulesToDisplay;
 
+        public ObservableRangeCollection<string> SchedulesToDisplay
+        {
+            get { return _schedulesToDisplay; }
+            set
+            {
+                SetProperty(ref _schedulesToDisplay, value);
+            }
+        }
 
-        public ObservableRangeCollection<string> _displayedSpecializations;
+        public ObservableRangeCollection<string> _studyProgramsToDisplay;
 
-        public ObservableRangeCollection<string> DisplayedSpecializations
+        public ObservableRangeCollection<string> StudyProgramsToDisplay
+        {
+            get { return _studyProgramsToDisplay; }
+            set { SetProperty(ref _studyProgramsToDisplay, value); }
+        }
+
+        public ObservableRangeCollection<SpecializationModel> _displayedSpecializations;
+
+        public ObservableRangeCollection<SpecializationModel> DisplayedSpecializations
         {
             get { return _displayedSpecializations; }
             set { SetProperty(ref _displayedSpecializations, value); }
         }
 
-        public ObservableRangeCollection<string> _displayedFacultyNames;
+        public ObservableRangeCollection<FacultyModel> _displayedFacultyNames;
 
-        public ObservableRangeCollection<string> DisplayedFacultyNames
+        public ObservableRangeCollection<FacultyModel> DisplayedFacultyNames
         {
             get { return _displayedFacultyNames; }
             set { SetProperty(ref _displayedFacultyNames, value); }
         }
         #endregion
 
+        #region Private methods
+        private async void CommonInitialization()
+        {
+            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
+            _manageData = new ManageData();
+            _manageData.SetStrategy(new GetData());
+            SchedulesToDisplay = new ObservableRangeCollection<string>();
+            StudyProgramsToDisplay = new ObservableRangeCollection<string>();
+            _learningSchedules = new List<LearningScheduleModel>();
+            _studyPrograms = new List<StudyProgramModel>();
+            string token = await _authenticationService.GetCurrentTokenAsync();
 
+            _learningSchedules = await _manageData.GetDataAndDeserializeIt<List<LearningScheduleModel>>
+                ($"LearningSchedule/GetAllLearningSchedules", "", token);
+            SchedulesToDisplay.ReplaceRange(_learningSchedules.Select(x=>x.ScheduleName));
+
+            _studyPrograms= await _manageData.GetDataAndDeserializeIt<List<StudyProgramModel>>
+                ($"StudyProgram/GetAllStudyPrograms", "", token);
+            StudyProgramsToDisplay.ReplaceRange(_studyPrograms.Select(x => x.ProgramName));
+
+            _specializationNames = new List<string>();
+            _facultyNames = new List<string>();
+            _areFacultySugestionsVisible = false;
+            _areSpecializationSugestionsVisible = false;
+            wasFacultyTextChanged = wasSpecializationTextChanged = false;
+        }
+        #endregion
 
         #region Commands
 
@@ -146,7 +183,7 @@ namespace AlumniNetMobile.ViewModels
         public async void SearchFaculty()
         {
             FacultyNotFoundVisible = false;
-            if (wasFacultyTextChanged == true || _selectedProgram == null)
+            if (wasFacultyTextChanged == true || _programToUpdate == null)
             {
                 WasFacultySelected = false;
                 SelectedFaculty = null;
@@ -155,11 +192,11 @@ namespace AlumniNetMobile.ViewModels
             if (wasFacultyTextChanged)
             {
                 _manageData.SetStrategy(new GetData());
-                List<string> names = (await _manageData.GetDataAndDeserializeIt<List<string>>
+                List<FacultyModel> names = (await _manageData.GetDataAndDeserializeIt<List<FacultyModel>>
                     ($"Faculty/GetFacultiesSearchSuggestions?searchedString={SearchedFacultyName}"));
                 if (names.Count() != 0)
                 {
-                    DisplayedFacultyNames = new ObservableRangeCollection<string>(names);
+                    DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>(names);
                     AreFacultySugestionsVisible = true;
                 }
                 else
@@ -171,22 +208,43 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
+        public async void FacultySelected()
+        {
+            if (SelectedFaculty == null)
+                return;
+            SearchedFacultyName = SelectedFaculty.FacultyName;
+            _programToUpdate.FacultyName = SelectedFaculty.FacultyName;
+            _programToUpdate.FacultyId = SelectedFaculty.FacultyId;
+            SelectedFaculty = null;
+            AreFacultySugestionsVisible = false;
+            wasFacultyTextChanged = false;
+            WasFacultySelected = true;
+        }
+
+        [RelayCommand]
         public void SpecializationTextChanged()
         {
             wasSpecializationTextChanged = true;
         }
 
         [RelayCommand]
-        public void SearchSpecialization()
+        public async void SearchSpecialization()
         {
             SpecializationNotFoundVisible = false;
 
             if (wasSpecializationTextChanged)
             {
-                var specializations = _specializationNames.Where(x => x.ToLower().Contains(SearchedSpecialization.ToLower()))?.ToList();
+                string token = await _authenticationService.GetCurrentTokenAsync();
+                _manageData.SetStrategy(new GetData());
+
+                List<SpecializationModel> specializations = (await _manageData.GetDataAndDeserializeIt<List<SpecializationModel>>
+                    ($"Specialization/GetSpecializationsByFacultyAndSearchString" +
+                    $"?facultyId={_programToUpdate.FacultyId}" +
+                    $"&searchedString={SearchedSpecialization}", "", token));
+
                 if (specializations.Count() != 0)
                 {
-                    DisplayedSpecializations = new ObservableRangeCollection<string>(specializations);
+                    DisplayedSpecializations = new ObservableRangeCollection<SpecializationModel>(specializations);
                     AreSpecializationSugestionsVisible = true;
                 }
                 else
@@ -197,28 +255,18 @@ namespace AlumniNetMobile.ViewModels
             }
         }
 
-        [RelayCommand]
-        public void FacultySelected()
-        {
-            if (SelectedFaculty == null)
-                return;
-            SearchedFacultyName = SelectedFaculty;
-            SelectedFaculty = null;
-            AreFacultySugestionsVisible = false;
-            wasFacultyTextChanged = false;
-            WasFacultySelected = true;
-        }
 
         [RelayCommand]
         public void SpecializationSelected()
         {
             if (SelectedSpecialization == null)
                 return;
-            SearchedSpecialization = SelectedSpecialization;
+            SearchedSpecialization = SelectedSpecialization.SpecializationName;
+            _programToUpdate.SpecializationId = SelectedSpecialization.SpecializationId;
+            _programToUpdate.Specialization = SelectedSpecialization.SpecializationName;
             SelectedSpecialization = null;
             AreSpecializationSugestionsVisible = false;
             wasSpecializationTextChanged = false;
-
         }
 
         [RelayCommand]
@@ -228,12 +276,28 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public void Save()
+        public async void Save()
         {
-            Application.Current.MainPage.Navigation.PopAsync();
+            string token = await _authenticationService.GetCurrentTokenAsync();
+            _manageData.SetStrategy(new UpdateData());
+            string json = JsonConvert.SerializeObject(_programToUpdate);
+            await _manageData.GetDataAndDeserializeIt<FinishedProgramModel>($"FinishedStudy/UpdateFinishedStudy", json, token);
+            await Application.Current.MainPage.Navigation.PopAsync();
+            if (SelectedSchedule != null)
+            {
+                _programToUpdate.LearningSchedule = SelectedSchedule;
+                _programToUpdate.LearningScheduleId = _learningSchedules
+                    .First(x=>x.ScheduleName==SelectedSchedule).LearningScheduleId;
+            }
+            if(SelectedStudyProgram!=null)
+            {   _programToUpdate.Program= SelectedStudyProgram;
+                _programToUpdate.StudyProgramId = _studyPrograms
+                    .First(x => x.ProgramName == SelectedStudyProgram).StudyProgramId;
+            }
+            _programToUpdate.GraduationYear = (int)GraduationYear;
         }
         #endregion
 
-
+       
     }
 }

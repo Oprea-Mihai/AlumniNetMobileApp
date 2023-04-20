@@ -46,7 +46,7 @@ namespace AlumniNetMobile.ViewModels
 
             try
             {
-                string token = await _authenticationService.GetCurrentToken();
+                string token = await _authenticationService.GetCurrentTokenAsync();
                 _manageData.SetStrategy(new GetData());
                 var profile = await _manageData.GetDataAndDeserializeIt<EntireProfileDTO>
                     ($"Profile/GetProfileByUserId", "", token);
@@ -63,7 +63,11 @@ namespace AlumniNetMobile.ViewModels
                     Specialization = x.Specialization.SpecializationName,
                     Program = x.StudyProgram.ProgramName,
                     LearningSchedule = x.LearningSchedule.ScheduleName,
-                    GraduationYear = x.Year
+                    GraduationYear = x.Year,
+                    SpecializationId=x.SpecializationId,
+                    StudyProgramId=x.StudyProgramId,
+                    LearningScheduleId=x.LearningScheduleId,
+                    FacultyId=x.Specialization.FacultyId
                 })) ;
             }
             catch (Exception e)
@@ -139,7 +143,7 @@ namespace AlumniNetMobile.ViewModels
 
             try
             {
-                string token = await _authenticationService.GetCurrentToken();
+                string token = await _authenticationService.GetCurrentTokenAsync();
                 _manageData.SetStrategy(new UpdateData());
                 await _manageData.GetDataAndDeserializeIt<ProfileDTO>($"Profile/UpdateProfileDescriptionByUserId?profileDescription={Description}", "", token);
             }
@@ -169,7 +173,7 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public async Task EditFinishedProgram(object obj)
+        public async Task EditFinishedProgram()
         {
             if (SelectedFinishedProgram == null)
             {
@@ -181,7 +185,7 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public async Task EditWorkExperience(object obj)
+        public async Task EditWorkExperience()
         {
             if (SelectedJobExperience == null)
             {
