@@ -16,7 +16,6 @@
             <Style x:Key="SmallFrameCard" TargetType="Frame">
                 <Setter Property="HasShadow" Value="True" />
                 <Setter Property="CornerRadius" Value="15" />
-                <Setter Property="BackgroundColor" Value="ForestGreen" />
                 <Setter Property="HeightRequest" Value="40" />
                 <Setter Property="Margin" Value="5,5,5,5" />
                 <Setter Property="Padding" Value="10,0,0,0" />

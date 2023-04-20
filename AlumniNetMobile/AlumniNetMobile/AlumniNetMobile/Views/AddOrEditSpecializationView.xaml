@@ -7,7 +7,7 @@
     xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
     xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:models="clr-namespace:AlumniNetMobile.Models"
     BackgroundColor="#E5E5E5">
     <ContentPage.BindingContext>
         <viewmodels:AddOrEditSpecializationViewModel />
@@ -17,7 +17,8 @@
 
         <StackLayout>
 
-            <Frame Margin="5,10,5,0" Style="{StaticResource FrameCardNoRequests}">
+            <StackLayout  Margin="5,10,5,0">
+            <Frame Style="{StaticResource FrameCardNoRequests}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -41,7 +42,7 @@
                             Margin="10,15,0,0"
                             HeightRequest="70"
                             Placeholder="Numele facultatii"
-                            Text="{Binding SearchedName}"
+                            Text="{Binding SearchedFacultyName}"
                             WidthRequest="300">
                             <renderer:BorderlessEditor.Behaviors>
                                 <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
@@ -63,7 +64,7 @@
                         Grid.Row="1"
                         HeightRequest="100"
                         IsVisible="{Binding AreFacultySugestionsVisible}"
-                        ItemsSource="{Binding DisplayedNames}"
+                        ItemsSource="{Binding DisplayedFacultyNames}"                        
                         SelectedItem="{Binding SelectedFaculty}"
                         SelectionMode="Single"
                         VerticalOptions="StartAndExpand">
@@ -73,8 +74,8 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout>
-                                    <Frame Style="{StaticResource SmallFrameCard}">
-                                        <Label Text="{Binding}" VerticalTextAlignment="Center" />
+                                    <Frame Style="{StaticResource SmallFrameCard}" BackgroundColor="ForestGreen">
+                                        <Label Text="{Binding}" VerticalTextAlignment="Center"  />
                                     </Frame>
                                 </StackLayout>
                             </DataTemplate>
@@ -82,7 +83,7 @@
                     </CollectionView>
                 </Grid>
             </Frame>
-
+            </StackLayout>
 
 
             <Frame Margin="5,10,5,0" Style="{StaticResource FrameCardNoRequests}">
@@ -139,7 +140,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout>
-                                    <Frame Style="{StaticResource SmallFrameCard}">
+                                    <Frame Style="{StaticResource SmallFrameCard}" BackgroundColor="ForestGreen">
                                         <Label Text="{Binding}" VerticalTextAlignment="Center" />
                                     </Frame>
                                 </StackLayout>

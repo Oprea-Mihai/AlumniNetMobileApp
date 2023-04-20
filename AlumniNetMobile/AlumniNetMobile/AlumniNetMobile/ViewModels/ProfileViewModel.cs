@@ -23,26 +23,7 @@ namespace AlumniNetMobile.ViewModels
             _manageData = new ManageData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             Programs = new ObservableRangeCollection<FinishedProgramModel>();
-            FinishedProgramModel programModel = new FinishedProgramModel
-            {
-                FacultyName = "Facultatea de stiinte economice si administrarea afacerilor",
-                Specialization = "Informatica economica",
-                LearningSchedule = "Zi",
-                GraduationYear = 2020,
-                Program = "Licenta"
-            };
-
-            FinishedProgramModel programModel2 = new FinishedProgramModel
-            {
-                FacultyName = "Facultatea de Turism",
-                Specialization = "Turism",
-                LearningSchedule = "Zi",
-                GraduationYear = 2018,
-                Program = "Licenta"
-            };
-            Programs.Add(programModel);
-            Programs.Add(programModel2);
-
+           
             Jobs = new ObservableRangeCollection<ExperienceModel>();
 
             IsEditing = false;

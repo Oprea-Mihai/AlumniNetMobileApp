@@ -1,4 +1,5 @@
-﻿using AlumniNetMobile.Models;
+﻿using AlumniNetMobile.DataHandlingStrategy;
+using AlumniNetMobile.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -18,26 +19,13 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public AddOrEditSpecializationViewModel()
         {
+            _specializationNames = new List<string>();
+            _facultyNames = new List<string>();
+            TypesList = new List<string>();
 
-            _specializationNames = new List<string>
-            { "Informatica",
-            "Drept",
-                "Magie"
-            };
+            _manageData = new ManageData();
 
-            TypesList = new List<string>
-            {
-                "ZI",
-                "IFR"
-            };
-
-            _facultyNames = new List<string>
-            {
-                "Facultatea de stiinte economice si administrarea afacerilor",
-                "Facultatea de silvicultura",
-                "Facultatea de turism"
-            };
-            SearchedName = "";
+            SearchedFacultyName = "";
             SearchedSpecialization = "";
             _areFacultySugestionsVisible = false;
             _areSpecializationSugestionsVisible = false;
@@ -50,37 +38,24 @@ namespace AlumniNetMobile.ViewModels
 
         public AddOrEditSpecializationViewModel(FinishedProgramModel selectedProgram)
         {
-            _specializationNames = new List<string>
-            { "Informatica",
-            "Informatica economica",
-            "Drept",
-            "Magie"
-            };
-
-            _facultyNames = new List<string>
-            {
-                "Facultatea de stiinte economice si administrarea afacerilor",
-                "Facultatea de silvicultura",
-                "Facultatea de turism"
-            };
+            _specializationNames = new List<string>();
+            _facultyNames = new List<string>();
+            TypesList = new List<string>();
 
             _selectedProgram = selectedProgram;
 
-            TypesList = new List<string>
-            {
-                "ZI",
-                "IFR"
-            };
+            _manageData = new ManageData();
 
             _areSpecializationSugestionsVisible = false;
             _areFacultySugestionsVisible = false;
-            SearchedName = _selectedProgram.FacultyName;
+            SearchedFacultyName = _selectedProgram.FacultyName;
             SearchedSpecialization = _selectedProgram.Specialization;
+            SelectedFaculty = selectedProgram.FacultyName;
             SelectedSchedule = selectedProgram.LearningSchedule;
             SelectedStudyProgram = selectedProgram.Program;
             GraduationYear = selectedProgram.GraduationYear;
             wasFacultyTextChanged = wasSpecializationTextChanged = false;
-            WasFacultySelected = false;
+            WasFacultySelected = true;
         }
 
         #endregion
@@ -92,6 +67,7 @@ namespace AlumniNetMobile.ViewModels
         private FinishedProgramModel _selectedProgram;
         private bool wasFacultyTextChanged;
         private bool wasSpecializationTextChanged;
+        private ManageData _manageData;
 
         #endregion
 
@@ -102,7 +78,7 @@ namespace AlumniNetMobile.ViewModels
         private List<string> _typesList;
 
         [ObservableProperty]
-        private string _searchedName;
+        private string _searchedFacultyName;
 
         [ObservableProperty]
         private string _searchedSpecialization;
@@ -147,12 +123,12 @@ namespace AlumniNetMobile.ViewModels
             set { SetProperty(ref _displayedSpecializations, value); }
         }
 
-        public ObservableRangeCollection<string> _displayedNames;
+        public ObservableRangeCollection<string> _displayedFacultyNames;
 
-        public ObservableRangeCollection<string> DisplayedNames
+        public ObservableRangeCollection<string> DisplayedFacultyNames
         {
-            get { return _displayedNames; }
-            set { SetProperty(ref _displayedNames, value); }
+            get { return _displayedFacultyNames; }
+            set { SetProperty(ref _displayedFacultyNames, value); }
         }
         #endregion
 
@@ -167,17 +143,23 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public void SearchFaculty()
+        public async void SearchFaculty()
         {
             FacultyNotFoundVisible = false;
-            WasFacultySelected = false;
+            if (wasFacultyTextChanged == true || _selectedProgram == null)
+            {
+                WasFacultySelected = false;
+                SelectedFaculty = null;
+            }
 
             if (wasFacultyTextChanged)
             {
-                var names = _facultyNames.Where(x => x.ToLower().Contains(SearchedName.ToLower()))?.ToList();
+                _manageData.SetStrategy(new GetData());
+                List<string> names = (await _manageData.GetDataAndDeserializeIt<List<string>>
+                    ($"Faculty/GetFacultiesSearchSuggestions?searchedString={SearchedFacultyName}"));
                 if (names.Count() != 0)
                 {
-                    DisplayedNames = new ObservableRangeCollection<string>(names);
+                    DisplayedFacultyNames = new ObservableRangeCollection<string>(names);
                     AreFacultySugestionsVisible = true;
                 }
                 else
@@ -220,7 +202,7 @@ namespace AlumniNetMobile.ViewModels
         {
             if (SelectedFaculty == null)
                 return;
-            SearchedName = SelectedFaculty;
+            SearchedFacultyName = SelectedFaculty;
             SelectedFaculty = null;
             AreFacultySugestionsVisible = false;
             wasFacultyTextChanged = false;
