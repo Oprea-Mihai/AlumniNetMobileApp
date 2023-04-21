@@ -17,19 +17,6 @@ namespace AlumniNetMobile.DataHandlingStrategy
             _manageDataStrategy = manageDataStrategy;
         }
 
-        //public async Task<T> GetDataAndDeserializeIt<T>(string url, string json)
-        //{
-        //    _httpClient = new HttpClient(DependencyService.Get<IHttpClientHandlerService>().GetInsecureHandler());
-        //    _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-
-        //    var data = await _manageDataStrategy.ManageData(_httpClient, url, json);
-
-        //    if (data == string.Empty)
-        //        throw new TaskCanceledException();
-
-        //    var deserializedData = JsonConvert.DeserializeObject<T>(data);
-        //    return deserializedData;
-        //}
 
         public async Task<T> GetDataAndDeserializeIt<T>(string url, string json="", string token="")
         {

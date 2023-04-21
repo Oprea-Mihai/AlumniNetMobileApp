@@ -67,7 +67,8 @@ namespace AlumniNetMobile.ViewModels
                     SpecializationId=x.SpecializationId,
                     StudyProgramId=x.StudyProgramId,
                     LearningScheduleId=x.LearningScheduleId,
-                    FacultyId=x.Specialization.FacultyId
+                    FacultyId=x.Specialization.FacultyId,
+                    ProfileId=x.ProfileId
                 })) ;
             }
             catch (Exception e)

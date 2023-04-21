@@ -42,11 +42,11 @@ namespace AlumniNetMobile.ViewModels
 
         private async Task<List<PostModel>> GetBatchOfPostsAsync(int batchSize, int index)
         {
-            List<PostModel> leavesBatch = new();
+            List<PostModel> postsBatch = new();
             try
             {
                 _manageData.SetStrategy(new GetData());
-                leavesBatch = await _manageData.GetDataAndDeserializeIt
+                postsBatch = await _manageData.GetDataAndDeserializeIt
                     <List<PostModel>>
                     ($"Post/GetBatchOfPostsSorted?batchSize={batchSize}&currentIndex={index}", "");
             }
@@ -54,7 +54,7 @@ namespace AlumniNetMobile.ViewModels
             {
                 Console.WriteLine(e.Message);
             }
-            return leavesBatch;
+            return postsBatch;
         }
         #endregion
 

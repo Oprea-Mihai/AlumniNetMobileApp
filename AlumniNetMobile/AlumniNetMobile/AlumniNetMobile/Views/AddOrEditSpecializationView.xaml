@@ -48,8 +48,8 @@
                                     <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
                                     <xct:UserStoppedTypingBehavior
                                         Command="{Binding SearchFacultyCommand}"
-                                        MinimumLengthThreshold="1"
-                                        StoppedTypingTimeThreshold="500" />
+                                        MinimumLengthThreshold="2"
+                                        StoppedTypingTimeThreshold="300" />
                                 </renderer:BorderlessEditor.Behaviors>
                             </renderer:BorderlessEditor>
                         </StackLayout>
@@ -117,8 +117,8 @@
                                 <xct:EventToCommandBehavior Command="{Binding SpecializationTextChangedCommand}" EventName="TextChanged" />
                                 <xct:UserStoppedTypingBehavior
                                     Command="{Binding SearchSpecializationCommand}"
-                                    MinimumLengthThreshold="1"
-                                    StoppedTypingTimeThreshold="500" />
+                                    MinimumLengthThreshold="2"
+                                    StoppedTypingTimeThreshold="300" />
                             </renderer:BorderlessEditor.Behaviors>
                         </renderer:BorderlessEditor>
                     </StackLayout>
@@ -177,7 +177,11 @@
                         Style="{StaticResource DropdownStyle}"
                         TextColor="Black"
                         TitleFontSize="16"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center">
+                        <input:Dropdown.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding LearningProgramChangedCommand}" EventName="SelectedItemChanged" />
+                        </input:Dropdown.Behaviors>
+                    </input:Dropdown>
 
                 </StackLayout>
             </Frame>
@@ -211,7 +215,11 @@
                         Style="{StaticResource DropdownStyle}"
                         TextColor="Black"
                         TitleFontSize="16"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center">
+                        <input:Dropdown.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding ScheduleChangedCommand}" EventName="SelectedItemChanged" />
+                        </input:Dropdown.Behaviors>
+                    </input:Dropdown>
                 </StackLayout>
             </Frame>
 
@@ -236,7 +244,14 @@
                         Placeholder="Anul absolvirii"
                         Text="{Binding GraduationYear}"
                         VerticalOptions="Center"
-                        WidthRequest="300" />
+                        WidthRequest="300">
+                        <renderer:BorderlessEditor.Behaviors>
+                            <xct:UserStoppedTypingBehavior
+                                Command="{Binding CheckValidForSavingCommand}"
+                                MinimumLengthThreshold="1"
+                                StoppedTypingTimeThreshold="100" />
+                        </renderer:BorderlessEditor.Behaviors>
+                    </renderer:BorderlessEditor>
                 </StackLayout>
             </Frame>
 
@@ -254,6 +269,7 @@
                     HeightRequest="22"
                     HorizontalOptions="EndAndExpand"
                     IsVisible="{Binding IsDeleteButtonVisible}"
+                    Command="{Binding DeleteCommand}"
                     WidthRequest="25">
                     <Button.ImageSource>
                         <FontImageSource
@@ -273,6 +289,7 @@
                     CornerRadius="5"
                     FontFamily="Montserrat"
                     FontSize="16"
+                    HorizontalOptions="EndAndExpand"
                     Text="Anulati"
                     TextColor="Black"
                     TextTransform="None"
@@ -284,6 +301,8 @@
                     CornerRadius="5"
                     FontFamily="Montserrat"
                     FontSize="16"
+                    HorizontalOptions="End"
+                    IsEnabled="{Binding IsSaveButtonEnabled}"
                     Text="Salvati"
                     TextColor="White"
                     TextTransform="None"

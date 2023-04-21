@@ -16,5 +16,6 @@ namespace AlumniNetMobile.Models
         public int LearningScheduleId { get; set; }
         public int StudyProgramId { get; set; }
         public int FacultyId { get; set; }
+        public int ProfileId { get; set; }
     }
 }

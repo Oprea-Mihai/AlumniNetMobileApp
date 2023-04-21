@@ -22,6 +22,7 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public AddOrEditSpecializationViewModel()
         {
+            _isNew = true;
             CommonInitialization();
 
             _programToUpdate = new FinishedProgramModel();
@@ -36,6 +37,7 @@ namespace AlumniNetMobile.ViewModels
 
         public AddOrEditSpecializationViewModel(FinishedProgramModel selectedProgram)
         {
+            _isNew = false;
             CommonInitialization();
 
             _programToUpdate = selectedProgram;
@@ -52,8 +54,6 @@ namespace AlumniNetMobile.ViewModels
 
         #region Private fields
 
-        private List<string> _facultyNames;
-        private List<string> _specializationNames;
         private FinishedProgramModel _programToUpdate;
         private bool wasFacultyTextChanged;
         private bool wasSpecializationTextChanged;
@@ -61,15 +61,19 @@ namespace AlumniNetMobile.ViewModels
         private IAuthenticationService _authenticationService;
         private List<StudyProgramModel> _studyPrograms;
         private List<LearningScheduleModel> _learningSchedules;
+        private bool _isFacultySelected;
+        private bool _isSpecializationSelected;
+        private bool _isNew;
 
         #endregion
 
 
         #region Observables
-
-
         [ObservableProperty]
         private bool _isDeleteButtonVisible;
+
+        [ObservableProperty]
+        private bool _isSaveButtonEnabled;
 
         [ObservableProperty]
         private string _searchedFacultyName;
@@ -163,20 +167,46 @@ namespace AlumniNetMobile.ViewModels
                 ($"StudyProgram/GetAllStudyPrograms", "", token);
             StudyProgramsToDisplay.ReplaceRange(_studyPrograms.Select(x => x.ProgramName));
 
-            _specializationNames = new List<string>();
-            _facultyNames = new List<string>();
             _areFacultySugestionsVisible = false;
             _areSpecializationSugestionsVisible = false;
             wasFacultyTextChanged = wasSpecializationTextChanged = false;
+
+            bool validForSaving = !_isNew;
+            _isSpecializationSelected = _isSpecializationSelected = IsSaveButtonEnabled = validForSaving;
         }
+
+
         #endregion
 
         #region Commands
+        [RelayCommand]
+        private void CheckValidForSaving()
+        {
+            if (_isSpecializationSelected &&
+                _isFacultySelected &&
+                GraduationYear > 1900 &&
+                SelectedSchedule != null &&
+                SelectedStudyProgram != null)
+                IsSaveButtonEnabled = true;
+            else IsSaveButtonEnabled = false;
+        }
 
         [RelayCommand]
         public void FacultyTextChanged()
         {
             wasFacultyTextChanged = true;
+        }
+
+        [RelayCommand]
+        public void LearningProgramChanged()
+        {
+            CheckValidForSaving();
+        }
+
+            [RelayCommand]
+        public void ScheduleChanged()
+        {
+           CheckValidForSaving();
         }
 
         [RelayCommand]
@@ -213,6 +243,7 @@ namespace AlumniNetMobile.ViewModels
         {
             if (SelectedFaculty == null)
                 return;
+            _isFacultySelected = true;
             SearchedFacultyName = SelectedFaculty.FacultyName;
             _programToUpdate.FacultyName = SelectedFaculty.FacultyName;
             _programToUpdate.FacultyId = SelectedFaculty.FacultyId;
@@ -220,6 +251,7 @@ namespace AlumniNetMobile.ViewModels
             AreFacultySugestionsVisible = false;
             wasFacultyTextChanged = false;
             WasFacultySelected = true;
+            CheckValidForSaving();
         }
 
         [RelayCommand]
@@ -235,6 +267,7 @@ namespace AlumniNetMobile.ViewModels
 
             if (wasSpecializationTextChanged)
             {
+
                 string token = await _authenticationService.GetCurrentTokenAsync();
                 _manageData.SetStrategy(new GetData());
 
@@ -262,6 +295,8 @@ namespace AlumniNetMobile.ViewModels
         {
             if (SelectedSpecialization == null)
                 return;
+            _isSpecializationSelected = true;
+            CheckValidForSaving();
             SearchedSpecialization = SelectedSpecialization.SpecializationName;
             _programToUpdate.SpecializationId = SelectedSpecialization.SpecializationId;
             _programToUpdate.Specialization = SelectedSpecialization.SpecializationName;
@@ -296,10 +331,30 @@ namespace AlumniNetMobile.ViewModels
             _programToUpdate.Year = (int)GraduationYear;
             string json = JsonConvert.SerializeObject(_programToUpdate);
 
-            _manageData.SetStrategy(new UpdateData());
-            await _manageData.GetDataAndDeserializeIt<bool>($"FinishedStudy/UpdateFinishedStudy", json, token);
+            if (_isNew)
+            {
+                _manageData.SetStrategy(new CreateData());
+                await _manageData.GetDataAndDeserializeIt<bool>($"FinishedStudy/AddFinishedStudy", json, token);
+            }
+            else
+            {
+                _manageData.SetStrategy(new UpdateData());
+                await _manageData.GetDataAndDeserializeIt<bool>($"FinishedStudy/UpdateFinishedStudy", json, token);
+            }
             await Application.Current.MainPage.Navigation.PopAsync();
         }
+
+        [RelayCommand]
+        public async void Delete()
+        {
+            string token = await _authenticationService.GetCurrentTokenAsync();
+            _manageData.SetStrategy(new DeleteData());
+            await _manageData.GetDataAndDeserializeIt<bool>
+                ($"FinishedStudy/DeleteFinishedStudy?id={_programToUpdate.FinishedStudyId}","", token);
+
+        }
+
+
         #endregion
 
 
