@@ -351,6 +351,8 @@ namespace AlumniNetMobile.ViewModels
             _manageData.SetStrategy(new DeleteData());
             await _manageData.GetDataAndDeserializeIt<bool>
                 ($"FinishedStudy/DeleteFinishedStudy?id={_programToUpdate.FinishedStudyId}","", token);
+            await Application.Current.MainPage.Navigation.PopAsync();
+
 
         }
 
