@@ -217,7 +217,7 @@
                         TitleFontSize="16"
                         VerticalOptions="Center">
                         <input:Dropdown.Behaviors>
-                        <xct:EventToCommandBehavior Command="{Binding ScheduleChangedCommand}" EventName="SelectedItemChanged" />
+                            <xct:EventToCommandBehavior Command="{Binding ScheduleChangedCommand}" EventName="SelectedItemChanged" />
                         </input:Dropdown.Behaviors>
                     </input:Dropdown>
                 </StackLayout>
@@ -266,10 +266,10 @@
                 <Button
                     Margin="0,0,120,0"
                     BackgroundColor="Transparent"
+                    Command="{Binding DeleteCommand}"
                     HeightRequest="22"
                     HorizontalOptions="EndAndExpand"
                     IsVisible="{Binding IsDeleteButtonVisible}"
-                    Command="{Binding DeleteCommand}"
                     WidthRequest="25">
                     <Button.ImageSource>
                         <FontImageSource

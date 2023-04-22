@@ -1,9 +1,13 @@
-﻿using AlumniNetMobile.DTOs;
+﻿using AlumniNetMobile.Common;
+using AlumniNetMobile.DataHandlingStrategy;
+using AlumniNetMobile.DTOs;
 using AlumniNetMobile.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using Xamarin.Forms;
 
@@ -15,16 +19,24 @@ namespace AlumniNetMobile.ViewModels
 
         public AddOrEditExperienceViewModel()
         {
+            CommonInitialization();
+
             JobTitle = null;
             CompanyName = null;
-            StartDate = null;
+            StartDate = EndDate = "";
             IsStillEmployedChecked = false;
+            _jobToUpdate = null;
+            _saveButtonEnabled = false;
+            _isNew = true;
+            _jobToUpdate = new ExperienceModel();
         }
 
         public AddOrEditExperienceViewModel(ExperienceModel selectedJob)
         {
-            _selectedJob = selectedJob;
-            StartDate = "2020";
+            CommonInitialization();
+
+            _jobToUpdate = selectedJob;
+            StartDate = selectedJob.StartDate.ToString();
             EndDate = selectedJob.EndDate == 0 ? "" : selectedJob.EndDate.ToString();
             if (selectedJob.EndDate == 0)
                 IsStillEmployedChecked = true;
@@ -32,6 +44,8 @@ namespace AlumniNetMobile.ViewModels
                 IsStillEmployedChecked = false;
             JobTitle = selectedJob.JobTitle;
             CompanyName = selectedJob.CompanyName;
+            _saveButtonEnabled = true;
+            _isNew = false;
         }
 
         #endregion
@@ -39,15 +53,43 @@ namespace AlumniNetMobile.ViewModels
 
         #region Private fields
 
-        private ExperienceModel _selectedJob;
+        private ExperienceModel _jobToUpdate;
+        private ManageData _manageData;
+        private IAuthenticationService _authenticationService;
+        private bool _isNew;
 
         #endregion
 
+        #region Private methods
+
+        private void IsValidForSaving()
+        {
+            SaveButtonEnabled = true;
+            if (IsStillEmployedChecked == false && EndDate.Length < 4)
+                SaveButtonEnabled = false;
+            else if (StartDate.Length < 4)
+                SaveButtonEnabled = false;
+            else if (JobTitle == "" || CompanyName == "")
+                SaveButtonEnabled = false;
+
+        }
+
+
+        private void CommonInitialization()
+        {
+            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
+            _manageData = new ManageData();
+        }
+
+        #endregion
 
         #region Observables
 
         [ObservableProperty]
         private string _startDate;
+
+        [ObservableProperty]
+        private bool _saveButtonEnabled;
 
         [ObservableProperty]
         private string _endDate;
@@ -66,22 +108,64 @@ namespace AlumniNetMobile.ViewModels
         #region Commands
 
         [RelayCommand]
-        public void Cancel()
+        public async void Cancel()
         {
-            Application.Current.MainPage.Navigation.PopAsync();
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
 
         [RelayCommand]
-        public void Save()
+        public async void Save()
         {
-            Application.Current.MainPage.Navigation.PopAsync();
+            _jobToUpdate.JobTitle = JobTitle;
+            _jobToUpdate.StartDate = int.Parse(StartDate);
+            if (IsStillEmployedChecked)
+                _jobToUpdate.EndDate = null;
+            else
+                _jobToUpdate.EndDate = int.Parse(EndDate);
+            _jobToUpdate.CompanyName = CompanyName;
+
+            string token = await _authenticationService.GetCurrentTokenAsync();
+            string json = JsonConvert.SerializeObject(_jobToUpdate);
+
+            if (_isNew)
+            {
+                _manageData.SetStrategy(new CreateData());
+                await _manageData.GetDataAndDeserializeIt<ExperienceModel>($"Experience/AddNewExperienceForUser", json, token);
+            }
+            else
+            {
+                _manageData.SetStrategy(new UpdateData());
+                await _manageData.GetDataAndDeserializeIt<ExperienceModel>($"Experience/UpdateFinishedStudy", json, token);
+            }
+            _manageData.SetStrategy(new GetData());
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
 
 
         [RelayCommand]
         public void StillEmployed()
         {
+            if (IsStillEmployedChecked == true)
+                EndDate = "";
+            IsValidForSaving();
+        }
 
+        [RelayCommand]
+        public void CompanyNameTextChanged()
+        {
+            IsValidForSaving();
+        }
+
+        [RelayCommand]
+        public void JobTitleTextChanged()
+        {
+            IsValidForSaving();
+        }
+
+        [RelayCommand]
+        public void YearTextChanged()
+        {
+            IsValidForSaving();
         }
         #endregion
 

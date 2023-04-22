@@ -10,6 +10,6 @@ namespace AlumniNetMobile.Models
         public string JobTitle { get; set; }
         public string CompanyName { get; set; }
         public int StartDate { get; set; }
-        public int EndDate { get; set; }
+        public int? EndDate { get; set; }
     }
 }

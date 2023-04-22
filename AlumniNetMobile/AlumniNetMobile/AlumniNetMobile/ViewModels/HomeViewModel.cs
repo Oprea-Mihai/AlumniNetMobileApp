@@ -27,6 +27,8 @@ namespace AlumniNetMobile.ViewModels
 
             _currentIndex = 0;
             _batchSize = 5;
+            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
+
         }
         #endregion
 
@@ -35,6 +37,7 @@ namespace AlumniNetMobile.ViewModels
         private ManageData _manageData;
         public int _currentIndex;
         private readonly int _batchSize;
+        private IAuthenticationService _authenticationService;
 
         #endregion
 
@@ -45,10 +48,11 @@ namespace AlumniNetMobile.ViewModels
             List<PostModel> postsBatch = new();
             try
             {
+                string token = await _authenticationService.GetCurrentTokenAsync();
                 _manageData.SetStrategy(new GetData());
                 postsBatch = await _manageData.GetDataAndDeserializeIt
                     <List<PostModel>>
-                    ($"Post/GetBatchOfPostsSorted?batchSize={batchSize}&currentIndex={index}", "");
+                    ($"Post/GetBatchOfPostsSorted?batchSize={batchSize}&currentIndex={index}", "",token);
             }
             catch (Exception e)
             {

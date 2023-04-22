@@ -35,7 +35,11 @@
                         Placeholder="Numele postului"
                         Text="{Binding JobTitle}"
                         VerticalOptions="Center"
-                        WidthRequest="300" />
+                        WidthRequest="300">
+                        <renderer:BorderlessEditor.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding JobTitleTextChanged}" EventName="TextChanged" />
+                        </renderer:BorderlessEditor.Behaviors>
+                    </renderer:BorderlessEditor>
                 </StackLayout>
             </Frame>
 
@@ -59,7 +63,11 @@
                         Placeholder="Numele companiei"
                         Text="{Binding CompanyName}"
                         VerticalOptions="Center"
-                        WidthRequest="300" />
+                        WidthRequest="300">
+                        <renderer:BorderlessEditor.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding CompanyNameTextChangedCommand}" EventName="TextChanged" />
+                        </renderer:BorderlessEditor.Behaviors>
+                    </renderer:BorderlessEditor>
                 </StackLayout>
             </Frame>
 
@@ -83,7 +91,11 @@
                         Placeholder="Anul inceperii"
                         Text="{Binding StartDate}"
                         VerticalOptions="Center"
-                        WidthRequest="300" />
+                        WidthRequest="300" >
+                        <renderer:BorderlessEditor.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding YearTextChangedCommand}" EventName="TextChanged" />
+                        </renderer:BorderlessEditor.Behaviors>
+                    </renderer:BorderlessEditor>
                 </StackLayout>
             </Frame>
 
@@ -108,7 +120,11 @@
                         Placeholder="Anul incetarii"
                         Text="{Binding EndDate}"
                         VerticalOptions="Center"
-                        WidthRequest="200" />
+                        WidthRequest="200" >
+                        <renderer:BorderlessEditor.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding YearTextChangedCommand}" EventName="TextChanged" />
+                        </renderer:BorderlessEditor.Behaviors>
+                    </renderer:BorderlessEditor>
                     <Label Text="Inca angajat" VerticalOptions="Center" />
                     <CheckBox IsChecked="{Binding IsStillEmployedChecked}" Color="black">
                         <CheckBox.Behaviors>
@@ -157,6 +173,7 @@
                     Padding="2,0,2,0"
                     BackgroundColor="#1C698A"
                     Command="{Binding SaveCommand}"
+                    IsEnabled="{Binding SaveButtonEnabled}"
                     CornerRadius="5"
                     FontFamily="Montserrat"
                     FontSize="16"
