@@ -1,6 +1,7 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.DataHandlingStrategy;
 using AlumniNetMobile.Models;
+using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
@@ -11,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -346,14 +348,8 @@ namespace AlumniNetMobile.ViewModels
 
         [RelayCommand]
         public async void Delete()
-        {
-            string token = await _authenticationService.GetCurrentTokenAsync();
-            _manageData.SetStrategy(new DeleteData());
-            await _manageData.GetDataAndDeserializeIt<bool>
-                ($"FinishedStudy/DeleteFinishedStudy?id={_programToUpdate.FinishedStudyId}","", token);
-            await Application.Current.MainPage.Navigation.PopAsync();
-
-
+        {        
+            Application.Current.MainPage.Navigation.ShowPopup(new DeletePopupView(_programToUpdate.FinishedStudyId));
         }
 
 
