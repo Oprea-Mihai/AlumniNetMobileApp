@@ -41,6 +41,7 @@
                             <Button
                                 CornerRadius="30"
                                 HeightRequest="40"
+                                Command="{Binding AddPostButtonClickedCommand}"
                                 WidthRequest="40">
                                 <Button.ImageSource>
                                     <FontImageSource

@@ -91,7 +91,7 @@
                         Placeholder="Anul inceperii"
                         Text="{Binding StartDate}"
                         VerticalOptions="Center"
-                        WidthRequest="300" >
+                        WidthRequest="300">
                         <renderer:BorderlessEditor.Behaviors>
                             <xct:EventToCommandBehavior Command="{Binding YearTextChangedCommand}" EventName="TextChanged" />
                         </renderer:BorderlessEditor.Behaviors>
@@ -120,7 +120,7 @@
                         Placeholder="Anul incetarii"
                         Text="{Binding EndDate}"
                         VerticalOptions="Center"
-                        WidthRequest="200" >
+                        WidthRequest="200">
                         <renderer:BorderlessEditor.Behaviors>
                             <xct:EventToCommandBehavior Command="{Binding YearTextChangedCommand}" EventName="TextChanged" />
                         </renderer:BorderlessEditor.Behaviors>
@@ -144,8 +144,10 @@
                 <Button
                     Margin="0,0,120,0"
                     BackgroundColor="Transparent"
+                    Command="{Binding DeleteExperienceCommand}"
                     HeightRequest="22"
                     HorizontalOptions="EndAndExpand"
+                    IsVisible="{Binding IsDeleteButtonVisible}"
                     WidthRequest="25">
                     <Button.ImageSource>
                         <FontImageSource
@@ -165,6 +167,7 @@
                     CornerRadius="5"
                     FontFamily="Montserrat"
                     FontSize="16"
+                    HorizontalOptions="EndAndExpand"
                     Text="Anulati"
                     TextColor="Black"
                     TextTransform="None"
@@ -173,10 +176,11 @@
                     Padding="2,0,2,0"
                     BackgroundColor="#1C698A"
                     Command="{Binding SaveCommand}"
-                    IsEnabled="{Binding SaveButtonEnabled}"
                     CornerRadius="5"
                     FontFamily="Montserrat"
                     FontSize="16"
+                    HorizontalOptions="End"
+                    IsEnabled="{Binding SaveButtonEnabled}"
                     Text="Salvati"
                     TextColor="White"
                     TextTransform="None"

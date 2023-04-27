@@ -98,6 +98,12 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
+        public async Task AddPostButtonClicked()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new AddPostView());
+        }
+
+        [RelayCommand]
         public async void LoadMorePostsAsync()
         {
             if (IsBusy) return;

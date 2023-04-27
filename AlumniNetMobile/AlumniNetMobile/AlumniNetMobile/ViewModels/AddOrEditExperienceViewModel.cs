@@ -20,7 +20,7 @@ namespace AlumniNetMobile.ViewModels
         public AddOrEditExperienceViewModel()
         {
             CommonInitialization();
-
+            IsDeleteButtonVisible = false;
             JobTitle = null;
             CompanyName = null;
             StartDate = EndDate = "";
@@ -34,7 +34,7 @@ namespace AlumniNetMobile.ViewModels
         public AddOrEditExperienceViewModel(ExperienceModel selectedJob)
         {
             CommonInitialization();
-
+            IsDeleteButtonVisible = true;
             _jobToUpdate = selectedJob;
             StartDate = selectedJob.StartDate.ToString();
             EndDate = selectedJob.EndDate == null ? "" : selectedJob.EndDate.ToString();
@@ -103,6 +103,9 @@ namespace AlumniNetMobile.ViewModels
         [ObservableProperty]
         private bool _isStillEmployedChecked;
 
+        [ObservableProperty]
+        private bool _isDeleteButtonVisible;
+
         #endregion
 
         #region Commands
@@ -166,6 +169,16 @@ namespace AlumniNetMobile.ViewModels
         public void YearTextChanged()
         {
             IsValidForSaving();
+        }
+
+        [RelayCommand]
+        public async void DeleteExperience()
+        {
+            string token = await _authenticationService.GetCurrentTokenAsync();
+            _manageData.SetStrategy(new DeleteData());
+            await _manageData.GetDataAndDeserializeIt<bool>($"Experience/DeleteExperience?experienceId={_jobToUpdate.ExperienceId}", "", token);
+            await Application.Current.MainPage.Navigation.PopAsync();
+
         }
         #endregion
 
