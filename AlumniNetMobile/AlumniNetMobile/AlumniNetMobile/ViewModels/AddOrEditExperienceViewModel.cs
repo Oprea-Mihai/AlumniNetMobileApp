@@ -37,8 +37,8 @@ namespace AlumniNetMobile.ViewModels
 
             _jobToUpdate = selectedJob;
             StartDate = selectedJob.StartDate.ToString();
-            EndDate = selectedJob.EndDate == 0 ? "" : selectedJob.EndDate.ToString();
-            if (selectedJob.EndDate == 0)
+            EndDate = selectedJob.EndDate == null ? "" : selectedJob.EndDate.ToString();
+            if (selectedJob.EndDate == null)
                 IsStillEmployedChecked = true;
             else
                 IsStillEmployedChecked = false;
@@ -135,7 +135,7 @@ namespace AlumniNetMobile.ViewModels
             else
             {
                 _manageData.SetStrategy(new UpdateData());
-                await _manageData.GetDataAndDeserializeIt<ExperienceModel>($"Experience/UpdateFinishedStudy", json, token);
+                await _manageData.GetDataAndDeserializeIt<ExperienceModel>($"Experience/UpdateExperience", json, token);
             }
             _manageData.SetStrategy(new GetData());
             await Application.Current.MainPage.Navigation.PopAsync();

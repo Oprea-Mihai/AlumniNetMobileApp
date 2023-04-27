@@ -169,7 +169,10 @@
                                             <StackLayout>
                                                 <StackLayout Orientation="Horizontal">
                                                     <Label Style="{StaticResource OpenSans-SemiBoldTextLabel}" Text="{Binding Specialization}" />
-                                                    <Image>
+                                                    <Image
+                                                        Margin="0,0,10,0"
+                                                        HorizontalOptions="End"
+                                                        VerticalOptions="Start">
                                                         <Image.Source>
                                                             <FontImageSource
                                                                 FontFamily="FontAwesome"
@@ -217,6 +220,7 @@
 
                                                 </StackLayout>
                                             </StackLayout>
+
                                         </StackLayout>
                                     </Frame>
                                 </StackLayout>

@@ -1,5 +1,6 @@
 ﻿using AlumniNetMobile.Common;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -29,7 +30,8 @@ namespace AlumniNetMobile.DataHandlingStrategy
             var data = await _manageDataStrategy.ManageData(_httpClient, url, json);
 
             if (data == string.Empty)
-                throw new TaskCanceledException();//DO NOT REMOVE BKPOINT
+                Console.WriteLine(url + " returned an empty string");
+                //throw new TaskCanceledException();//DO NOT REMOVE BKPOINT
 
             var deserializedData = JsonConvert.DeserializeObject<T>(data);
             return deserializedData;
