@@ -21,13 +21,13 @@ namespace AlumniNetMobile.ViewModels
         {
 
             _manageData = new ManageData();
+            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
 
             Posts = new ObservableRangeCollection<PostModel>();
             IsLikeButtonClicked = true;
 
             _currentIndex = 0;
             _batchSize = 5;
-            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
 
         }
         #endregion
