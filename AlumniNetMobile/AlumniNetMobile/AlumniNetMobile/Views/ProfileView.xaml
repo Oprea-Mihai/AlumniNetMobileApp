@@ -39,7 +39,15 @@
                             Padding="0"
                             CornerRadius="100"
                             IsClippedToBounds="True">
-                            <Image Source="{Binding ProfilePicture}" />
+                            <ImageButton
+                                Command="{Binding ProfilePictureClickedCommand}"
+                                HeightRequest="90"
+                                Aspect="AspectFill"
+                                HorizontalOptions="Center"
+                                Source="{Binding ProfilePicture}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="90" />
+                            <!--<Image Source="{Binding ProfilePicture}" />-->
                         </Frame>
 
                         <StackLayout Orientation="Vertical">

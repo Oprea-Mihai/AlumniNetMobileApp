@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xct:Popup
+    x:Class="AlumniNetMobile.Views.EditProfileImgPopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:viewModels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+    x:DataType="viewModels:EditProfileImgViewModel"
+    IsLightDismissEnabled="False"
+    Size="350,150"
+    Color="Transparent">
+    <Frame
+        Margin="32,314,33,330"
+        Padding="5,20,5,20"
+        BackgroundColor="#FFFFFF"
+        BorderColor="#1C698A"
+        CornerRadius="10"
+        HasShadow="False">
+        <RelativeLayout>
+            <Label
+                Margin="10,5,10,10"
+                CharacterSpacing="0.005"
+                FontFamily="Montserrat-SemiBold"
+                FontSize="16"
+                Text="Alegeti o optiune" />
+            <StackLayout
+                Margin="0,70,0,0"
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal">
+                <Button
+                    Margin="0,0,10,0"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    BorderWidth="0"
+                    Clicked="Button_Clicked"
+                    FontAttributes="Bold"
+                    FontFamily="Montserrat-SemiBold"
+                    HeightRequest="40"
+                    Text="Cancel"
+                    TextTransform="None"
+                    WidthRequest="104">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.ArrowLeft}"
+                            Size="17"
+                            Color="#1C698A" />
+                    </Button.ImageSource>
+                </Button>
+                <Button
+                    Padding="2,0,2,0"
+                    BackgroundColor="#1C698A"
+                    Clicked="Button_Clicked"
+                    Command="{Binding ChangePictureCommand}"
+                    CornerRadius="5"
+                    FontFamily="Montserrat-SemiBold"
+                    HeightRequest="40"
+                    Text="Update"
+                    TextColor="#FFFFFF"
+                    TextTransform="None"
+                    WidthRequest="104" />
+                <Button
+                    Padding="2,0,2,0"
+                    BackgroundColor="#8A1C23"
+                    Clicked="Button_Clicked"
+                    IsEnabled="{Binding IsDeleteEnabled}"
+                    Command="{Binding DeletePictureCommand}"
+                    CornerRadius="5"
+                    FontFamily="Montserrat-SemiBold"
+                    HeightRequest="40"
+                    Text="Remove"
+                    TextColor="#FFFFFF"
+                    TextTransform="None"
+                    WidthRequest="104" />
+            </StackLayout>
+        </RelativeLayout>
+    </Frame>
+</xct:Popup>

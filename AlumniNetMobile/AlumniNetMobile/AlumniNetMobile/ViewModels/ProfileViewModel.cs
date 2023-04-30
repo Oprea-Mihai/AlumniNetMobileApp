@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -29,7 +30,10 @@ namespace AlumniNetMobile.ViewModels
 
             IsEditing = false;
             IsNotEditing = true;
-
+            MessagingCenter.Subscribe<object>(this, "ProfilePictureChanged", async (sender) =>
+            {
+                await GetProfileData();
+            });
         }
 
         #endregion
@@ -38,6 +42,7 @@ namespace AlumniNetMobile.ViewModels
 
         private readonly ManageData _manageData;
         private IAuthenticationService _authenticationService;
+        private string profilePicKey="";
 
         #endregion
 
@@ -71,11 +76,11 @@ namespace AlumniNetMobile.ViewModels
                     FacultyId=x.Specialization.FacultyId,
                     ProfileId=x.ProfileId
                 })) ;
-
-                if (profile.ProfilePicture != null)
+                profilePicKey = profile.ProfilePicture;
+                if (profilePicKey != null&&profilePicKey!="")
                 {
                     GetData getData = new GetData();
-                    Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={profile.ProfilePicture}");
+                    Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={profilePicKey}", token);
                     ProfilePicture = ImageSource.FromStream(() => file);
                 }
                 else ProfilePicture = ImageSource.FromFile("user.png");
@@ -209,6 +214,11 @@ namespace AlumniNetMobile.ViewModels
             await Application.Current.MainPage.Navigation.PushAsync(new AddOrEditExperienceView(selected));
         }
 
+        [RelayCommand]
+        public async void ProfilePictureClicked()
+        {
+            Application.Current.MainPage.Navigation.ShowPopup(new EditProfileImgPopup(profilePicKey));
+        }
 
 
         #endregion

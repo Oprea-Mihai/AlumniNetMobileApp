@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -27,10 +28,13 @@ namespace AlumniNetMobile.DataHandlingStrategy
             return null;
         }
 
-        public async Task<Stream> ManageStreamData(string endPoint)
+        public async Task<Stream> ManageStreamData(string endPoint,string token="")
         {
             HttpClient httpClient = new HttpClient(DependencyService.Get<IHttpClientHandlerService>().GetInsecureHandler());
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+            if (token.Length > 0)
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var uri = new Uri(Uri + endPoint);
             try
