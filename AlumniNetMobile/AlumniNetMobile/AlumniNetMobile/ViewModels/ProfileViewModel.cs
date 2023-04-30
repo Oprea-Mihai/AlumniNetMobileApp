@@ -6,6 +6,7 @@ using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -70,6 +71,14 @@ namespace AlumniNetMobile.ViewModels
                     FacultyId=x.Specialization.FacultyId,
                     ProfileId=x.ProfileId
                 })) ;
+
+                if (profile.ProfilePicture != null)
+                {
+                    GetData getData = new GetData();
+                    Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={profile.ProfilePicture}");
+                    ProfilePicture = ImageSource.FromStream(() => file);
+                }
+                else ProfilePicture = ImageSource.FromFile("user.png");
             }
             catch (Exception e)
             {
@@ -115,6 +124,9 @@ namespace AlumniNetMobile.ViewModels
 
         [ObservableProperty]
         private ExperienceModel _selectedJobExperience;
+
+        [ObservableProperty]
+        ImageSource _profilePicture;
         #endregion
 
         #region Commands

@@ -39,7 +39,7 @@
                             Padding="0"
                             CornerRadius="100"
                             IsClippedToBounds="True">
-                            <Image Source="user.png" />
+                            <Image Source="{Binding ProfilePicture}" />
                         </Frame>
 
                         <StackLayout Orientation="Vertical">

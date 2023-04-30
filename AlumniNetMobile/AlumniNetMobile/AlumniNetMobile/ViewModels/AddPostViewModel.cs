@@ -57,7 +57,7 @@ namespace AlumniNetMobile.ViewModels
 
             //THIS IS JUST A DEMO:
             _manageData.SetStrategy(new GetData());
-            Stream file = await _getData.ManageStreamData($"Buckets/GetFileByKey?bucketName=alumni-app-bucket&key=delete.png");
+            Stream file = await _getData.ManageStreamData($"Files/GetFileByKey?key=delete.png");
             SelectedImage = ImageSource.FromStream(() => file);
         }
 
