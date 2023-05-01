@@ -16,7 +16,6 @@
 
     <ContentPage.Content>
         <StackLayout>
-
             <Frame Margin="5,10,5,0" Style="{StaticResource FrameCardNoRequests}">
                 <StackLayout
                     Padding="10,0,0,0"

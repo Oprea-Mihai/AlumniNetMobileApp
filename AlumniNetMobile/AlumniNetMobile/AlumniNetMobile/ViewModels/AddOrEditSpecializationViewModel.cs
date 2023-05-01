@@ -347,9 +347,9 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public async void Delete()
+        public void Delete()
         {        
-            Application.Current.MainPage.Navigation.ShowPopup(new DeletePopupView(_programToUpdate.FinishedStudyId));
+            Application.Current.MainPage.Navigation.ShowPopup(new DeleteSpecializationPopupView(_programToUpdate.FinishedStudyId));
         }
 
 

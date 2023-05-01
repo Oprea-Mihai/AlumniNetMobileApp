@@ -31,7 +31,7 @@ namespace AlumniNetMobile.DataHandlingStrategy
             return null;
         }
 
-        public async Task<string> ManageStreamData(string endPoint, Stream fileStream, string token = "")
+        public async Task<string> ManageStreamData(string endPoint, Stream fileStream, string token = "",string filename="img")
         {
             HttpClient httpClient = new HttpClient(DependencyService.Get<IHttpClientHandlerService>().GetInsecureHandler());
 
@@ -40,7 +40,7 @@ namespace AlumniNetMobile.DataHandlingStrategy
             {
                 var content = new MultipartFormDataContent
                 {
-                    { new StreamContent(fileStream), "file", "filename.jpg" }//check how to change this
+                    { new StreamContent(fileStream), "file",filename}//check how to change this
                 };
 
                 if (token.Length > 0)
@@ -49,7 +49,8 @@ namespace AlumniNetMobile.DataHandlingStrategy
                 var response = await httpClient.PutAsync(uri, content);
 
 
-                if (!response.IsSuccessStatusCode) return string.Empty;
+                if (!response.IsSuccessStatusCode) 
+                    return string.Empty;
 
                 return await response.Content.ReadAsStringAsync();
             }

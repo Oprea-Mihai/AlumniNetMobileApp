@@ -5,25 +5,17 @@ using Xamarin.Forms.Xaml;
 namespace AlumniNetMobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DeletePopupView : Popup
+    public partial class DeleteExperiencePopup : Popup
     {
-        #region Constructors...
-
-        public DeletePopupView(int idToDelete)
+        public DeleteExperiencePopup(int idToDelete)
         {
             InitializeComponent();
-            BindingContext = new DeletePopupViewModel(idToDelete);
+            BindingContext = new DeleteExperiencePopupViewModel(idToDelete);
         }
-
-        #endregion
 
         #region Methods...
 
         void Button_Clicked(System.Object sender, System.EventArgs e)
-        {
-            Dismiss(null);
-        }
-        void YesDeleteButton_Clicked(System.Object sender, System.EventArgs e)
         {
             Dismiss(null);
         }

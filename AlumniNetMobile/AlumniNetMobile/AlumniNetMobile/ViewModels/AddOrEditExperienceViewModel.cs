@@ -2,6 +2,7 @@
 using AlumniNetMobile.DataHandlingStrategy;
 using AlumniNetMobile.DTOs;
 using AlumniNetMobile.Models;
+using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels
@@ -172,13 +174,9 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public async void DeleteExperience()
+        public  void DeleteExperience()
         {
-            string token = await _authenticationService.GetCurrentTokenAsync();
-            _manageData.SetStrategy(new DeleteData());
-            await _manageData.GetDataAndDeserializeIt<bool>($"Experience/DeleteExperience?experienceId={_jobToUpdate.ExperienceId}", "", token);
-            await Application.Current.MainPage.Navigation.PopAsync();
-
+            Application.Current.MainPage.Navigation.ShowPopup(new DeleteExperiencePopup(_jobToUpdate.ExperienceId));
         }
         #endregion
 

@@ -1,14 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
-
 <xct:Popup
-    x:Class="AlumniNetMobile.Views.DeletePopupView"
+    x:Class="AlumniNetMobile.Views.DeleteExperiencePopup"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:viewModels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-    x:DataType="viewModels:DeletePopupViewModel"
+    x:DataType="viewModels:DeleteExperiencePopupViewModel"
     IsLightDismissEnabled="False"
     Size="350,180"
     Color="Transparent">
@@ -25,9 +23,10 @@
                 CharacterSpacing="0.005"
                 FontFamily="Montserrat-SemiBold"
                 FontSize="16"
-                Text="Delete this finished study?" />
+                Text="Delete this job?" 
+                HorizontalOptions="CenterAndExpand"/>
             <StackLayout
-                Margin="70,100,0,0"
+                Margin="90,100,0,0"
                 HorizontalOptions="End"
                 Orientation="Horizontal"
                 VerticalOptions="End">
@@ -54,7 +53,7 @@
                 <Button
                     Padding="2,0,2,0"
                     BackgroundColor="#8A1C23"
-                    Clicked="YesDeleteButton_Clicked"
+                    Clicked="Button_Clicked"
                     Command="{Binding DeleteCommand}"
                     CornerRadius="5"
                     FontFamily="Montserrat-SemiBold"

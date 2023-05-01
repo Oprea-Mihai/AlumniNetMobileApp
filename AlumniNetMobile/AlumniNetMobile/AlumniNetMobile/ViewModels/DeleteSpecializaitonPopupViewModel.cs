@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels
 {
-    public partial class DeletePopupViewModel : Popup
+    public partial class DeleteSpecializaitonPopupViewModel : Popup
     {
         #region PrivateFields...
         private readonly ManageData _manageData;
@@ -19,7 +19,7 @@ namespace AlumniNetMobile.ViewModels
         #endregion
 
         #region Constructors...
-        public DeletePopupViewModel(int idToDelete)
+        public DeleteSpecializaitonPopupViewModel(int idToDelete)
         {
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             _manageData = new ManageData();
