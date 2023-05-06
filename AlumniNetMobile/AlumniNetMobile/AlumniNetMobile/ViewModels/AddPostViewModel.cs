@@ -1,5 +1,6 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.DataHandlingStrategy;
+using AlumniNetMobile.DTOs;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
@@ -21,11 +22,11 @@ namespace AlumniNetMobile.ViewModels
         public AddPostViewModel()
         {
             _manageData = new ManageData();
-            _getData = new GetData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             _photoPickerService = DependencyService.Resolve<IPhotoPickerService>();
             IsImageVisible = false;
             IsRemoveButtonVisible = false;
+            PostText = string.Empty;
         }
 
         #endregion
@@ -33,7 +34,8 @@ namespace AlumniNetMobile.ViewModels
         #region Private fields
         private IPhotoPickerService _photoPickerService;
         private ManageData _manageData;
-        private GetData _getData;
+        private Stream _selectedFile;
+        private MemoryStream _memoryStream;
         private IAuthenticationService _authenticationService;
         #endregion
 
@@ -44,6 +46,9 @@ namespace AlumniNetMobile.ViewModels
 
         [ObservableProperty]
         ImageSource _selectedImage;
+
+        [ObservableProperty]
+        string _postText;
 
         [ObservableProperty]
         bool _isImageVisible;
@@ -59,31 +64,49 @@ namespace AlumniNetMobile.ViewModels
         public async void OpenPicker()
         {
 
-            var file = await _photoPickerService.GetImageStreamAsync();
-            if (file != null)
+            _selectedFile = await _photoPickerService.GetImageStreamAsync();
+            if (_selectedFile != null)
             {
-                SelectedImage = ImageSource.FromStream(() => file);
+                _memoryStream = new MemoryStream();
+                await _selectedFile.CopyToAsync(_memoryStream);
+                _selectedFile.Seek(0, SeekOrigin.Begin);
+                SelectedImage = ImageSource.FromStream(() => _selectedFile);
                 IsImageVisible = true;
-                IsRemoveButtonVisible = true;
+                IsRemoveButtonVisible = true;               
             }
         }
 
         [RelayCommand]
         public void RemovePicture()
         {
-            IsRemoveButtonVisible=false;
+            IsRemoveButtonVisible = false;
             SelectedImage = null;
-            IsImageVisible=false;
+            IsImageVisible = false;
+            _selectedFile = null;
+
         }
 
         [RelayCommand]
         public async void CreatePost()
         {
-            _manageData.SetStrategy(new CreateData());
-            string token=await _authenticationService.GetCurrentTokenAsync();
-            string json = JsonConvert.SerializeObject(_programToUpdate);
+            PostDTO toPost = new PostDTO();
+            string token = await _authenticationService.GetCurrentTokenAsync();
 
-            await _manageData.GetDataAndDeserializeIt<string>($"", "", token);
+            toPost.PostingDate = DateTime.Now;
+            toPost.Text = PostText;            
+            string imageKey;
+            _manageData.SetStrategy(new CreateData());
+
+            if (_selectedFile != null)
+            {
+                UpdateData updateData = new UpdateData();
+                toPost.Image= await updateData.ManageStreamData($"Post/UploadPostImage", _memoryStream, token);
+            }
+
+            string json = JsonConvert.SerializeObject(toPost);
+            _manageData.SetStrategy(new CreateData());
+            await _manageData.GetDataAndDeserializeIt<string>($"Post/AddNewPostForUser", json, token);
+
         }
         #endregion
     }

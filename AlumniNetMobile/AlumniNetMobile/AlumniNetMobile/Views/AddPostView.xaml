@@ -38,6 +38,7 @@
                                 Margin="5,-10,0,0"
                                 MinimumHeightRequest="200"
                                 Placeholder="Adaugati o descriere"
+                                Text="{Binding PostText}"
                                 VerticalOptions="StartAndExpand"
                                 WidthRequest="280" />
                         </StackLayout>

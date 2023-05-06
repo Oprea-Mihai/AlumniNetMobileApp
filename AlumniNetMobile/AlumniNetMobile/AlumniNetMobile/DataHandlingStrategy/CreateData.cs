@@ -1,7 +1,10 @@
-﻿using System;
+﻿using AlumniNetMobile.Common;
+using System;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace AlumniNetMobile.DataHandlingStrategy
 {
@@ -26,5 +29,6 @@ namespace AlumniNetMobile.DataHandlingStrategy
 
             return null;
         }
+
     }
 }

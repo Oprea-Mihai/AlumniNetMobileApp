@@ -39,9 +39,9 @@
                             HorizontalOptions="End"
                             Orientation="Horizontal">
                             <Button
+                                Command="{Binding AddPostButtonClickedCommand}"
                                 CornerRadius="30"
                                 HeightRequest="40"
-                                Command="{Binding AddPostButtonClickedCommand}"
                                 WidthRequest="40">
                                 <Button.ImageSource>
                                     <FontImageSource
@@ -112,7 +112,7 @@
                                                 FontSize="15"
                                                 Style="{StaticResource StandardTextLabel}"
                                                 Text="{Binding Text}" />
-                                            <Image Source="DemoPostImage.jpg" />
+                                            <Image Aspect="AspectFill" Source="{Binding ImageSource}" />
                                             <StackLayout
                                                 Margin="0,5,0,5"
                                                 HorizontalOptions="End"

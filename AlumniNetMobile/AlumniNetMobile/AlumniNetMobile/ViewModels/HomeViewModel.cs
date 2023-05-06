@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -52,7 +53,7 @@ namespace AlumniNetMobile.ViewModels
                 _manageData.SetStrategy(new GetData());
                 postsBatch = await _manageData.GetDataAndDeserializeIt
                     <List<PostModel>>
-                    ($"Post/GetBatchOfPostsSorted?batchSize={batchSize}&currentIndex={index}", "",token);
+                    ($"Post/GetBatchOfPostsSorted?batchSize={batchSize}&currentIndex={index}", "", token);
             }
             catch (Exception e)
             {
@@ -60,6 +61,25 @@ namespace AlumniNetMobile.ViewModels
             }
             return postsBatch;
         }
+
+        private async void LoadImagesForPosts()
+        {
+            string token = await _authenticationService.GetCurrentTokenAsync();
+            foreach (var post in Posts)
+            {
+                var picKey = post.Image;
+                if (picKey != null && picKey != "")
+                {
+                    GetData getData = new GetData();
+                    Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={picKey}", token);
+                    post.ImageSource = ImageSource.FromStream(() => file);
+                }
+            }
+            //GetData getData = new GetData();
+            //Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key=img-20230506142957-a2979707", token);
+            //Posts[0].ImageSource = ImageSource.FromStream(() => file);
+        }
+
         #endregion
 
         #region Observables
@@ -111,6 +131,7 @@ namespace AlumniNetMobile.ViewModels
             IsBusy = true;
 
             Posts.AddRange(await GetBatchOfPostsAsync(_batchSize, _currentIndex));
+            LoadImagesForPosts();
 
             _currentIndex++;
             IsBusy = false;
@@ -125,9 +146,8 @@ namespace AlumniNetMobile.ViewModels
             IsBusy = true;
 
             _currentIndex = 1;
-
             Posts.ReplaceRange(await GetBatchOfPostsAsync(_batchSize, 0));
-
+            LoadImagesForPosts();
             IsBusy = false;
         }
 
