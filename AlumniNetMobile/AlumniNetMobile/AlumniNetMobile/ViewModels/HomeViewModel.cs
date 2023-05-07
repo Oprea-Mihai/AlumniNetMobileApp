@@ -65,6 +65,7 @@ namespace AlumniNetMobile.ViewModels
         private async void LoadImagesForPosts()
         {
             string token = await _authenticationService.GetCurrentTokenAsync();
+            List<PostModel>postsWithImgs = new List<PostModel>();
             foreach (var post in Posts)
             {
                 var picKey = post.Image;
@@ -73,8 +74,11 @@ namespace AlumniNetMobile.ViewModels
                     GetData getData = new GetData();
                     Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={picKey}", token);
                     post.ImageSource = ImageSource.FromStream(() => file);
+                    postsWithImgs.Add(post);
                 }
             }
+            Posts = new ObservableRangeCollection<PostModel>();
+            Posts.AddRange(postsWithImgs);
             //GetData getData = new GetData();
             //Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key=img-20230506142957-a2979707", token);
             //Posts[0].ImageSource = ImageSource.FromStream(() => file);
