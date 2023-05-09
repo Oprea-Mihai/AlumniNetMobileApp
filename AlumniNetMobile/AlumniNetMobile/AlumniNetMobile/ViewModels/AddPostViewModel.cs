@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks.Sources;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -94,8 +95,9 @@ namespace AlumniNetMobile.ViewModels
 
             toPost.PostingDate = DateTime.Now;
             toPost.Text = PostText;            
-            string imageKey;
             _manageData.SetStrategy(new CreateData());
+
+
 
             if (_selectedFile != null)
             {

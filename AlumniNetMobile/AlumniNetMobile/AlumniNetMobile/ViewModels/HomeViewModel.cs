@@ -20,16 +20,14 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public HomeViewModel()
         {
-
             _manageData = new ManageData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
-
-            Posts = new ObservableRangeCollection<PostModel>();
-            IsLikeButtonClicked = true;
-
+            _postsWithoutImages = new List<PostModel>();
             _currentIndex = 0;
             _batchSize = 5;
 
+            Posts = new ObservableRangeCollection<PostModel>();
+            IsLikeButtonClicked = true;
         }
         #endregion
 
@@ -39,6 +37,7 @@ namespace AlumniNetMobile.ViewModels
         public int _currentIndex;
         private readonly int _batchSize;
         private IAuthenticationService _authenticationService;
+        private List<PostModel> _postsWithoutImages;
 
         #endregion
 
@@ -62,11 +61,11 @@ namespace AlumniNetMobile.ViewModels
             return postsBatch;
         }
 
-        private async void LoadImagesForPosts()
+        private async Task LoadPostsWithImages()
         {
             string token = await _authenticationService.GetCurrentTokenAsync();
-            List<PostModel>postsWithImgs = new List<PostModel>();
-            foreach (var post in Posts)
+            List<PostModel> postsWithImgs = new List<PostModel>();
+            foreach (var post in _postsWithoutImages)
             {
                 var picKey = post.Image;
                 if (picKey != null && picKey != "")
@@ -133,9 +132,8 @@ namespace AlumniNetMobile.ViewModels
             if (IsBusy) return;
 
             IsBusy = true;
-
-            Posts.AddRange(await GetBatchOfPostsAsync(_batchSize, _currentIndex));
-            LoadImagesForPosts();
+            _postsWithoutImages.AddRange(await GetBatchOfPostsAsync(_batchSize, _currentIndex));
+            await LoadPostsWithImages();
 
             _currentIndex++;
             IsBusy = false;
@@ -150,8 +148,8 @@ namespace AlumniNetMobile.ViewModels
             IsBusy = true;
 
             _currentIndex = 1;
-            Posts.ReplaceRange(await GetBatchOfPostsAsync(_batchSize, 0));
-            LoadImagesForPosts();
+            _postsWithoutImages.AddRange(await GetBatchOfPostsAsync(10, 0));
+            await LoadPostsWithImages();
             IsBusy = false;
         }
 
