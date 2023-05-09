@@ -6,6 +6,7 @@
     <ContentPage.Content>
         <StackLayout Padding="20" VerticalOptions="Center">
             <Label Style="{StaticResource HeaderLabel}" Text="Login" />
+            <Label Style="{StaticResource HeaderLabel}" Text="Login" />
 
             <Entry Placeholder="Email" Text="{Binding Email}" />
 

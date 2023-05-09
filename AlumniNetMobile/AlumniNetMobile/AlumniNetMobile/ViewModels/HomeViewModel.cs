@@ -143,6 +143,9 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async Task InitializeAsync()
         {
+            _postsWithoutImages = new List<PostModel>();            
+            Posts = new ObservableRangeCollection<PostModel>();
+
             if (IsBusy) return;
 
             IsBusy = true;

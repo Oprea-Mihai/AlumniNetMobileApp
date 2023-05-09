@@ -90,25 +90,32 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void CreatePost()
         {
+            try
+            {            
             PostDTO toPost = new PostDTO();
             string token = await _authenticationService.GetCurrentTokenAsync();
 
             toPost.PostingDate = DateTime.Now;
-            toPost.Text = PostText;            
+            toPost.Text = PostText;
             _manageData.SetStrategy(new CreateData());
-
-
 
             if (_selectedFile != null)
             {
+                _memoryStream.Seek(0, SeekOrigin.Begin); // Reset the position of the memory stream to the beginning
                 UpdateData updateData = new UpdateData();
-                toPost.Image= await updateData.ManageStreamData($"Post/UploadPostImage", _memoryStream, token);
+                toPost.Image = await updateData.ManageStreamData($"Post/UploadPostImage", _memoryStream, token);
             }
 
             string json = JsonConvert.SerializeObject(toPost);
             _manageData.SetStrategy(new CreateData());
             await _manageData.GetDataAndDeserializeIt<string>($"Post/AddNewPostForUser", json, token);
 
+            await Application.Current.MainPage.Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         #endregion
     }
