@@ -46,7 +46,7 @@
                         TextColor="Black" />
 
                     <Button
-                        Margin="25,0,0,0"
+                        Margin="25,-5,0,10"
                         Command="{Binding ForgotPasswordCommand}"
                         HorizontalOptions="StartAndExpand"
                         Style="{StaticResource SecondaryButton}"
@@ -57,7 +57,7 @@
                         Command="{Binding SignInCommand}"
                         Style="{StaticResource PrimaryButton}"
                         Text="Sign In" />
-                    <Grid Margin="25,10">
+                    <Grid Margin="35,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
