@@ -2,32 +2,79 @@
 <ContentPage
     x:Class="AlumniNetMobile.Views.SignUpView"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit">
     <ContentPage.Content>
 
-        <StackLayout Padding="20" VerticalOptions="Center">
-            <Label Style="{StaticResource HeaderLabel}" Text="Sign up" />
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-            <Entry Placeholder="First name" Text="{Binding FirstName}" />
+                <StackLayout Grid.Row="0">
+                    <Image
+                        Margin="0,40,0,0"
+                        HeightRequest="70"
+                        Source="UniTBv_Logo.png"
+                        WidthRequest="70" />
+                    <Label Style="{StaticResource HeaderLabel}" Text="Join AlumniNet now!" />
+                </StackLayout>
 
-            <Entry Placeholder="Last name" Text="{Binding LastName}" />
+                <StackLayout
+                    Grid.Row="1"
+                    Margin="0,40,0,0"
+                    Spacing="0">
+                    <Label Style="{StaticResource Header2Label}" Text="Sign up" />
 
-            <Entry Placeholder="Email" Text="{Binding UserEmail}" />
+                    <input:AdvancedEntry
+                        Margin="30,0,30,15"
+                        HeightRequest="45"
+                        Placeholder="First name"
+                        Style="{StaticResource AdvancedEntryFieldStyle}"
+                        Text="{Binding FirstName}" />
 
-            <Entry
-                IsPassword="True"
-                Placeholder="Password"
-                Text="{Binding Password}" />
+                    <input:AdvancedEntry
+                        Margin="30,0,30,15"
+                        HeightRequest="45"
+                        Placeholder="Last name"
+                        Style="{StaticResource AdvancedEntryFieldStyle}"
+                        Text="{Binding LastName}" />
 
-            <Button
-                Command="{Binding SignUpCommand}"
-                Style="{StaticResource PrimaryButton}"
-                Text="Sign Up" />
+                    <input:AdvancedEntry
+                        Margin="30,0,30,15"
+                        HeightRequest="45"
+                        Placeholder="Email"
+                        Style="{StaticResource AdvancedEntryFieldStyle}"
+                        Text="{Binding UserEmail}" />
 
-            <Button
-                Command="{Binding SignInCommand}"
-                Style="{StaticResource SecondaryButton}"
-                Text="Already have an account ? Sign in" />
+                    <input:AdvancedEntry
+                        Margin="30,0,30,15"
+                        HeightRequest="45"
+                        IsPassword="True"
+                        Placeholder="Password"
+                        Style="{StaticResource AdvancedEntryFieldStyle}"
+                        Text="{Binding Password}" />
+
+                    <Button
+                        Command="{Binding SignUpCommand}"
+                        Style="{StaticResource PrimaryButton}"
+                        Text="Sign Up" />
+
+                    <Button
+                        Command="{Binding SignInCommand}"
+                        Style="{StaticResource SecondaryButton}"
+                        Text="Already have an account ? Sign in" />
+                </StackLayout>
+
+                <Image
+                    Grid.Row="2"
+                    Margin="0,0,0,-2"
+                    Source="AlumniPageDecoration.png"
+                    VerticalOptions="End" />
+            </Grid>
 
         </StackLayout>
     </ContentPage.Content>
