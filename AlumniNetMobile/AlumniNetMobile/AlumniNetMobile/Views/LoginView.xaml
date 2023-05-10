@@ -2,37 +2,99 @@
 <ContentPage
     x:Class="AlumniNetMobile.Views.LoginView"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit">
     <ContentPage.Content>
-        <StackLayout Padding="20" VerticalOptions="Center">
-            <Label Style="{StaticResource HeaderLabel}" Text="Login" />
-            <Label Style="{StaticResource HeaderLabel}" Text="Login" />
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0">
+                    <Image
+                        Margin="0,40,0,0"
+                        HeightRequest="70"
+                        Source="UniTBv_Logo.png"
+                        WidthRequest="70" />
+                    <Label Style="{StaticResource HeaderLabel}" Text="Welcome to AlumniNet" />
+                </StackLayout>
+                <StackLayout Grid.Row="1" Spacing="0">
 
-            <Entry Placeholder="Email" Text="{Binding Email}" />
+                    <Label Style="{StaticResource Header2Label}" Text="Login" />
 
-            <Entry
-                IsPassword="True"
-                Placeholder="Password"
-                Text="{Binding Password}" />
+                    <input:AdvancedEntry
+                        Margin="30,0,30,15"
+                        BorderColor="#8c8c8c"
+                        CornerRadius="10"
+                        HeightRequest="45"
+                        Placeholder="Email"
+                        PlaceholderColor="#8c8c8c"
+                        Text="{Binding Email}"
+                        TextColor="Black" />
 
-            <Button
-                Command="{Binding SignInCommand}"
-                Style="{StaticResource PrimaryButton}"
-                Text="Sign In" />
+                    <input:AdvancedEntry
+                        Margin="30,0,30,0"
+                        BorderColor="#8c8c8c"
+                        CornerRadius="10"
+                        HeightRequest="45"
+                        IsPassword="True"
+                        Placeholder="Password"
+                        PlaceholderColor="#8c8c8c"
+                        Text="{Binding Password}"
+                        TextColor="Black" />
 
-            <StackLayout Orientation="Horizontal">
+                    <Button
+                        Margin="25,0,0,0"
+                        Command="{Binding ForgotPasswordCommand}"
+                        HorizontalOptions="StartAndExpand"
+                        Style="{StaticResource SecondaryButton}"
+                        Text="Forgot password?" />
 
-                <Button
-                    Command="{Binding ForgotPasswordCommand}"
-                    HorizontalOptions="StartAndExpand"
-                    Style="{StaticResource SecondaryButton}"
-                    Text="Forgot Password" />
+                    <Button
+                        Margin="35,0,35,0"
+                        Command="{Binding SignInCommand}"
+                        Style="{StaticResource PrimaryButton}"
+                        Text="Sign In" />
+                    <Grid Margin="25,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <Button
-                    Command="{Binding SignUpCommand}"
-                    Style="{StaticResource SecondaryButton}"
-                    Text="Sign Up" />
-            </StackLayout>
+                        <BoxView
+                            Grid.Column="0"
+                            Margin="0,11"
+                            BackgroundColor="DarkGray"
+                            HeightRequest="0.5" />
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="OpenSansBold"
+                            FontSize="17"
+                            Text="or"
+                            TextColor="#4e4e4e " />
+                        <BoxView
+                            Grid.Column="2"
+                            Margin="0,11"
+                            BackgroundColor="DarkGray"
+                            HeightRequest="0.5" />
+
+                    </Grid>
+                    <Button
+                        Margin="35,0,35,0"
+                        Command="{Binding SignUpCommand}"
+                        Style="{StaticResource PrimaryButton}"
+                        Text="Sign Up" />
+
+                </StackLayout>
+                <Image
+                    Grid.Row="2"
+                    Margin="0"
+                    Source="AlumniPageDecoration.png"
+                    VerticalOptions="End" />
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
