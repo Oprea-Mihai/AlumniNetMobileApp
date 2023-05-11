@@ -10,6 +10,7 @@ namespace AlumniNetMobile.Views
     {
         public LoginView()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
             BindingContext = new LoginViewModel();
         }

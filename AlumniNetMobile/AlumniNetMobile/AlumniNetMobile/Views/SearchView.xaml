@@ -12,62 +12,76 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <StackLayout>
-            <SearchBar
-                Placeholder="Cautati nume / specializare / an"
-                SearchCommand="{Binding SearchCommand}"
-                Text="{Binding SearchedName}">
-                <SearchBar.Behaviors>
-                    <xct:UserStoppedTypingBehavior
-                        Command="{Binding SearchCommand}"
-                        MinimumLengthThreshold="2"
-                        StoppedTypingTimeThreshold="250" />
-                    <xct:EventToCommandBehavior Command="{Binding SearchBarTextChangedCommand}" EventName="TextChanged" />
-                </SearchBar.Behaviors>
-            </SearchBar>
-            <Label
-                Margin="5,0,0,0"
-                FontSize="15"
-                IsVisible="{Binding AreRecentSearchesVisible}"
-                Style="{StaticResource OpenSans-SemiBoldTextLabel}"
-                Text="Recent:" />
-            <CollectionView
-                ItemsSource="{Binding SearchResults}"
-                SelectedItem="{Binding SelectedUser}"
-                SelectionMode="Single"
-                VerticalOptions="FillAndExpand">
-                <CollectionView.Behaviors>
-                    <xct:EventToCommandBehavior Command="{Binding UserSelectedCommand}" EventName="SelectionChanged" />
-                </CollectionView.Behaviors>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:SearchUserModel">
-                        <StackLayout
-                            Margin="5,5,5,5"
-                            Padding="5"
-                            Orientation="Horizontal">
-                            <Image Source="user.png" WidthRequest="50" />
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <StackLayout>
+                <SearchBar
+                    Placeholder="Cautati nume / specializare / an"
+                    SearchCommand="{Binding SearchCommand}"
+                    Text="{Binding SearchedName}">
+                    <SearchBar.Behaviors>
+                        <xct:UserStoppedTypingBehavior
+                            Command="{Binding SearchCommand}"
+                            MinimumLengthThreshold="2"
+                            StoppedTypingTimeThreshold="250" />
+                        <xct:EventToCommandBehavior Command="{Binding SearchBarTextChangedCommand}" EventName="TextChanged" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+                <Label
+                    Margin="5,0,0,0"
+                    FontSize="15"
+                    IsVisible="{Binding AreRecentSearchesVisible}"
+                    Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                    Text="Recent:" />
+                <CollectionView
+                    ItemsSource="{Binding SearchResults}"
+                    SelectedItem="{Binding SelectedUser}"
+                    SelectionMode="Single"
+                    VerticalOptions="FillAndExpand">
+                    <CollectionView.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding UserSelectedCommand}" EventName="SelectionChanged" />
+                    </CollectionView.Behaviors>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:SearchUserModel">
                             <StackLayout
-                                Orientation="Vertical"
-                                Spacing="0"
-                                VerticalOptions="Center">
-                                <StackLayout Orientation="Horizontal">
-                                    <Label
-                                        FontSize="17"
-                                        Style="{StaticResource OpenSans-SemiBoldTextLabel}"
-                                        Text="{Binding FirstName}" />
-                                    <Label
-                                        FontSize="17"
-                                        Style="{StaticResource OpenSans-SemiBoldTextLabel}"
-                                        Text="{Binding LastName}" />
+                                Margin="5,5,5,5"
+                                Padding="5"
+                                Orientation="Horizontal">
+                                <Frame
+                                    Margin="5,0"
+                                    Padding="0"
+                                    BackgroundColor="Transparent"
+                                    CornerRadius="100"
+                                    IsClippedToBounds="True">
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HeightRequest="90"
+                                        Source="{Binding ImageSource}"
+                                        WidthRequest="90" />
+                                </Frame>
+                                <StackLayout
+                                    Orientation="Vertical"
+                                    Spacing="0"
+                                    VerticalOptions="Center">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            FontSize="17"
+                                            Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                                            Text="{Binding FirstName}" />
+                                        <Label
+                                            FontSize="17"
+                                            Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                                            Text="{Binding LastName}" />
+                                    </StackLayout>
+                                    <Label FontSize="13" Text="{Binding FacultyName}" />
+                                    <Label FontSize="13" Text="{Binding GraduationYear}" />
                                 </StackLayout>
-                                <Label FontSize="13" Text="{Binding FacultyName}" />
                             </StackLayout>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
 
-        </StackLayout>
+            </StackLayout>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

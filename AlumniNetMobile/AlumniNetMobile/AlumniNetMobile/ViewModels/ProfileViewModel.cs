@@ -24,8 +24,7 @@ namespace AlumniNetMobile.ViewModels
         {
             _manageData = new ManageData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
-            Programs = new ObservableRangeCollection<FinishedProgramModel>();
-           
+            Programs = new ObservableRangeCollection<FinishedProgramModel>();           
             Jobs = new ObservableRangeCollection<ExperienceModel>();
 
             IsEditing = false;
@@ -36,6 +35,7 @@ namespace AlumniNetMobile.ViewModels
             });
         }
 
+      
         #endregion
 
         #region Private fields
@@ -217,7 +217,7 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void ProfilePictureClicked()
         {
-            Application.Current.MainPage.Navigation.ShowPopup(new EditProfileImgPopup(profilePicKey));
+           Application.Current.MainPage.Navigation.ShowPopup(new EditProfileImgPopup(profilePicKey));
         }
 
 

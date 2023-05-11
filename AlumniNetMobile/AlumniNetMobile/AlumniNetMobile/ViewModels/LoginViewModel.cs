@@ -9,6 +9,7 @@ namespace AlumniNetMobile.ViewModels
 {
     public partial class LoginViewModel : ObservableObject
     {
+       
         [ObservableProperty]
         private string _email;
 

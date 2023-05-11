@@ -15,12 +15,12 @@ using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(BorderlessEditor), typeof(BorderlessRenderer))]
+[assembly: ExportRenderer(typeof(BorderlessEditor), typeof(BorderlessEditorRenderer))]
 namespace AlumniNetMobile.Droid.Renderers
 {
-    public class BorderlessRenderer : EditorRenderer
+    public class BorderlessEditorRenderer : EditorRenderer
     {
-        public BorderlessRenderer(Context context) : base(context)
+        public BorderlessEditorRenderer(Context context) : base(context)
         {
 
         }

@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace AlumniNetMobile.DataHandlingStrategy
 {
-    public class ManageData
+    public class ManageData : IManageData
     {
         private ManageDataStrategy _manageDataStrategy;
         private HttpClient _httpClient;

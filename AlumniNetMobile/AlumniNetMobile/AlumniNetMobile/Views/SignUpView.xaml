@@ -3,7 +3,10 @@
     x:Class="AlumniNetMobile.Views.SignUpView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit">
+    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+    xmlns:renderer="clr-namespace:TSEMobileApp.Renderers"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    x:DataType="viewmodels:SignUpViewModel">
     <ContentPage.Content>
 
         <StackLayout>
@@ -29,36 +32,31 @@
                     Spacing="0">
                     <Label Style="{StaticResource Header2Label}" Text="Sign up" />
 
-                    <input:AdvancedEntry
-                        Margin="30,0,30,15"
-                        HeightRequest="45"
-                        Placeholder="First name"
-                        Style="{StaticResource AdvancedEntryFieldStyle}"
-                        Text="{Binding FirstName}" />
+                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                        <renderer:BorderlessEntry Placeholder="First name" Text="{Binding FirstName}" />
+                    </Frame>
 
-                    <input:AdvancedEntry
-                        Margin="30,0,30,15"
-                        HeightRequest="45"
-                        Placeholder="Last name"
-                        Style="{StaticResource AdvancedEntryFieldStyle}"
-                        Text="{Binding LastName}" />
 
-                    <input:AdvancedEntry
-                        Margin="30,0,30,15"
-                        HeightRequest="45"
-                        Placeholder="Email"
-                        Style="{StaticResource AdvancedEntryFieldStyle}"
-                        Text="{Binding UserEmail}" />
+                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                        <renderer:BorderlessEntry Placeholder="Last name" Text="{Binding LastName}" />
+                    </Frame>
 
-                    <input:AdvancedEntry
-                        Margin="30,0,30,15"
-                        HeightRequest="45"
-                        IsPassword="True"
-                        Placeholder="Password"
-                        Style="{StaticResource AdvancedEntryFieldStyle}"
-                        Text="{Binding Password}" />
+                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                        <renderer:BorderlessEntry Placeholder="Email" Text="{Binding UserEmail}" />
+                    </Frame>
+
+                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                        <renderer:BorderlessEntry
+                            IsPassword="True"
+                            Placeholder="Password"
+                            Text="{Binding Password}" />
+                    </Frame>
+
+
+
 
                     <Button
+                        Margin="35,0,35,0"
                         Command="{Binding SignUpCommand}"
                         Style="{StaticResource PrimaryButton}"
                         Text="Sign Up" />
@@ -69,13 +67,13 @@
                         Text="Already have an account ? Sign in" />
                 </StackLayout>
 
-                <Image
-                    Grid.Row="2"
-                    Margin="0,0,0,-2"
-                    Source="AlumniPageDecoration.png"
-                    VerticalOptions="End" />
-            </Grid>
 
+            </Grid>
+            <Image
+                Grid.Row="2"
+                Margin="0,0,0,-2"
+                Source="AlumniPageDecoration.png"
+                VerticalOptions="End" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -36,6 +36,8 @@
                 <Setter Property="Padding" Value="0" />
             </Style>
 
+
+
             <Style x:Key="BigFrameCard" TargetType="Frame">
                 <Setter Property="HasShadow" Value="True" />
                 <Setter Property="CornerRadius" Value="5" />
@@ -70,6 +72,13 @@
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="PlaceholderColor" Value="#8c8c8c" />
                 <Setter Property="TextColor" Value="Black" />
+            </Style>
+
+            <Style x:Key="FrameAroundInput" TargetType="Frame">
+                <Setter Property="HasShadow" Value="False" />
+                <Setter Property="BorderColor" Value="#8c8c8c" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Padding" Value="15,0" />
             </Style>
 
             <Style x:Key="SecondaryButton" TargetType="Button">

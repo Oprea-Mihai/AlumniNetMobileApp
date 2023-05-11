@@ -1,9 +1,15 @@
-﻿using AlumniNetMobile.Models;
+﻿using AlumniNetMobile.Common;
+using AlumniNetMobile.DataHandlingStrategy;
+using AlumniNetMobile.Models;
+using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels
 {
@@ -12,25 +18,10 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public SearchViewModel()
         {
-            _users = new List<SearchUserModel>
-            {
-                new SearchUserModel
-                {FacultyName="Facultatea de stiinte economice si administrarea afacerilor",
-                FirstName="Oprea",
-                LastName="Mihai-Lucian"},
-                 new SearchUserModel
-                 {FacultyName="Facultatea de stiinte economice si administrarea afacerilor",
-                FirstName="Cojocaru",
-                LastName="Andrei"},
-                 new SearchUserModel
-                 {FacultyName="Facultatea de stiinte economice si administrarea afacerilor",
-                FirstName="Sorojan",
-                LastName="Marian"},
-                   new SearchUserModel
-                   {FacultyName="Facultatea de stiinte economice si administrarea afacerilor",
-                FirstName="Antal",
-                LastName="Claudiu"}
-            };
+            _manageData = new ManageData();
+            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
+
+            _users = new List<SearchUserModel>();
             _recentSearches = new List<SearchUserModel>(_users);
             SearchResults = new ObservableRangeCollection<SearchUserModel>();
             AreRecentSearchesVisible = true;
@@ -42,8 +33,32 @@ namespace AlumniNetMobile.ViewModels
 
         private List<SearchUserModel> _users;
         private List<SearchUserModel> _recentSearches;
+        private IManageData _manageData;
+        private IAuthenticationService _authenticationService;
 
 
+        #endregion
+
+        #region Methods
+        private async Task GetResults(string searchedString)
+        {
+            if (IsBusy) return;
+            IsBusy = true;
+            string token = await _authenticationService.GetCurrentTokenAsync();
+            _manageData.SetStrategy(new GetData());
+            _users = await _manageData.GetDataAndDeserializeIt<List<SearchUserModel>>
+                ($"User/GetUserSearchResults?searchedString={searchedString}", "", token);
+            foreach (SearchUserModel user in _users)
+            {
+                if (user.ProfilePicture != string.Empty)
+                { GetData getData = new GetData();
+                    Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={user.ProfilePicture}", token);
+                    user.ImageSource = ImageSource.FromStream(() => file);
+                }
+                else user.ImageSource = ImageSource.FromFile("user.png");
+            }
+            IsBusy = false;
+        }
         #endregion
 
         #region Observables
@@ -64,36 +79,40 @@ namespace AlumniNetMobile.ViewModels
         [ObservableProperty]
         private SearchUserModel _selectedUser;
 
+        [ObservableProperty]
+        private bool _isBusy;
+
         #endregion
 
         #region Commands       
         [RelayCommand]
-        public void Search()
+        public async void Search()
         {
             AreRecentSearchesVisible = false;
-            SearchResults.ReplaceRange(_users.Where
-                ((System.Func<SearchUserModel, bool>)(x => x.FirstName.ToLower().Contains((string)this.SearchedName.ToLower()) ||
-                x.LastName.ToLower().Contains((string)this.SearchedName.ToLower()))).Select(x => new SearchUserModel
-                {
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    FacultyName = char.ToUpper((x.FacultyName.Substring(14))[0]) + x.FacultyName.Substring(15)
-                })); ;
+            await GetResults(SearchedName);
+            SearchResults.ReplaceRange(_users);
         }
 
         [RelayCommand]
         public void SearchBarTextChanged()
         {
-            if (SearchedName.Length == 0) { 
-            AreRecentSearchesVisible = true;
-            SearchResults.ReplaceRange(_recentSearches);
+            if (SearchedName.Length == 0)
+            {
+                AreRecentSearchesVisible = true;
+                SearchResults.ReplaceRange(_recentSearches);
             }
         }
 
         [RelayCommand]
-        public void UserSelected()
+        public async void UserSelected()
         {
-
+            if (SelectedUser == null)
+            {
+                return;
+            }
+            SearchUserModel selected = SelectedUser;
+            SelectedUser = null;
+            await Application.Current.MainPage.Navigation.PushAsync(new VisitedProfileView(selected.ProfileId));
         }
 
         #endregion
