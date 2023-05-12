@@ -9,24 +9,38 @@ namespace AlumniNetMobile.ViewModels
 {
     public partial class LoginViewModel : ObservableObject
     {
-       
+
         [ObservableProperty]
         private string _email;
 
         [ObservableProperty]
         private string _password;
 
+        [ObservableProperty]
+        private bool _invalidDataVisible;
+        [ObservableProperty]
+        private Color _borderColor;
+
+        public LoginViewModel()
+        {
+            BorderColor = Color.DarkGray;
+        }
+
         [RelayCommand]
         public async void SignIn()
         {
             try
             {
+                BorderColor = Color.DarkGray;
+                InvalidDataVisible = false;
                 var authService = DependencyService.Resolve<IAuthenticationService>();
                 var token = await authService.SignIn(Email, Password);
                 await Application.Current.MainPage.Navigation.PushAsync(new Navigation());
             }
             catch (Exception ex)
             {
+                BorderColor = Color.Red;
+                InvalidDataVisible = true;
                 Console.WriteLine(ex.Message);
             }
 

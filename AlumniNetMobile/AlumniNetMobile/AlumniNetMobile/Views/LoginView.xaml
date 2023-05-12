@@ -27,22 +27,37 @@
                         WidthRequest="70" />
                     <Label Style="{StaticResource HeaderLabel}" Text="Welcome to AlumniNet!" />
                 </StackLayout>
-                <StackLayout Margin="0,120,0,0" Grid.Row="1" Spacing="0">
+                <StackLayout
+                    Grid.Row="1"
+                    Margin="0,120,0,0"
+                    Spacing="0">
 
-                    <Label   Style="{StaticResource Header2Label}" Text="Sign in" />
+                    <Label Style="{StaticResource Header2Label}" Text="Sign in" />
 
 
-                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                    <Frame
+                        Margin="30,0,30,15"
+                        BorderColor="{Binding BorderColor}"
+                        Style="{StaticResource FrameAroundInput}">
                         <renderer:BorderlessEntry Placeholder="Email" Text="{Binding Email}" />
                     </Frame>
 
-                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                    <Frame
+                        Margin="30,0,30,15"
+                        BorderColor="{Binding BorderColor}"
+                        Style="{StaticResource FrameAroundInput}">
                         <renderer:BorderlessEntry
                             IsPassword="True"
                             Placeholder="Password"
                             Text="{Binding Password}" />
                     </Frame>
-
+                    <Label
+                        Margin="30,0,30,0"
+                        FontFamily="OpenSansSemiBold"
+                        FontSize="15"
+                        IsVisible="{Binding InvalidDataVisible}"
+                        Text="Incorrect email address or password"
+                        TextColor="IndianRed" />
                     <Button
                         Margin="25,-5,0,10"
                         Command="{Binding ForgotPasswordCommand}"

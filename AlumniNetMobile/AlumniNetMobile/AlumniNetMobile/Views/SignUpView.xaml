@@ -8,13 +8,11 @@
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     x:DataType="viewmodels:SignUpViewModel">
     <ContentPage.Content>
-
         <StackLayout>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
                 <StackLayout Grid.Row="0">
@@ -28,32 +26,37 @@
 
                 <StackLayout
                     Grid.Row="1"
-                    Margin="0,40,0,0"
+                    Margin="0,0,0,0"
                     Spacing="0">
                     <Label Style="{StaticResource Header2Label}" Text="Sign up" />
 
-                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                    <Frame BorderColor="{Binding BorderColor}" Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
                         <renderer:BorderlessEntry Placeholder="First name" Text="{Binding FirstName}" />
                     </Frame>
 
 
-                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                    <Frame BorderColor="{Binding BorderColor}" Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
                         <renderer:BorderlessEntry Placeholder="Last name" Text="{Binding LastName}" />
                     </Frame>
 
-                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                    <Frame BorderColor="{Binding BorderColor}" Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
                         <renderer:BorderlessEntry Placeholder="Email" Text="{Binding UserEmail}" />
                     </Frame>
 
-                    <Frame Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
+                    <Frame BorderColor="{Binding BorderColor}" Margin="30,0,30,15" Style="{StaticResource FrameAroundInput}">
                         <renderer:BorderlessEntry
                             IsPassword="True"
                             Placeholder="Password"
                             Text="{Binding Password}" />
                     </Frame>
-
-
-
+                    
+                    <Label
+                        Margin="30,0,30,0"
+                        FontFamily="OpenSansSemiBold"
+                        FontSize="15"
+                        IsVisible="{Binding InvalidDataVisible}"
+                        Text="{Binding InvalidDataMessage}"
+                        TextColor="IndianRed" />
 
                     <Button
                         Margin="35,0,35,0"
@@ -70,10 +73,10 @@
 
             </Grid>
             <Image
-                Grid.Row="2"
-                Margin="0,0,0,-2"
+                Margin="0,0,0,-5"
+                Aspect="AspectFit"
                 Source="AlumniPageDecoration.png"
-                VerticalOptions="End" />
+                VerticalOptions="EndAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

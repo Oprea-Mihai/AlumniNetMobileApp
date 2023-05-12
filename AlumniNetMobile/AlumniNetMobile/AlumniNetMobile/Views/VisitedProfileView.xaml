@@ -111,6 +111,7 @@
 
                     <renderers:BorderlessEditor
                         FontSize="16"
+                        IsEnabled="False"
                         IsVisible="{Binding IsExtended}"
                         Text="{Binding Description}" />
                 </StackLayout>

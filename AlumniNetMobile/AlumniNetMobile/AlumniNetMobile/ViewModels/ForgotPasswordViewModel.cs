@@ -29,8 +29,7 @@ namespace AlumniNetMobile.ViewModels
             {
                 Console.WriteLine(ex.Message);
 
-                await Xamarin.Forms.Shell.Current
-                    .DisplayAlert("Password Reset", "An error occurs", "OK");
+                await Application.Current.MainPage.DisplayAlert("Password Reset", "An error occurs", "OK");
             }
            
         }

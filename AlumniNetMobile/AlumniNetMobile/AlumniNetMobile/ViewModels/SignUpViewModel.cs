@@ -18,8 +18,10 @@ namespace AlumniNetMobile.ViewModels
         public SignUpViewModel()
         {
             ExceptionOccured = false;
+            InvalidDataVisible = false;
             _manageData = new ManageData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
+            BorderColor = Color.DarkGray;
         }
 
         #endregion
@@ -28,6 +30,17 @@ namespace AlumniNetMobile.ViewModels
 
         private readonly ManageData _manageData;
         private IAuthenticationService _authenticationService;
+
+        #endregion
+
+        #region Methods
+
+        private void InvalidCredentials(string message)
+        {
+            BorderColor = Color.Red;
+            InvalidDataMessage = message;
+            InvalidDataVisible = true;
+        }
 
         #endregion
 
@@ -48,6 +61,15 @@ namespace AlumniNetMobile.ViewModels
         [ObservableProperty]
         private bool _exceptionOccured;
 
+        [ObservableProperty]
+        private bool _invalidDataVisible;
+
+        [ObservableProperty]
+        private string _invalidDataMessage;
+
+        [ObservableProperty]
+        private Color _borderColor;
+
         #endregion
 
 
@@ -55,10 +77,17 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         private async void OnSignUp()
         {
+            InvalidDataVisible = false;
+            BorderColor = Color.DarkGray;
+
             try
             {
-
-
+                if (FirstName == string.Empty
+                    || LastName == string.Empty
+                    || UserEmail == string.Empty
+                    || Password == string.Empty)
+                    InvalidCredentials("Fields can not be empty");
+                else
                 if (await _authenticationService.CreateUser(FirstName + " " + LastName, UserEmail, Password))
                 {
                     UserDTO newUser = new UserDTO();
@@ -76,11 +105,11 @@ namespace AlumniNetMobile.ViewModels
 
                     await Application.Current.MainPage.Navigation.PushAsync(new Navigation());
                 }
-                else ExceptionOccured = true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                InvalidCredentials(ex.Message);
             }
 
 
