@@ -5,6 +5,7 @@ using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -71,7 +72,19 @@ namespace AlumniNetMobile.ViewModels
             _manageData.SetStrategy(new GetData());
             string token=await _authenticationService.GetCurrentTokenAsync();
             List<EventModel> events = await _manageData.
-                GetDataAndDeserializeIt<List<EventModel>>("","", token);
+                GetDataAndDeserializeIt<List<EventModel>>("Event/GetEventsForUser", "", token);
+
+            foreach (EventModel eventModel in events)
+            {
+                var picKey = eventModel.Image;
+                if (picKey != null && picKey != "")
+                {
+                    GetData getData = new GetData();
+                    Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={picKey}", token);
+                    eventModel.ImageSource = ImageSource.FromStream(() => file);
+                }
+                Events.ReplaceRange(events);
+            }
         }
 
         #endregion
