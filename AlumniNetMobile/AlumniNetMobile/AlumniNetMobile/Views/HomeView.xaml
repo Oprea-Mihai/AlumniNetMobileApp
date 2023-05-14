@@ -72,8 +72,8 @@
                         x:Name="postsCollectionView"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding Posts}"
-                        RemainingItemsThreshold="1"
-                        RemainingItemsThresholdReachedCommand="{Binding LoadMorePostsAsyncCommand}">
+                        RemainingItemsThreshold="1">
+                        <!--  RemainingItemsThresholdReachedCommand="{Binding LoadMorePostsAsyncCommand}"  -->
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="0,4,0,10" BackgroundColor="Transparent">
@@ -90,7 +90,7 @@
                                                     CornerRadius="300"
                                                     HeightRequest="30"
                                                     IsClippedToBounds="True">
-                                                    <Image Source="user.png" />
+                                                    <Image Aspect="AspectFit" Source="user.png" />
                                                 </Frame>
                                                 <Label
                                                     FontSize="Medium"
@@ -110,7 +110,10 @@
                                                 FontSize="15"
                                                 Style="{StaticResource StandardTextLabel}"
                                                 Text="{Binding Text}" />
-                                            <Image Aspect="AspectFill" Source="{Binding ImageSource}" />
+                                            <Image
+                                                Aspect="AspectFill"
+                                                HeightRequest="200"
+                                                Source="{Binding ImageSource}" />
                                             <StackLayout
                                                 Margin="0,5,0,5"
                                                 HorizontalOptions="End"

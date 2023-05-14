@@ -12,11 +12,11 @@
     SelectedTabColor="#0074f2">
 
 
-    <views:ProfileView>
-        <views:ProfileView.IconImageSource>
-            <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static fa:FontAwesomeIcons.Newspaper}" />
-        </views:ProfileView.IconImageSource>
-    </views:ProfileView>
+    <views:EventsView>
+        <views:EventsView.IconImageSource>
+            <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static fa:FontAwesomeIcons.Calendar}" />
+        </views:EventsView.IconImageSource>
+    </views:EventsView>
 
     <views:HomeView IconImageSource="UniTBv_Logo.png" />
 

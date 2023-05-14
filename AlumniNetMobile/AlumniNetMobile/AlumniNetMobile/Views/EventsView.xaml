@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AlumniNetMobile.Views.EventsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:AlumniNetMobile.Models"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <ContentPage.BindingContext>
+        <viewmodels:EventsViewModel />
+    </ContentPage.BindingContext>
+
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label
+                Margin="11,23,0,10"
+                FontFamily="Montserrat"
+                FontSize="20"
+                Text="Alumni events"
+                TextColor="#1C698A" />
+            <RefreshView Command="{Binding InitializeAsyncCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+                <CollectionView
+                    Margin="7,0,7,0"
+                    ItemsSource="{Binding Events}"
+                    SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
+                    SelectionMode="Single">
+
+                    <CollectionView.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding OpenSelectedEventCommand}" EventName="SelectionChanged" />
+                    </CollectionView.Behaviors>
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="10"
+                            Orientation="Vertical"
+                            Span="2"
+                            VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:EventModel">
+                            <Frame
+                                BackgroundColor="Transparent"
+                                BorderColor="#dee3e3"
+                                CornerRadius="5"
+                                HasShadow="True"
+                                IsClippedToBounds="True"
+                                Style="{StaticResource EventFrameStyle}">
+                                <Grid Margin="-20,-30,-20,-20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Grid.Row="0"
+                                        Source="{Binding ImageSource}"
+                                        WidthRequest="200" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Margin="6,0,0,0"
+                                        FontFamily="Montserrat"
+                                        FontSize="12"
+                                        Text="{Binding EventName}"
+                                        TextColor="#1C698A" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Margin="7,0,0,12"
+                                        FontFamily="Montserrat"
+                                        FontSize="9"
+                                        Text="{Binding StartDate}"
+                                        TextColor="#1C698A" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

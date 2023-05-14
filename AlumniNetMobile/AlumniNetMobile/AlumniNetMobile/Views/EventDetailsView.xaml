@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AlumniNetMobile.Views.EventDetailsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    Title="Events">
+
+
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label
+                Margin="16,20,0,0"
+                FontSize="20"
+                Style="{StaticResource DarkBlueMontserrat}"
+                Text="{Binding Title}" />
+            <Label
+                Margin="16,0,0,10"
+                FontSize="15"
+                Style="{StaticResource DarkBlueMontserrat}"
+                Text="{Binding StartDate}" />
+            <Image
+                Margin="16,0,16,0"
+                Aspect="AspectFill"
+                HeightRequest="160"
+                HorizontalOptions="FillAndExpand"
+                Source="{Binding ImageSrc}"
+                WidthRequest="358" />
+            <ScrollView>
+                <StackLayout>
+                    <Label
+                        Margin="16,0,16,0"
+                        FontSize="16"
+                        Style="{StaticResource DarkBlueOpenSans}"
+                        Text="{Binding Description}" />
+                </StackLayout>
+            </ScrollView>
+            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                <Button
+                    Margin="20,0,0,30"
+                    BackgroundColor="#8A1C23"
+                    Command="{Binding CloseCommand}"
+                    CornerRadius="10"
+                    FontFamily="Montserrat"
+                    FontSize="16"
+                    HeightRequest="50"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Reject"
+                    TextColor="White"
+                    TextTransform="None"
+                    WidthRequest="100" />
+
+                <Button
+                    Margin="0,0,20,30"
+                    BackgroundColor="#1C8A41"
+                    Command="{Binding CloseCommand}"
+                    CornerRadius="10"
+                    FontFamily="Montserrat"
+                    FontSize="16"
+                    HeightRequest="50"
+                    HorizontalOptions="End"
+                    Text="Accept"
+                    TextColor="White"
+                    TextTransform="None"
+                    WidthRequest="100" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -53,6 +53,25 @@
                 <Setter Property="FontFamily" Value="OpenSans-SemiBold" />
             </Style>
 
+            <Style x:Key="DarkBlueMontserrat" TargetType="Label">
+                <Setter Property="TextColor" Value="#0C5071" />
+                <Setter Property="FontFamily" Value="Montserrat" />
+            </Style>
+            <Style x:Key="DarkBlueMontserratBold" TargetType="Label">
+                <Setter Property="TextColor" Value="#0C5071" />
+                <Setter Property="FontFamily" Value="Montserrat-SemiBold" />
+            </Style>
+
+            <Style x:Key="DarkBlueOpenSans" TargetType="Label">
+                <Setter Property="TextColor" Value="#0C5071" />
+                <Setter Property="FontFamily" Value="OpenSans" />
+                <Style.Triggers>
+                    <Trigger TargetType="Label" Property="Text" Value="Sick">
+                        <Setter Property="TextColor" Value="#8A1C23" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <Style x:Key="OpenSans-BoldTextLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="FontFamily" Value="OpenSans-Bold" />
@@ -114,7 +133,13 @@
                 <Setter Property="ArrowImage" Value="dropdown_arrow.png" />
             </Style>
 
-
+            <Style x:Key="EventFrameStyle" TargetType="Frame">
+                <Setter Property="HeightRequest" Value="165" />
+                <Setter Property="WidthRequest" Value="140" />
+                <Setter Property="Margin" Value="10, 0, 10, -20" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>
