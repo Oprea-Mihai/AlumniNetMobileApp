@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:local="clr-namespace:AlumniNetMobile.Converters"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
@@ -110,10 +111,16 @@
                                                 FontSize="15"
                                                 Style="{StaticResource StandardTextLabel}"
                                                 Text="{Binding Text}" />
-                                            <Image
+                                            <ffimageloading:CachedImage
                                                 Aspect="AspectFill"
+                                                CacheDuration="5"
+                                                CacheType="All"
+                                                DownsampleToViewSize="true"
                                                 HeightRequest="200"
-                                                Source="{Binding ImageSource}" />
+                                                LoadingPlaceholder="DemoPostImage.jpg"
+                                                Source="{Binding ImageSource}"
+                                                TransformPlaceholders="False"
+                                                WidthRequest="200" />
                                             <StackLayout
                                                 Margin="0,5,0,5"
                                                 HorizontalOptions="End"

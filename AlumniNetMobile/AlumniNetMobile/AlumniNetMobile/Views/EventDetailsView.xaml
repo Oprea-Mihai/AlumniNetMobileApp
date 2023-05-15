@@ -3,10 +3,14 @@
     x:Class="AlumniNetMobile.Views.EventDetailsView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="Events">
 
-
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
 
     <ContentPage.Content>
         <StackLayout>
@@ -20,11 +24,14 @@
                 FontSize="15"
                 Style="{StaticResource DarkBlueMontserrat}"
                 Text="{Binding StartDate}" />
-            <Image
-                Margin="16,0,16,0"
+            <ffimageloading:CachedImage
                 Aspect="AspectFill"
+                DownsampleToViewSize="true"
+                ErrorPlaceholder="error.png"
                 HeightRequest="160"
                 HorizontalOptions="FillAndExpand"
+                RetryCount="3"
+                RetryDelay="250"
                 Source="{Binding ImageSrc}"
                 WidthRequest="358" />
             <ScrollView>
@@ -40,7 +47,7 @@
                 <Button
                     Margin="20,0,0,30"
                     BackgroundColor="#8A1C23"
-                    Command="{Binding CloseCommand}"
+                    Command="{Binding RejectCommand}"
                     CornerRadius="10"
                     FontFamily="Montserrat"
                     FontSize="16"
@@ -54,7 +61,7 @@
                 <Button
                     Margin="0,0,20,30"
                     BackgroundColor="#1C8A41"
-                    Command="{Binding CloseCommand}"
+                    Command="{Binding AcceptCommand}"
                     CornerRadius="10"
                     FontFamily="Montserrat"
                     FontSize="16"

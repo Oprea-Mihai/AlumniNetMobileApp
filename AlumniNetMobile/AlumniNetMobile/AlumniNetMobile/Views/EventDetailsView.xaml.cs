@@ -20,7 +20,7 @@ namespace AlumniNetMobile.Views
             BindingContext = new EventDetailsViewModel();
         }
 
-        public EventDetailsView(EventModel selectedEvent)
+        public EventDetailsView(EventInviteModel selectedEvent)
         {
             InitializeComponent();
             BindingContext = new EventDetailsViewModel(selectedEvent);

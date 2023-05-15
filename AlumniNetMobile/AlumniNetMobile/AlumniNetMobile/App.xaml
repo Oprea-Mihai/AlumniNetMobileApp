@@ -36,7 +36,22 @@
                 <Setter Property="Padding" Value="0" />
             </Style>
 
-
+            <Style x:Key="EventInviteButton" TargetType="Button">
+                <Style.Triggers>
+                    <Trigger TargetType="Button" Property="Text" Value="Accepted">
+                        <Setter Property="BackgroundColor" Value="#199F36" />
+                    </Trigger>
+                    <Trigger TargetType="Button" Property="Text" Value="Rejected">
+                        <Setter Property="BackgroundColor" Value="#8A1C23" />
+                    </Trigger>
+                    <Trigger TargetType="Button" Property="Text" Value="Pending">
+                        <Setter Property="BackgroundColor" Value="#FF6700" />
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="TextColor" Value="#FFFFFF" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="Font" Value="OpenSans" />
+            </Style>
 
             <Style x:Key="BigFrameCard" TargetType="Frame">
                 <Setter Property="HasShadow" Value="True" />
@@ -134,7 +149,7 @@
             </Style>
 
             <Style x:Key="EventFrameStyle" TargetType="Frame">
-                <Setter Property="HeightRequest" Value="165" />
+                <Setter Property="HeightRequest" Value="185" />
                 <Setter Property="WidthRequest" Value="140" />
                 <Setter Property="Margin" Value="10, 0, 10, -20" />
                 <Setter Property="CornerRadius" Value="5" />

@@ -9,6 +9,7 @@ using Plugin.CurrentActivity;
 using System.Threading.Tasks;
 using System.IO;
 using Android.Content;
+using FFImageLoading.Forms.Platform;
 
 namespace AlumniNetMobile.Droid
 {
@@ -24,6 +25,8 @@ namespace AlumniNetMobile.Droid
             try
             {
                 base.OnCreate(savedInstanceState);
+                CachedImageRenderer.Init(true);
+                CachedImageRenderer.InitImageViewHandler();
                 CrossCurrentActivity.Current.Init(this, savedInstanceState);
                 Plugin.InputKit.Platforms.Droid.Config.Init(this, savedInstanceState);
                 Xamarin.Essentials.Platform.Init(this, savedInstanceState);

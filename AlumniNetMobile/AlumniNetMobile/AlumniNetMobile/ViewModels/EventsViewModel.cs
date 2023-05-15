@@ -18,7 +18,7 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public EventsViewModel()
         {
-            Events = new ObservableRangeCollection<EventModel>();
+            Events = new ObservableRangeCollection<EventInviteModel>();
             _manageData = new ManageData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
         }
@@ -39,8 +39,8 @@ namespace AlumniNetMobile.ViewModels
 
         #region Observables
 
-        ObservableRangeCollection<EventModel> _events;
-        public ObservableRangeCollection<EventModel> Events
+        ObservableRangeCollection<EventInviteModel> _events;
+        public ObservableRangeCollection<EventInviteModel> Events
         {
             get { return _events; }
             set { SetProperty(ref _events, value); }
@@ -50,7 +50,7 @@ namespace AlumniNetMobile.ViewModels
         private bool _isBusy = false;
 
         [ObservableProperty]
-        private EventModel _selectedEvent;
+        private EventInviteModel _selectedEvent;
 
         #endregion
 
@@ -71,16 +71,16 @@ namespace AlumniNetMobile.ViewModels
         {
             _manageData.SetStrategy(new GetData());
             string token=await _authenticationService.GetCurrentTokenAsync();
-            List<EventModel> events = await _manageData.
-                GetDataAndDeserializeIt<List<EventModel>>("Event/GetEventsForUser", "", token);
+            List<EventInviteModel> events = await _manageData.
+                GetDataAndDeserializeIt<List<EventInviteModel>>("Event/GetEventsForUser", "", token);
 
-            foreach (EventModel eventModel in events)
+            foreach (EventInviteModel eventModel in events)
             {
                 var picKey = eventModel.Image;
                 if (picKey != null && picKey != "")
                 {
-                   // GetData getData = new GetData();
-                   // Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={picKey}", token);
+                    GetData getData = new GetData();
+                    Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={picKey}", token);
                     eventModel.ImageSource = ImageSource.FromStream(() => file);
                 }
             }
