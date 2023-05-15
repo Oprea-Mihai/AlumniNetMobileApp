@@ -11,6 +11,9 @@
         <viewmodels:EventsViewModel />
     </ContentPage.BindingContext>
 
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
 
     <ContentPage.Content>
         <StackLayout>

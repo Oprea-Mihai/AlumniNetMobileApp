@@ -67,7 +67,7 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public async void InitializeAsync()
+        public async void PageAppearing()
         {
             _manageData.SetStrategy(new GetData());
             string token=await _authenticationService.GetCurrentTokenAsync();
@@ -79,12 +79,12 @@ namespace AlumniNetMobile.ViewModels
                 var picKey = eventModel.Image;
                 if (picKey != null && picKey != "")
                 {
-                    GetData getData = new GetData();
-                    Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={picKey}", token);
+                   // GetData getData = new GetData();
+                   // Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={picKey}", token);
                     eventModel.ImageSource = ImageSource.FromStream(() => file);
                 }
-                Events.ReplaceRange(events);
             }
+                Events.ReplaceRange(events);
         }
 
         #endregion
