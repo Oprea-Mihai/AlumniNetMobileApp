@@ -63,22 +63,23 @@
                                 Text="{Binding FirstName}" />
                         </StackLayout>
                     </StackLayout>
-                    <Button
-                        BackgroundColor="RoyalBlue"
-                        Command="{Binding SignOutCommand}"
-                        CornerRadius="9"
-                        HeightRequest="25"
-                        HorizontalOptions="EndAndExpand"
-                        VerticalOptions="StartAndExpand"
-                        WidthRequest="25">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="FontAwesome"
-                                Glyph="{x:Static fa:FontAwesomeIcons.RightFromBracket}"
-                                Size="16"
-                                Color="Black" />
-                        </Button.ImageSource>
-                    </Button>
+                    <StackLayout Padding="-10" HorizontalOptions="EndAndExpand">
+                        <Button
+                            BackgroundColor="Transparent"
+                            Command="{Binding SettingsCommand}"
+                            CornerRadius="9"
+                            HeightRequest="40"
+                            VerticalOptions="StartAndExpand"
+                            WidthRequest="40">
+                            <Button.ImageSource>
+                                <FontImageSource
+                                    FontFamily="FontAwesome"
+                                    Glyph="{x:Static fa:FontAwesomeIcons.Gear}"
+                                    Size="20"
+                                    Color="#4e4e4e" />
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
             <Frame Style="{StaticResource BigFrameCard}">

@@ -137,13 +137,9 @@ namespace AlumniNetMobile.ViewModels
         #region Commands
 
         [RelayCommand]
-        public void SignOut()
+        public async void Settings()
         {
-            var authService = DependencyService.Resolve<IAuthenticationService>();
-            authService.SignOut();
-
-            var newNavigationPage = new NavigationPage(new LoginView());
-            Application.Current.MainPage = newNavigationPage;
+            await Application.Current.MainPage.Navigation.PushAsync(new SettingsView());
         }
 
         [RelayCommand]

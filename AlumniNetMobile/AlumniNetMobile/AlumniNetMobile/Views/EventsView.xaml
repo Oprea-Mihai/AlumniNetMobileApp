@@ -6,7 +6,8 @@
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:models="clr-namespace:AlumniNetMobile.Models"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="#E5E5E5">
 
     <ContentPage.BindingContext>
         <viewmodels:EventsViewModel />
@@ -45,7 +46,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:EventInviteModel">
                             <Frame
-                                BackgroundColor="Transparent"
+                                BackgroundColor="White"
                                 BorderColor="Goldenrod"
                                 CornerRadius="5"
                                 HasShadow="True"

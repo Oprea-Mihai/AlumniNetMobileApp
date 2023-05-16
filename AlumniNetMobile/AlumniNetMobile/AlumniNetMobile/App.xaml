@@ -22,6 +22,15 @@
                 <Setter Property="BorderColor" Value="Black" />
             </Style>
 
+            <Style x:Key="LanguageDropdownStyle" TargetType="input:Dropdown">
+                <Setter Property="PlaceholderColor" Value="#0C5071" />
+                <Setter Property="Color" Value="#0C5071" />
+                <Setter Property="TextColor" Value="#0C5071" />
+                <Setter Property="Margin" Value="-15, 0, 30, 0" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="ArrowImage" Value="dropdown_arrow.png" />
+            </Style>
+
             <Style x:Key="FrameCard" TargetType="Frame">
                 <Setter Property="HasShadow" Value="True" />
                 <Setter Property="CornerRadius" Value="15" />

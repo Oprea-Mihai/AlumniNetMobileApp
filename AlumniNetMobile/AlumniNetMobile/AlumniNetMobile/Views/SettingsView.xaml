@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AlumniNetMobile.Views.SettingsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <ContentPage.BindingContext>
+        <viewmodels:SettingsViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <input:Dropdown
+                Grid.Row="0"
+                Grid.Column="1"
+                FontFamily="Montserrat"
+                FontSize="15"
+                ItemsSource="{Binding LanguageOptions}"
+                SelectedItem="{Binding SelectedLanguage}"
+                Style="{StaticResource LanguageDropdownStyle}"
+                TitleFontSize="15">
+                <input:Dropdown.Behaviors>
+                    <xct:EventToCommandBehavior Command="{Binding ChangeLanguageCommand}" EventName="SelectedItemChanged" />
+                </input:Dropdown.Behaviors>
+            </input:Dropdown>
+
+            <StackLayout
+                Margin="16,0,0,24"
+                HorizontalOptions="StartAndExpand"
+                Orientation="Horizontal"
+                VerticalOptions="EndAndExpand">
+                <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding SignOutCommand}"
+                    CornerRadius="30"
+                    HeightRequest="40"
+                    WidthRequest="40">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.ArrowRightFromBracket}"
+                            Size="24"
+                            Color="#8A1C23" />
+                    </Button.ImageSource>
+                </Button>
+                <Label
+                    Margin="10,5,0,0"
+                    FontFamily="Montserrat"
+                    FontSize="20"
+                    Text="Log out"
+                    TextColor="#8A1C23" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
