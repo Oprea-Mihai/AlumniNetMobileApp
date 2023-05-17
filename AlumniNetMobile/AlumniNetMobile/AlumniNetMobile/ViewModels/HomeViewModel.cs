@@ -168,8 +168,8 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void PageAppearing()
         {
+            SetCultureForCurrentEmployee();
             await InitializeAsync();
-
         }
         #endregion
 

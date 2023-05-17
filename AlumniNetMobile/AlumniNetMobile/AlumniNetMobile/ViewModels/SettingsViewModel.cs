@@ -1,5 +1,6 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.DataHandlingStrategy;
+using AlumniNetMobile.Resx;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -46,27 +47,27 @@ namespace AlumniNetMobile.ViewModels
 
         private async Task ChangeLanguage(string selectedLanguage)
         {
-            try
-            {
+            //try
+            //{
 
-                _manageData.SetStrategy(new CreateData());
-                var json = JsonConvert.SerializeObject(Employee);
+            //    _manageData.SetStrategy(new CreateData());
+            //    var json = JsonConvert.SerializeObject(Employee);
 
-                await _manageData.GetDataAndDeserializeIt<Employee>($"Employee/UpdateLanguage?employeeId={Employee.EmployeeId}&language={selectedLanguage}", json);
+            //    await _manageData.GetDataAndDeserializeIt<Employee>($"Employee/UpdateLanguage?employeeId={Employee.EmployeeId}&language={selectedLanguage}", json);
 
-                CultureInfo language = new CultureInfo(selectedLanguage);
-                CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(selectedLanguage);
-                AppResource.Culture = language;
+            //    CultureInfo language = new CultureInfo(selectedLanguage);
+            //    CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(selectedLanguage);
+            //    AppResource.Culture = language;
 
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    Application.Current.MainPage = new NavigationPage(new Navigation());
-                });
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            //    Device.BeginInvokeOnMainThread(() =>
+            //    {
+            //        Application.Current.MainPage = new NavigationPage(new Navigation());
+            //    });
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
         }
 
 

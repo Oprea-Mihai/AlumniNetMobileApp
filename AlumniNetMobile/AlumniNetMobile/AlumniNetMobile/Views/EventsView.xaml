@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:models="clr-namespace:AlumniNetMobile.Models"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="#E5E5E5">
@@ -23,7 +24,7 @@
                 Margin="11,23,0,10"
                 FontFamily="Montserrat"
                 FontSize="20"
-                Text="Alumni events"
+                Text="{x:Static resx:AppResource.AlumniEvents}"
                 TextColor="#1C698A" />
             <RefreshView Command="{Binding InitializeAsyncCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
                 <CollectionView

@@ -7,6 +7,7 @@
     xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
     xmlns:models="clr-namespace:AlumniNetMobile.Models"
     xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="#E5E5E5">
@@ -41,7 +42,7 @@
                             <renderer:BorderlessEditor
                                 Margin="10,15,0,0"
                                 HeightRequest="70"
-                                Placeholder="Numele facultatii"
+                                Placeholder="{x:Static resx:AppResource.FacultyName}"
                                 Text="{Binding SearchedFacultyName}"
                                 WidthRequest="300">
                                 <renderer:BorderlessEditor.Behaviors>
@@ -56,7 +57,7 @@
                         <Label
                             HorizontalOptions="Center"
                             IsVisible="{Binding FacultyNotFoundVisible}"
-                            Text="Facultatea nu a fost gasita"
+                            Text="{x:Static resx:AppResource.FacultyNotFound}"
                             TextColor="DarkRed" />
 
 
@@ -110,7 +111,7 @@
                         <renderer:BorderlessEditor
                             Margin="10,20,0,0"
                             IsEnabled="{Binding WasFacultySelected}"
-                            Placeholder="Specializarea"
+                            Placeholder="{x:Static resx:AppResource.Specialization}"
                             Text="{Binding SearchedSpecialization}"
                             WidthRequest="300">
                             <renderer:BorderlessEditor.Behaviors>
@@ -125,7 +126,7 @@
                     <Label
                         HorizontalOptions="Center"
                         IsVisible="{Binding SpecializationNotFoundVisible}"
-                        Text="Specializarea nu a fost gasita"
+                        Text="{x:Static resx:AppResource.SpecializationNotFound}"
                         TextColor="DarkRed" />
                     <CollectionView
                         Grid.Row="1"
@@ -172,7 +173,7 @@
                         FontSize="16"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding StudyProgramsToDisplay}"
-                        Placeholder="Selectati un program de studii"
+                        Placeholder="{x:Static resx:AppResource.SelectStudyProgram}"
                         SelectedItem="{Binding SelectedStudyProgram}"
                         Style="{StaticResource DropdownStyle}"
                         TextColor="Black"
@@ -210,7 +211,7 @@
                         FontSize="16"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding SchedulesToDisplay}"
-                        Placeholder="Selectati un tip de invatamant"
+                        Placeholder="{x:Static resx:AppResource.SelectLearningSchedule}"
                         SelectedItem="{Binding SelectedSchedule}"
                         Style="{StaticResource DropdownStyle}"
                         TextColor="Black"
@@ -241,7 +242,7 @@
                     <renderer:BorderlessEditor
                         Keyboard="Numeric"
                         MaxLength="4"
-                        Placeholder="Anul absolvirii"
+                        Placeholder="{x:Static resx:AppResource.GraduationYear}"
                         Text="{Binding GraduationYear}"
                         VerticalOptions="Center"
                         WidthRequest="300">
@@ -290,7 +291,7 @@
                     FontFamily="Montserrat"
                     FontSize="16"
                     HorizontalOptions="EndAndExpand"
-                    Text="Anulati"
+                    Text="{x:Static resx:AppResource.Cancel}"
                     TextColor="Black"
                     TextTransform="None"
                     WidthRequest="100" />
@@ -303,7 +304,7 @@
                     FontSize="16"
                     HorizontalOptions="End"
                     IsEnabled="{Binding IsSaveButtonEnabled}"
-                    Text="Salvati"
+                    Text="{x:Static resx:AppResource.Save}"
                     TextColor="White"
                     TextTransform="None"
                     WidthRequest="100" />

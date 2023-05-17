@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="Events">
@@ -53,7 +54,7 @@
                     FontSize="16"
                     HeightRequest="50"
                     HorizontalOptions="StartAndExpand"
-                    Text="Reject"
+                    Text="{x:Static resx:AppResource.Reject}"
                     TextColor="White"
                     TextTransform="None"
                     WidthRequest="100" />
@@ -67,7 +68,7 @@
                     FontSize="16"
                     HeightRequest="50"
                     HorizontalOptions="End"
-                    Text="Accept"
+                    Text="{x:Static resx:AppResource.Accept}"
                     TextColor="White"
                     TextTransform="None"
                     WidthRequest="100" />

@@ -6,6 +6,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewModels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
     x:DataType="viewModels:DeleteSpecializaitonPopupViewModel"
@@ -25,7 +26,7 @@
                 CharacterSpacing="0.005"
                 FontFamily="Montserrat-SemiBold"
                 FontSize="16"
-                Text="Delete this finished study?" />
+                Text="{x:Static resx:AppResource.DeleteFinishedStudy}" />
             <StackLayout
                 Margin="90,100,0,0"
                 HorizontalOptions="End"
@@ -40,7 +41,7 @@
                     FontFamily="Montserrat-SemiBold"
                     HeightRequest="40"
                     HorizontalOptions="EndAndExpand"
-                    Text="Cancel"
+                    Text="{x:Static resx:AppResource.Cancel}"
                     TextTransform="None"
                     WidthRequest="104">
                     <Button.ImageSource>
@@ -60,7 +61,7 @@
                     FontFamily="Montserrat-SemiBold"
                     HeightRequest="40"
                     HorizontalOptions="EndAndExpand"
-                    Text="Delete"
+                    Text="{x:Static resx:AppResource.Delete}"
                     TextColor="#FFFFFF"
                     TextTransform="None"
                     WidthRequest="104" />

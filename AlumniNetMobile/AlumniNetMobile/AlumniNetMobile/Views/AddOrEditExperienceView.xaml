@@ -6,6 +6,7 @@
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
     xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
@@ -31,7 +32,7 @@
                         </Image.Source>
                     </Image>
                     <renderer:BorderlessEditor
-                        Placeholder="Numele postului"
+                        Placeholder="{x:Static resx:AppResource.JobTitlePlaceholder}"
                         Text="{Binding JobTitle}"
                         VerticalOptions="Center"
                         WidthRequest="300">
@@ -59,7 +60,7 @@
                         </Image.Source>
                     </Image>
                     <renderer:BorderlessEditor
-                        Placeholder="Numele companiei"
+                        Placeholder="{x:Static resx:AppResource.CompanyNamePlaceholder}"
                         Text="{Binding CompanyName}"
                         VerticalOptions="Center"
                         WidthRequest="300">
@@ -87,7 +88,7 @@
                     <renderer:BorderlessEditor
                         Keyboard="Numeric"
                         MaxLength="4"
-                        Placeholder="Anul inceperii"
+                        Placeholder="{x:Static resx:AppResource.JobStartYear}"
                         Text="{Binding StartDate}"
                         VerticalOptions="Center"
                         WidthRequest="300">
@@ -116,7 +117,7 @@
                     <renderer:BorderlessEditor
                         Keyboard="Numeric"
                         MaxLength="4"
-                        Placeholder="Anul incetarii"
+                        Placeholder="{x:Static resx:AppResource.JobEndYear}"
                         Text="{Binding EndDate}"
                         VerticalOptions="Center"
                         WidthRequest="200">
@@ -124,7 +125,7 @@
                             <xct:EventToCommandBehavior Command="{Binding YearTextChangedCommand}" EventName="TextChanged" />
                         </renderer:BorderlessEditor.Behaviors>
                     </renderer:BorderlessEditor>
-                    <Label Text="Inca angajat" VerticalOptions="Center" />
+                    <Label Text="{x:Static resx:AppResource.StillEmployed}" VerticalOptions="Center" />
                     <CheckBox IsChecked="{Binding IsStillEmployedChecked}" Color="black">
                         <CheckBox.Behaviors>
                             <xct:EventToCommandBehavior Command="{Binding StillEmployedCommand}" EventName="CheckedChanged" />
@@ -167,7 +168,7 @@
                     FontFamily="Montserrat"
                     FontSize="16"
                     HorizontalOptions="EndAndExpand"
-                    Text="Anulati"
+                    Text="{x:Static resx:AppResource.Cancel}"
                     TextColor="Black"
                     TextTransform="None"
                     WidthRequest="100" />
@@ -180,7 +181,7 @@
                     FontSize="16"
                     HorizontalOptions="End"
                     IsEnabled="{Binding SaveButtonEnabled}"
-                    Text="Salvati"
+                    Text="{x:Static resx:AppResource.Save}"
                     TextColor="White"
                     TextTransform="None"
                     WidthRequest="100" />

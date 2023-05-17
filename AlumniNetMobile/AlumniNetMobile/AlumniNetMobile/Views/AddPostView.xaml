@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
@@ -37,7 +38,7 @@
                             <renderer:BorderlessEditor
                                 Margin="5,-10,0,0"
                                 MinimumHeightRequest="200"
-                                Placeholder="Adaugati o descriere"
+                                Placeholder="{x:Static resx:AppResource.AddDescription}"
                                 Text="{Binding PostText}"
                                 VerticalOptions="StartAndExpand"
                                 WidthRequest="280" />
@@ -54,14 +55,14 @@
                             BackgroundColor="#1C698A"
                             Command="{Binding OpenPickerCommand}"
                             CornerRadius="5"
-                            Text="Select a picture"
+                            Text="{x:Static resx:AppResource.SelectPicture}"
                             TextColor="White" />
                         <Button
                             BackgroundColor="#8A1C23"
                             Command="{Binding RemovePictureCommand}"
                             CornerRadius="5"
                             IsVisible="{Binding IsRemoveButtonVisible}"
-                            Text="Remove picture"
+                            Text="{x:Static resx:AppResource.RemovePicture}"
                             TextColor="White" />
                     </StackLayout>
                 </StackLayout>
@@ -96,7 +97,7 @@
                     FontFamily="Montserrat-SemiBold"
                     HeightRequest="60"
                     HorizontalOptions="EndAndExpand"
-                    Text="Create post"
+                    Text="{x:Static resx:AppResource.CreatePost}"
                     TextColor="#FFFFFF"
                     TextTransform="None"
                     WidthRequest="115" />
