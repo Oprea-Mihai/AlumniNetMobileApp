@@ -2,11 +2,13 @@
 using AlumniNetMobile.DataHandlingStrategy;
 using AlumniNetMobile.DTOs;
 using AlumniNetMobile.Models;
+using AlumniNetMobile.Resx;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -78,9 +80,16 @@ namespace AlumniNetMobile.ViewModels
             }
             Posts = new ObservableRangeCollection<PostModel>();
             Posts.AddRange(postsWithImgs);
-            //GetData getData = new GetData();
-            //Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key=img-20230506142957-a2979707", token);
-            //Posts[0].ImageSource = ImageSource.FromStream(() => file);
+        }
+
+        private async void SetCultureForCurrentEmployee()
+        {
+            string token = await _authenticationService.GetCurrentTokenAsync();
+            _manageData.SetStrategy(new GetData());
+            string userLanguage = await _manageData.GetDataAndDeserializeIt<string>($"User/GetUserLanguage","",token);
+            CultureInfo language = new CultureInfo(userLanguage);
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(userLanguage);
+            AppResource.Culture = language;
         }
 
         #endregion
@@ -160,6 +169,7 @@ namespace AlumniNetMobile.ViewModels
         public async void PageAppearing()
         {
             await InitializeAsync();
+
         }
         #endregion
 

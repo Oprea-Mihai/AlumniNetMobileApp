@@ -14,6 +14,12 @@
 
     <ContentPage.Content>
         <StackLayout>
+            <Label
+                Margin="8,32,0,0"
+                FontSize="20"
+                Style="{StaticResource DarkBlueMontserratBold}"
+                Text="Your preferences"
+                TextColor="#1C698A" />
             <input:Dropdown
                 Grid.Row="0"
                 Grid.Column="1"
