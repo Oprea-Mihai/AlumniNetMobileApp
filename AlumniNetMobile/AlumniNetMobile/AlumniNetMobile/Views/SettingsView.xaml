@@ -21,8 +21,6 @@
                 Text="Your preferences"
                 TextColor="#1C698A" />
             <input:Dropdown
-                Grid.Row="0"
-                Grid.Column="1"
                 FontFamily="Montserrat"
                 FontSize="15"
                 ItemsSource="{Binding LanguageOptions}"

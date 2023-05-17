@@ -39,6 +39,7 @@
                         HorizontalOptions="End"
                         Orientation="Horizontal">
                         <Button
+                            BackgroundColor="White"
                             Command="{Binding AddPostButtonClickedCommand}"
                             CornerRadius="30"
                             HeightRequest="40"
@@ -52,6 +53,7 @@
                             </Button.ImageSource>
                         </Button>
                         <Button
+                            BackgroundColor="White"
                             Command="{Binding SearchButtonClickedCommand}"
                             CornerRadius="30"
                             HeightRequest="40"

@@ -192,6 +192,9 @@
   <data name="Save" xml:space="preserve">
     <value>Salvati</value>
   </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Selectati limba</value>
+  </data>
   <data name="SelectLearningSchedule" xml:space="preserve">
     <value>Selectati un tip de invatamant</value>
   </data>

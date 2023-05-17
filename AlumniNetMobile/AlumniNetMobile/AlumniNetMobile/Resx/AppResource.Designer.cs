@@ -151,11 +151,11 @@ namespace AlumniNetMobile.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dont have an account ? Sign up.
+        ///   Looks up a localized string similar to Don&apos;t have an account ? Sign up.
         /// </summary>
-        internal static string Don_tHaveAnAccountSignUp {
+        internal static string DontHaveAnAccountSignUp {
             get {
-                return ResourceManager.GetString("Don\'tHaveAnAccountSignUp", resourceCulture);
+                return ResourceManager.GetString("DontHaveAnAccountSignUp", resourceCulture);
             }
         }
         
@@ -282,6 +282,15 @@ namespace AlumniNetMobile.Resx {
         internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select language.
+        /// </summary>
+        internal static string SelectLanguage {
+            get {
+                return ResourceManager.GetString("SelectLanguage", resourceCulture);
             }
         }
         

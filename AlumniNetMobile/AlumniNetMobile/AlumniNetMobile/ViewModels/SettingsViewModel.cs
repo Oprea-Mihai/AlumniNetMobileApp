@@ -22,11 +22,11 @@ namespace AlumniNetMobile.ViewModels
         public SettingsViewModel()
         {
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
-            ResourceManager rm = new ResourceManager("TSEMobileApp.Resx.AppResource", typeof(AppResource).Assembly);
+            ResourceManager rm = new ResourceManager("AlumniNetMobile.Resx.AppResource", typeof(AppResource).Assembly);
             ResourceSet resourceSet = rm.GetResourceSet(currentCulture, true, true);
 
             _manageData = new ManageData();
-
+            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             _languageOptions = new ObservableCollection<string>()
             {
                "English",
@@ -40,37 +40,11 @@ namespace AlumniNetMobile.ViewModels
         #region Private fields
 
         private IManageData _manageData;
+        private IAuthenticationService _authenticationService;
 
         #endregion
 
         #region Methods
-
-        private async Task ChangeLanguage(string selectedLanguage)
-        {
-            //try
-            //{
-
-            //    _manageData.SetStrategy(new CreateData());
-            //    var json = JsonConvert.SerializeObject(Employee);
-
-            //    await _manageData.GetDataAndDeserializeIt<Employee>($"Employee/UpdateLanguage?employeeId={Employee.EmployeeId}&language={selectedLanguage}", json);
-
-            //    CultureInfo language = new CultureInfo(selectedLanguage);
-            //    CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(selectedLanguage);
-            //    AppResource.Culture = language;
-
-            //    Device.BeginInvokeOnMainThread(() =>
-            //    {
-            //        Application.Current.MainPage = new NavigationPage(new Navigation());
-            //    });
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //}
-        }
-
-
         #endregion
 
         #region Observables
@@ -78,16 +52,39 @@ namespace AlumniNetMobile.ViewModels
         [ObservableProperty]
         private string _selectedLanguage;
 
-        [ObservableProperty] 
+        [ObservableProperty]
         private ObservableCollection<string> _languageOptions;
 
         #endregion
 
         #region Commands
         [RelayCommand]
-        private void ChangeLanguage()
+        private async Task ChangeLanguage()
         {
-            if (_selectedLanguage != null) { }
+            if (SelectedLanguage != null)
+            {
+                try
+                {
+                    string token = await _authenticationService.GetCurrentTokenAsync();
+
+                    _manageData.SetStrategy(new UpdateData());
+
+                    await _manageData.GetDataAndDeserializeIt<string>($"User/ChangeUserLanguage?language={SelectedLanguage}", "", token);
+
+                    CultureInfo language = new CultureInfo(SelectedLanguage);
+                    CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(SelectedLanguage);
+                    AppResource.Culture = language;
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        Application.Current.MainPage = new NavigationPage(new Navigation());
+                    });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
         }
 
         [RelayCommand]
