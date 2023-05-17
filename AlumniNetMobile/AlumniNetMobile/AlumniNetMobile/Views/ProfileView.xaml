@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:AlumniNetMobile.Converters"
     xmlns:models="clr-namespace:AlumniNetMobile.Models"
     xmlns:renderers="clr-namespace:AlumniNetMobile.Renderers"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="#E5E5E5">
@@ -85,7 +86,7 @@
             <Frame Style="{StaticResource BigFrameCard}">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource Key=OpenSans-BoldTextLabel}" Text="Despre" />
+                        <Label Style="{StaticResource Key=OpenSans-BoldTextLabel}" Text="{x:Static resx:AppResource.About}" />
                         <Button
                             BackgroundColor="Transparent"
                             Command="{Binding EditDescriptionCommand}"
@@ -137,7 +138,7 @@
             <Frame Padding="20,10" Style="{StaticResource BigFrameCard}">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource OpenSans-BoldTextLabel}" Text="Specializari absolvite" />
+                        <Label Style="{StaticResource OpenSans-BoldTextLabel}" Text="{x:Static resx:AppResource.FinishedStudies}" />
                         <Button
                             BackgroundColor="Transparent"
                             Command="{Binding AddFinishedProgramCommand}"
@@ -244,7 +245,7 @@
             <Frame Padding="20,10" Style="{StaticResource BigFrameCard}">
                 <StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource OpenSans-BoldTextLabel}" Text="Experienta" />
+                        <Label Style="{StaticResource OpenSans-BoldTextLabel}" Text="{x:Static resx:AppResource.Experience}" />
                         <Button
                             BackgroundColor="Transparent"
                             Command="{Binding AddJobExperienceCommand}"

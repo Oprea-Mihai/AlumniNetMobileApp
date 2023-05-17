@@ -61,6 +61,15 @@ namespace AlumniNetMobile.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accept.
         /// </summary>
         internal static string Accept {
@@ -151,6 +160,15 @@ namespace AlumniNetMobile.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Work experience.
+        /// </summary>
+        internal static string Experience {
+            get {
+                return ResourceManager.GetString("Experience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faculty name.
         /// </summary>
         internal static string FacultyName {
@@ -165,6 +183,15 @@ namespace AlumniNetMobile.Resx {
         internal static string FacultyNotFound {
             get {
                 return ResourceManager.GetString("FacultyNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished studies.
+        /// </summary>
+        internal static string FinishedStudies {
+            get {
+                return ResourceManager.GetString("FinishedStudies", resourceCulture);
             }
         }
         
@@ -201,6 +228,15 @@ namespace AlumniNetMobile.Resx {
         internal static string JobTitlePlaceholder {
             get {
                 return ResourceManager.GetString("JobTitlePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent:.
+        /// </summary>
+        internal static string Recent {
+            get {
+                return ResourceManager.GetString("Recent", resourceCulture);
             }
         }
         
@@ -327,6 +363,15 @@ namespace AlumniNetMobile.Resx {
         internal static string Update {
             get {
                 return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your preferences.
+        /// </summary>
+        internal static string YourPreferences {
+            get {
+                return ResourceManager.GetString("YourPreferences", resourceCulture);
             }
         }
     }

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Despre</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Acceptati</value>
   </data>
@@ -147,11 +150,17 @@
   <data name="DontHaveAnAccountSignUp" xml:space="preserve">
     <value>Nu aveti un cont? Creati unul</value>
   </data>
+  <data name="Experience" xml:space="preserve">
+    <value>Experienta</value>
+  </data>
   <data name="FacultyName" xml:space="preserve">
     <value>Numele facultatii</value>
   </data>
   <data name="FacultyNotFound" xml:space="preserve">
     <value>Facultatea nu a fost gasita</value>
+  </data>
+  <data name="FinishedStudies" xml:space="preserve">
+    <value>Specializari absolvite</value>
   </data>
   <data name="GraduationYear" xml:space="preserve">
     <value>Anul absolvirii</value>
@@ -164,6 +173,9 @@
   </data>
   <data name="JobTitlePlaceholder" xml:space="preserve">
     <value>Numele postului</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Recent:</value>
   </data>
   <data name="RecoverPassword" xml:space="preserve">
     <value>Recuperati-va contul</value>
@@ -206,5 +218,8 @@
   </data>
   <data name="Update" xml:space="preserve">
     <value>Schimbati</value>
+  </data>
+  <data name="YourPreferences" xml:space="preserve">
+    <value>Preferințele tale</value>
   </data>
 </root>
