@@ -44,25 +44,33 @@
                 FontSize="20"
                 Text="Social"
                 TextColor="#1C698A" />
-            <StackLayout
-                Margin="10,0"
-                HorizontalOptions="Fill"
-                Orientation="Horizontal">
+            <Grid Margin="10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
                 <Label
+                    Grid.Column="0"
                     Padding="0,10,0,0"
                     FontSize="17"
+                    HorizontalOptions="Start"
                     Text="LinkedIn"
                     TextColor="#1C698A" />
+
                 <Entry
+                    Grid.Column="1"
                     FontSize="17"
-                    HorizontalOptions="FillAndExpand"
                     Placeholder="URL to LinkedIn profile"
                     Text="{Binding LinkedInURL}">
                     <Entry.Behaviors>
                         <xct:EventToCommandBehavior Command="{Binding LinkedInLinkChangedCommand}" EventName="TextChanged" />
                     </Entry.Behaviors>
                 </Entry>
+
                 <Button
+                    Grid.Column="2"
                     BackgroundColor="Transparent"
                     Command="{Binding LinkedInEmptyCommand}"
                     CornerRadius="30"
@@ -78,17 +86,25 @@
                             Color="#8A1C23" />
                     </Button.ImageSource>
                 </Button>
-            </StackLayout>
-            <StackLayout
-                Margin="10,0"
-                HorizontalOptions="Fill"
-                Orientation="Horizontal">
+            </Grid>
+
+            <Grid Margin="10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
                 <Label
+                    Grid.Column="0"
                     Padding="0,10,0,0"
                     FontSize="17"
+                    HorizontalOptions="Start"
                     Text="Instagram"
                     TextColor="#1C698A" />
+
                 <Entry
+                    Grid.Column="1"
                     FontSize="17"
                     HorizontalOptions="FillAndExpand"
                     Placeholder="URL to Instagram profile"
@@ -97,7 +113,9 @@
                         <xct:EventToCommandBehavior Command="{Binding InstagramLinkChangedCommand}" EventName="TextChanged" />
                     </Entry.Behaviors>
                 </Entry>
+
                 <Button
+                    Grid.Column="2"
                     BackgroundColor="Transparent"
                     Command="{Binding InstagramEmptyCommand}"
                     CornerRadius="30"
@@ -113,18 +131,24 @@
                             Color="#8A1C23" />
                     </Button.ImageSource>
                 </Button>
-            </StackLayout>
-            <StackLayout
-                Margin="10,0"
-                HorizontalOptions="Fill"
-                Orientation="Horizontal">
+            </Grid>
+            <Grid Margin="10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
                 <Label
+                    Grid.Column="0"
                     Padding="0,10,0,0"
                     FontSize="17"
                     HorizontalOptions="Start"
                     Text="Facebook"
                     TextColor="#1C698A" />
+
                 <Entry
+                    Grid.Column="1"
                     FontSize="17"
                     HorizontalOptions="FillAndExpand"
                     Placeholder="URL to Facebook profile"
@@ -133,7 +157,9 @@
                         <xct:EventToCommandBehavior Command="{Binding FacebookLinkChangedCommand}" EventName="TextChanged" />
                     </Entry.Behaviors>
                 </Entry>
+
                 <Button
+                    Grid.Column="2"
                     BackgroundColor="Transparent"
                     Command="{Binding FacebookEmptyCommand}"
                     CornerRadius="30"
@@ -149,7 +175,7 @@
                             Color="#8A1C23" />
                     </Button.ImageSource>
                 </Button>
-            </StackLayout>
+            </Grid>
 
             <Label IsVisible="{Binding CanNotUpdateVisible}" Text="Can't update. One or more URLs are not passing the verification" />
 
