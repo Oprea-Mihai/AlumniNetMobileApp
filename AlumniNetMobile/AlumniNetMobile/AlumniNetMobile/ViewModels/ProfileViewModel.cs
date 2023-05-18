@@ -33,6 +33,7 @@ namespace AlumniNetMobile.ViewModels
             {
                 await GetProfileData();
             });
+            _profileModel = new ProfileModel();
         }
 
       
@@ -43,7 +44,7 @@ namespace AlumniNetMobile.ViewModels
         private readonly ManageData _manageData;
         private IAuthenticationService _authenticationService;
         private string profilePicKey="";
-
+        private ProfileModel _profileModel;
         #endregion
 
         #region Private methods
@@ -54,15 +55,15 @@ namespace AlumniNetMobile.ViewModels
             {
                 string token = await _authenticationService.GetCurrentTokenAsync();
                 _manageData.SetStrategy(new GetData());
-                var profile = await _manageData.GetDataAndDeserializeIt<EntireProfileDTO>
+                _profileModel = await _manageData.GetDataAndDeserializeIt<ProfileModel>
                     ($"Profile/GetProfileByUserId", "", token);
 
-                FirstName = profile.FirstName;
-                LastName = profile.LastName;
-                Description = profile.Description;
-                Jobs.ReplaceRange(profile.Experiences);
+                FirstName = _profileModel.FirstName;
+                LastName = _profileModel.LastName;
+                Description = _profileModel.Description;
+                Jobs.ReplaceRange(_profileModel.Experiences);
 
-                Programs.ReplaceRange(profile.FinishedStudiesDetailed.Select(x => new FinishedProgramModel
+                Programs.ReplaceRange(_profileModel.FinishedStudiesDetailed.Select(x => new FinishedProgramModel
                 {
                     FinishedStudyId = x.FinishedStudyId,
                     FacultyName=x.Specialization.Faculty.FacultyName,
@@ -76,7 +77,7 @@ namespace AlumniNetMobile.ViewModels
                     FacultyId=x.Specialization.FacultyId,
                     ProfileId=x.ProfileId
                 })) ;
-                profilePicKey = profile.ProfilePicture;
+                profilePicKey = _profileModel.ProfilePicture;
                 if (profilePicKey != null&&profilePicKey!="")
                 {
                     GetData getData = new GetData();
@@ -139,7 +140,7 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void Settings()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new SettingsView());
+            await Application.Current.MainPage.Navigation.PushAsync(new SettingsView(_profileModel));
         }
 
         [RelayCommand]

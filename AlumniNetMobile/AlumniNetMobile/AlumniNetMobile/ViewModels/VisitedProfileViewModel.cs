@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace AlumniNetMobile.ViewModels
@@ -36,6 +37,9 @@ namespace AlumniNetMobile.ViewModels
         private IAuthenticationService _authenticationService;
         private int _profileId;
         private string profilePicKey = "";
+        private string facebook;
+        private string instagram;
+        private string linkedIn;
 
         #endregion
 
@@ -71,6 +75,15 @@ namespace AlumniNetMobile.ViewModels
         private bool _isNotExtended;
 
         [ObservableProperty]
+        private bool _isInstagramVisible;
+
+        [ObservableProperty]
+        private bool _isLinkedInVisible;
+
+        [ObservableProperty]
+        private bool _isFacebookVisible;
+
+        [ObservableProperty]
         ImageSource _profilePicture;
         #endregion
 
@@ -83,13 +96,31 @@ namespace AlumniNetMobile.ViewModels
             {
                 string token = await _authenticationService.GetCurrentTokenAsync();
                 _manageData.SetStrategy(new GetData());
-                var profile = await _manageData.GetDataAndDeserializeIt<EntireProfileDTO>
+                var profile = await _manageData.GetDataAndDeserializeIt<ProfileModel>
                     ($"Profile/GetProfileById?profileId={_profileId}", "", token);
 
                 FirstName = profile.FirstName;
                 LastName = profile.LastName;
                 Description = profile.Description;
                 Jobs.ReplaceRange(profile.Experiences);
+
+                if (profile.Facebook != null && profile.Facebook != "")
+                {
+                    facebook = profile.Facebook;
+                    IsFacebookVisible = true;
+                }
+
+                if (profile.Instagram != null && profile.Instagram != "")
+                {
+                    instagram = profile.Instagram;
+                    IsInstagramVisible = true;
+                }
+
+                if (profile.LinkedIn != null && profile.LinkedIn != "")
+                {
+                    linkedIn = profile.LinkedIn;
+                    IsLinkedInVisible = true;
+                }
 
                 Programs.ReplaceRange(profile.FinishedStudiesDetailed.Select(x => new FinishedProgramModel
                 {
@@ -128,6 +159,25 @@ namespace AlumniNetMobile.ViewModels
         {
             await GetProfileData();
         }
+
+        [RelayCommand]
+        public void OpenFacebook()
+        {
+            Launcher.OpenAsync(new Uri(facebook));
+        }
+
+        [RelayCommand]
+        public void OpenLinkedIn()
+        {
+            Launcher.OpenAsync(new Uri(linkedIn));
+        }
+
+        [RelayCommand]
+        public void OpenInstagram()
+        {
+            Launcher.OpenAsync(new Uri(instagram));
+        }
+
 
         [RelayCommand]
         public void ShowMore()

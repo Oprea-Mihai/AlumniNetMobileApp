@@ -28,9 +28,11 @@
     </ContentPage.Behaviors>
 
     <ContentPage.Content>
-
         <StackLayout Margin="5,5,5,5">
-            <Frame BackgroundColor="#95c7f3" Style="{StaticResource BigFrameCard}">
+            <Frame
+                Padding="10,20,5,10"
+                BackgroundColor="#95c7f3"
+                Style="{StaticResource BigFrameCard}">
                 <StackLayout Orientation="Horizontal">
                     <StackLayout
                         Margin="0,5,0,0"
@@ -49,7 +51,6 @@
                                 Source="{Binding ProfilePicture}"
                                 VerticalOptions="CenterAndExpand"
                                 WidthRequest="90" />
-                            <!--<Image Source="{Binding ProfilePicture}" />-->
                         </Frame>
 
                         <StackLayout Orientation="Vertical">
@@ -63,6 +64,34 @@
                                 Style="{StaticResource OpenSans-BoldTextLabel}"
                                 Text="{Binding FirstName}" />
                         </StackLayout>
+                    </StackLayout>
+                    <StackLayout
+                        Margin="0,0,5,10"
+                        HorizontalOptions="EndAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="End">
+                        <ImageButton
+                            Aspect="AspectFill"
+                            BackgroundColor="White"
+                            HeightRequest="30"
+                            IsVisible="{Binding IsLinkedInVisible}"
+                            Command="{Binding OpenLinkedInCommand}"
+                            Source="LinkedInLogo.png"
+                            WidthRequest="30" />
+                        <ImageButton
+                            Aspect="AspectFill"
+                            Command="{Binding OpenInstagramCommand}"
+                            HeightRequest="30"
+                            IsVisible="{Binding IsInstagramVisible}"
+                            Source="InstagramLogo.png"
+                            WidthRequest="30" />
+                        <ImageButton
+                            Aspect="AspectFill"
+                            Command="{Binding OpenFacebookCommand}"
+                            HeightRequest="30"
+                            IsVisible="{Binding IsFacebookVisible}"
+                            Source="FacebookLogo.png"
+                            WidthRequest="30" />
                     </StackLayout>
                 </StackLayout>
             </Frame>

@@ -1,4 +1,5 @@
-﻿using AlumniNetMobile.ViewModels;
+﻿using AlumniNetMobile.DTOs;
+using AlumniNetMobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace AlumniNetMobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsView : ContentPage
     {
-        public SettingsView()
+        public SettingsView(ProfileModel profile)
         {
             InitializeComponent();
-            BindingContext = new SettingsViewModel();
+            BindingContext = new SettingsViewModel(profile);
         }
     }
 }
