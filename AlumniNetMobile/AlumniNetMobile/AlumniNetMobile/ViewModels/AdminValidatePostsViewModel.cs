@@ -102,6 +102,9 @@ namespace AlumniNetMobile.ViewModels
 
         [ObservableProperty]
         private bool _isBusy;
+
+        [ObservableProperty]
+        private bool _noPostsAvailableVisible;
         #endregion
 
         #region Commands
@@ -127,6 +130,10 @@ namespace AlumniNetMobile.ViewModels
             await ValidatePostAsync(postId, true);
 
             Posts.Remove(Posts.Where(p => p.PostId == postId).First());
+            if (Posts.Count == 0)
+            {
+                NoPostsAvailableVisible = true;
+            }
 
             IsBusy = false;
         }
@@ -140,6 +147,10 @@ namespace AlumniNetMobile.ViewModels
 
             Posts.Remove(Posts.Where(p => p.PostId == postId).First());
 
+            if (Posts.Count == 0)
+            {
+                NoPostsAvailableVisible = true;
+            }
 
             IsBusy = false;
         }
@@ -159,6 +170,11 @@ namespace AlumniNetMobile.ViewModels
             _postsWithoutImages.AddRange(await GetBatchOfPostsAsync(10, 0));
             await LoadPostsWithImages();
             IsBusy = false;
+
+            if (Posts.Count == 0)
+            {
+                NoPostsAvailableVisible = true;
+            }
         }
 
         [RelayCommand]

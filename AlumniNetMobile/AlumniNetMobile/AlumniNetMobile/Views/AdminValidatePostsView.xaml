@@ -27,6 +27,13 @@
                     Source="UniTBv_Logo.png"
                     WidthRequest="40" />
             </StackLayout>
+            <Label
+                FontFamily="OpenSansSemiBold"
+                FontSize="17"
+                HorizontalOptions="Center"
+                IsVisible="{Binding NoPostsAvailableVisible}"
+                Text="{x:Static resx:AppResource.NoPostsForReview}"
+                TextColor="#8A1C23" />
             <StackLayout Margin="0,10,0,10">
                 <RefreshView Command="{Binding InitializeCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
                     <CollectionView
