@@ -24,24 +24,24 @@ namespace AlumniNetMobile.ViewModels
         {
             _manageData = new ManageData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
-            _correctNavigation = false;
             _postsWithoutImages = new List<PostModel>();
+            Posts = new ObservableRangeCollection<PostModel>();
+            _correctNavigation = false;
             _currentIndex = 0;
             _batchSize = 5;
 
-            Posts = new ObservableRangeCollection<PostModel>();
             IsLikeButtonClicked = true;
         }
         #endregion
 
         #region Private fields
 
-        private ManageData _manageData;
-        public int _currentIndex;
-        private readonly int _batchSize;
         private bool _correctNavigation;
         private IAuthenticationService _authenticationService;
         private List<PostModel> _postsWithoutImages;
+        private ManageData _manageData;
+        public int _currentIndex;
+        private readonly int _batchSize;
 
         #endregion
 
@@ -99,6 +99,7 @@ namespace AlumniNetMobile.ViewModels
             if (_correctNavigation == true)
                 return;
             string token = await _authenticationService.GetCurrentTokenAsync();
+            _manageData.SetStrategy(new GetData());
             UserDTO user = await _manageData.GetDataAndDeserializeIt<UserDTO>("User/GetUserById", "", token);
             if (!user.IsValid)
                 Device.BeginInvokeOnMainThread(() =>

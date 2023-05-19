@@ -1,12 +1,129 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AlumniNetMobile.Views.AdminValidatePostsView">
+<ContentPage
+    x:Class="AlumniNetMobile.Views.AdminValidatePostsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:local="clr-namespace:AlumniNetMobile.Converters"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="#E5E5E5">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AdminValidatePostsViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="POSTS!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout Padding="0,10,0,10" BackgroundColor="#0074f2">
+                <Image
+                    Margin="15,0"
+                    HorizontalOptions="StartAndExpand"
+                    Source="UniTBv_Logo.png"
+                    WidthRequest="40" />
+            </StackLayout>
+            <StackLayout Margin="0,10,0,10">
+                <RefreshView Command="{Binding InitializeCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+                    <CollectionView
+                        x:Name="postsCollectionView"
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding Posts}"
+                        RemainingItemsThreshold="1">
+                        <!--  RemainingItemsThresholdReachedCommand="{Binding LoadMorePostsAsyncCommand}"  -->
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="0,4,0,10" BackgroundColor="Transparent">
+                                    <Frame
+                                        Margin="0,5,0,5"
+                                        Padding="20,10,20,0"
+                                        BackgroundColor="White"
+                                        BorderColor="Gray"
+                                        CornerRadius="10">
+                                        <StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Image
+                                                    Margin="0,10,0,0"
+                                                    Aspect="AspectFit"
+                                                    HeightRequest="30"
+                                                    Source="GraduationCap.png" />
+                                                <Label
+                                                    FontSize="Medium"
+                                                    Style="{StaticResource OpenSans-SemiBoldTextLabel}"
+                                                    Text="{Binding Username}"
+                                                    VerticalOptions="Center">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding LastName}" />
+                                                            <Span Text=" " />
+                                                            <Span Text="{Binding FirstName}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </StackLayout>
+                                            <Label
+                                                FontSize="15"
+                                                Style="{StaticResource StandardTextLabel}"
+                                                Text="{Binding Text}" />
+                                            <ffimageloading:CachedImage
+                                                Aspect="AspectFill"
+                                                CacheDuration="5"
+                                                CacheType="All"
+                                                DownsampleToViewSize="true"
+                                                HeightRequest="200"
+                                                LoadingPlaceholder="DemoPostImage.jpg"
+                                                Source="{Binding ImageSource}"
+                                                TransformPlaceholders="False"
+                                                WidthRequest="200" />
+                                            <StackLayout
+                                                Margin="0,15,0,15"
+                                                HorizontalOptions="Center"
+                                                Orientation="Horizontal"
+                                                Spacing="20"
+                                                VerticalOptions="Start">
+                                                <Button
+                                                    Margin="0,0,30,0"
+                                                    BackgroundColor="#8A1C23"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AdminValidatePostsViewModel}}, Path=RejectPostAsyncCommand}"
+                                                    CommandParameter="{Binding PostId}"
+                                                    CornerRadius="15"
+                                                    WidthRequest="100">
+                                                    <Button.ImageSource>
+                                                        <FontImageSource
+                                                            FontFamily="FontAwesome"
+                                                            Glyph="{x:Static fa:FontAwesomeIcons.X}"
+                                                            Size="26"
+                                                            Color="White" />
+                                                    </Button.ImageSource>
+                                                </Button>
+                                                <Button
+                                                    BackgroundColor="#1C8A41"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AdminValidatePostsViewModel}}, Path=AcceptPostAsyncCommand}"
+                                                    CommandParameter="{Binding PostId}"
+                                                    CornerRadius="15"
+                                                    WidthRequest="100">
+                                                    <Button.ImageSource>
+                                                        <FontImageSource
+                                                            FontFamily="FontAwesome"
+                                                            Glyph="{x:Static fa:FontAwesomeIcons.Check}"
+                                                            Size="26"
+                                                            Color="White" />
+                                                    </Button.ImageSource>
+                                                </Button>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

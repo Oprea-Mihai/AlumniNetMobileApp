@@ -12,5 +12,6 @@ namespace AlumniNetMobile.DTOs
         public string? Email { get; set; }
         public bool IsAdmin { get; set; }
         public int ProfileId { get; set; }
+        public string? DeviceNotificationToken { get; set; }
     }
 }
