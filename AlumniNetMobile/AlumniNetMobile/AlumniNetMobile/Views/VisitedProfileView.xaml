@@ -71,27 +71,29 @@
                         Orientation="Horizontal"
                         VerticalOptions="End">
                         <ImageButton
+                            Margin="0,0,5,0"
                             Aspect="AspectFill"
                             BackgroundColor="White"
-                            HeightRequest="30"
-                            IsVisible="{Binding IsLinkedInVisible}"
                             Command="{Binding OpenLinkedInCommand}"
+                            HeightRequest="27"
+                            IsVisible="{Binding IsLinkedInVisible}"
                             Source="LinkedInLogo.png"
-                            WidthRequest="30" />
+                            WidthRequest="27" />
                         <ImageButton
+                            Margin="0,0,5,0"
                             Aspect="AspectFill"
                             Command="{Binding OpenInstagramCommand}"
-                            HeightRequest="30"
+                            HeightRequest="27"
                             IsVisible="{Binding IsInstagramVisible}"
                             Source="InstagramLogo.png"
-                            WidthRequest="30" />
+                            WidthRequest="27" />
                         <ImageButton
                             Aspect="AspectFill"
                             Command="{Binding OpenFacebookCommand}"
-                            HeightRequest="30"
+                            HeightRequest="27"
                             IsVisible="{Binding IsFacebookVisible}"
                             Source="FacebookLogo.png"
-                            WidthRequest="30" />
+                            WidthRequest="27" />
                     </StackLayout>
                 </StackLayout>
             </Frame>
@@ -252,7 +254,7 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="models:ExperienceModel">
                                     <StackLayout Padding="0,4,0,5">
-                                        <Frame Padding="0,10,0,30" Style="{StaticResource FrameCard}">
+                                        <Frame Padding="0,10,0,27" Style="{StaticResource FrameCard}">
                                             <StackLayout Orientation="Horizontal">
                                                 <Image Margin="20,10,0,0">
                                                     <Image.Source>

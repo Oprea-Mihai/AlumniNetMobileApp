@@ -106,6 +106,33 @@ namespace AlumniNetMobile.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t update. One or more URLs are not passing the verification.
+        /// </summary>
+        internal static string CantUpdateUrlNotPassing {
+            get {
+                return ResourceManager.GetString("CantUpdateUrlNotPassing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change application language.
+        /// </summary>
+        internal static string ChangeLanguage {
+            get {
+                return ResourceManager.GetString("ChangeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check your connection.
+        /// </summary>
+        internal static string CheckConnection {
+            get {
+                return ResourceManager.GetString("CheckConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company name.
         /// </summary>
         internal static string CompanyNamePlaceholder {
@@ -156,6 +183,15 @@ namespace AlumniNetMobile.Resx {
         internal static string DontHaveAnAccountSignUp {
             get {
                 return ResourceManager.GetString("DontHaveAnAccountSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
             }
         }
         
@@ -232,6 +268,15 @@ namespace AlumniNetMobile.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No internet connection found!.
+        /// </summary>
+        internal static string NoInternetConnectionMessage {
+            get {
+                return ResourceManager.GetString("NoInternetConnectionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recent:.
         /// </summary>
         internal static string Recent {
@@ -277,11 +322,29 @@ namespace AlumniNetMobile.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Romanian.
+        /// </summary>
+        internal static string Romanian {
+            get {
+                return ResourceManager.GetString("Romanian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes.
+        /// </summary>
+        internal static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
             }
         }
         

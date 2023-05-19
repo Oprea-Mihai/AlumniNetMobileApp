@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AlumniNetMobile.Views.NoConnection"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx">
+    <ContentPage.Content>
+
+        <StackLayout>
+            <Button
+                Grid.Row="0"
+                Margin="0,150,0,0"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FontAwesome"
+                        Glyph="{x:Static fa:FontAwesomeIcons.Wifi}"
+                        Size="200"
+                        Color="DarkGray" />
+                </Button.ImageSource>
+            </Button>
+            <Label
+                FontSize="50"
+                HorizontalOptions="Center"
+                Text="Ooops!"
+                VerticalOptions="Center" />
+
+            <Label
+                HorizontalOptions="Center"
+                Text="{x:Static resx:AppResource.NoInternetConnectionMessage}"
+                VerticalOptions="Center" />
+
+            <Label
+                Margin="0,0,0,100"
+                HorizontalOptions="Center"
+                Text="{x:Static resx:AppResource.CheckConnection}"
+                VerticalOptions="Center" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

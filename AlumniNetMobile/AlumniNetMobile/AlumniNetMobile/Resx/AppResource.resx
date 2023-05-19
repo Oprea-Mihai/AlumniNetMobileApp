@@ -132,6 +132,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="CantUpdateUrlNotPassing" xml:space="preserve">
+    <value>Can't update. One or more URLs are not passing the verification</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>Change application language</value>
+  </data>
+  <data name="CheckConnection" xml:space="preserve">
+    <value>Check your connection</value>
+  </data>
   <data name="CompanyNamePlaceholder" xml:space="preserve">
     <value>Company name</value>
   </data>
@@ -149,6 +158,9 @@
   </data>
   <data name="DontHaveAnAccountSignUp" xml:space="preserve">
     <value>Don't have an account ? Sign up</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
   </data>
   <data name="Experience" xml:space="preserve">
     <value>Work experience</value>
@@ -174,6 +186,9 @@
   <data name="JobTitlePlaceholder" xml:space="preserve">
     <value>Job title</value>
   </data>
+  <data name="NoInternetConnectionMessage" xml:space="preserve">
+    <value>No internet connection found!</value>
+  </data>
   <data name="Recent" xml:space="preserve">
     <value>Recent:</value>
   </data>
@@ -189,8 +204,14 @@
   <data name="RemovePicture" xml:space="preserve">
     <value>Remove picture</value>
   </data>
+  <data name="Romanian" xml:space="preserve">
+    <value>Romanian</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Select language</value>

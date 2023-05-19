@@ -22,16 +22,20 @@ namespace AlumniNetMobile.ViewModels
     public partial class SettingsViewModel : ObservableObject
     {
         #region Constructor
+
         public SettingsViewModel(ProfileModel profile)
         {
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
+
+            ResourceManager rm = new ResourceManager("AlumniNetMobile.Resx.AppResource", typeof(AppResource).Assembly);
+            ResourceSet resourceSet = rm.GetResourceSet(currentCulture, true, true);
 
             _manageData = new ManageData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             _languageOptions = new ObservableCollection<string>()
             {
-               "English",
-               "Romanian"
+               resourceSet.GetString("Romanian"),
+               resourceSet.GetString("English")
             };
             SelectedLanguage = currentCulture.DisplayName;
             LanguageChanged = false;
@@ -274,11 +278,6 @@ namespace AlumniNetMobile.ViewModels
             Application.Current.MainPage = newNavigationPage;
         }
 
-        [RelayCommand]
-        private void OpenURI()
-        {
-            Launcher.OpenAsync(new Uri("https://www.facebook.com/Mihai0prea"));
-        }
         #endregion
     }
 }

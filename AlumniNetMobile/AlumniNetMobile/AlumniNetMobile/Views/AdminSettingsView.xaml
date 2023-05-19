@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AlumniNetMobile.Views.AdminSettingsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AdminSettingsViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+
+
+    <ContentPage.Content>
+        <StackLayout Margin="10,0,0,0">
+            <Label
+                Margin="0,10"
+                FontSize="23"
+                Style="{StaticResource DarkBlueMontserratBold}"
+                Text="{x:Static resx:AppResource.YourPreferences}"
+                TextColor="#1C698A" />
+
+            <input:Dropdown
+                Title="{x:Static resx:AppResource.ChangeLanguage}"
+                Margin="0,10,10,0"
+                BackgroundColor="Transparent"
+                BorderColor="#1C698A"
+                FontFamily="Montserrat"
+                FontSize="15"
+                ItemsSource="{Binding LanguageOptions}"
+                SelectedItem="{Binding SelectedLanguage}"
+                Style="{StaticResource LanguageDropdownStyle}"
+                TextColor="Black"
+                TitleColor="#1C698A"
+                TitleFontSize="17"
+                WidthRequest="10">
+                <input:Dropdown.Behaviors>
+                    <xct:EventToCommandBehavior Command="{Binding ChangeLanguageCommand}" EventName="SelectedItemChanged" />
+                </input:Dropdown.Behaviors>
+            </input:Dropdown>
+            <StackLayout
+                Margin="16,0,0,24"
+                Orientation="Horizontal"
+                VerticalOptions="EndAndExpand">
+                <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding SignOutCommand}"
+                    CornerRadius="30"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    WidthRequest="40">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.ArrowRightFromBracket}"
+                            Size="24"
+                            Color="#8A1C23" />
+                    </Button.ImageSource>
+                </Button>
+                <Label
+                    Margin="10,5,0,0"
+                    FontFamily="Montserrat"
+                    FontSize="20"
+                    Text="Log out"
+                    TextColor="#8A1C23" />
+
+                <Button
+                    Margin="0,0,20,0"
+                    BackgroundColor="Green"
+                    Command="{Binding SaveChangesCommand}"
+                    CornerRadius="10"
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="{Binding SaveChangesVisible}"
+                    Text="{x:Static resx:AppResource.SaveChanges}"
+                    TextColor="White"
+                    TextTransform="None" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

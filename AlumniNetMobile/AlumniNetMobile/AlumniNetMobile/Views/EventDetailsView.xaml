@@ -70,8 +70,7 @@
                     HorizontalOptions="End"
                     Text="{x:Static resx:AppResource.Accept}"
                     TextColor="White"
-                    TextTransform="None"
-                    WidthRequest="100" />
+                    TextTransform="None" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

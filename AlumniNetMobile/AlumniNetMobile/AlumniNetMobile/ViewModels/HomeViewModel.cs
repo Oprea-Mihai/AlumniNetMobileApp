@@ -24,6 +24,7 @@ namespace AlumniNetMobile.ViewModels
         {
             _manageData = new ManageData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
+            _correctNavigation = false;
             _postsWithoutImages = new List<PostModel>();
             _currentIndex = 0;
             _batchSize = 5;
@@ -38,6 +39,7 @@ namespace AlumniNetMobile.ViewModels
         private ManageData _manageData;
         public int _currentIndex;
         private readonly int _batchSize;
+        private bool _correctNavigation;
         private IAuthenticationService _authenticationService;
         private List<PostModel> _postsWithoutImages;
 
@@ -82,16 +84,35 @@ namespace AlumniNetMobile.ViewModels
             Posts.AddRange(postsWithImgs);
         }
 
-        private async void SetCultureForCurrentEmployee()
+        private async void SetCultureForCurrentUser()
         {
             string token = await _authenticationService.GetCurrentTokenAsync();
             _manageData.SetStrategy(new GetData());
-            string userLanguage = await _manageData.GetDataAndDeserializeIt<string>($"User/GetUserLanguage","",token);
+            string userLanguage = await _manageData.GetDataAndDeserializeIt<string>($"User/GetUserLanguage", "", token);
             CultureInfo language = new CultureInfo(userLanguage);
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(userLanguage);
             AppResource.Culture = language;
         }
 
+        private async Task DisplayCorrectNavigationForUser()
+        {
+            if (_correctNavigation == true)
+                return;
+            string token = await _authenticationService.GetCurrentTokenAsync();
+            UserDTO user = await _manageData.GetDataAndDeserializeIt<UserDTO>("User/GetUserById", "", token);
+            if (!user.IsValid)
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Application.Current.MainPage = new ProfileView();
+                });
+            else if (user.IsAdmin == true)
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Application.Current.MainPage = new NavigationPage(new AdminNavigation());
+                });
+            _correctNavigation = true;
+
+        }
         #endregion
 
         #region Observables
@@ -152,7 +173,8 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async Task InitializeAsync()
         {
-            _postsWithoutImages = new List<PostModel>();            
+
+            _postsWithoutImages = new List<PostModel>();
             Posts = new ObservableRangeCollection<PostModel>();
 
             if (IsBusy) return;
@@ -168,7 +190,8 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void PageAppearing()
         {
-            SetCultureForCurrentEmployee();
+            SetCultureForCurrentUser();
+            await DisplayCorrectNavigationForUser();
             await InitializeAsync();
         }
         #endregion
