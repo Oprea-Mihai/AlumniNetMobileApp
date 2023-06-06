@@ -29,7 +29,7 @@ namespace AlumniNetMobile.ViewModels
             {
                 Console.WriteLine(ex.Message);
 
-                await Application.Current.MainPage.DisplayAlert("Password Reset", "An error occurs", "OK");
+                await Application.Current.MainPage.DisplayAlert("Password Reset", "An error has occurred. Please verify the email address provided ", "OK");
             }
            
         }
