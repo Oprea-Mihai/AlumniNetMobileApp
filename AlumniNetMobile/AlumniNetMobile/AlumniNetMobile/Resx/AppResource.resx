@@ -189,6 +189,9 @@
   <data name="NoInternetConnectionMessage" xml:space="preserve">
     <value>No internet connection found!</value>
   </data>
+  <data name="NoPostsForReview" xml:space="preserve">
+    <value>There are no posts awaiting for a review</value>
+  </data>
   <data name="Recent" xml:space="preserve">
     <value>Recent:</value>
   </data>

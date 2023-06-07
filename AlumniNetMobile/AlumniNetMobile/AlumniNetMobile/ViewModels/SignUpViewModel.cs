@@ -1,6 +1,7 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.DataHandlingStrategy;
 using AlumniNetMobile.DTOs;
+using AlumniNetMobile.Helpers;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -96,9 +97,10 @@ namespace AlumniNetMobile.ViewModels
                     newUser.LastName = LastName;
                     newUser.Email = UserEmail;
                     newUser.IsValid = false;
-
+                    newUser.DeviceNotificationToken = FCMTokenHelper.Token;
                     string json = JsonConvert.SerializeObject(newUser);
                     string token = await _authenticationService.GetCurrentTokenAsync();
+
                     _manageData.SetStrategy(new CreateData());
                     await _manageData.GetDataAndDeserializeIt<UserDTO>("User/AddUser", json, token);
 

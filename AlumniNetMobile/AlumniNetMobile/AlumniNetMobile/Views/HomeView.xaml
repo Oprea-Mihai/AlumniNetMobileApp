@@ -88,13 +88,18 @@
                                         CornerRadius="10">
                                         <StackLayout>
                                             <StackLayout Orientation="Horizontal">
-                                                <Frame
+                                                <!--<Frame
                                                     Padding="0"
                                                     CornerRadius="300"
                                                     HeightRequest="30"
                                                     IsClippedToBounds="True">
-                                                    <Image Aspect="AspectFit" Source="user.png" />
-                                                </Frame>
+                                                    <Image Aspect="AspectFit" Source="GraduationCap.png" />
+                                                </Frame>-->
+                                                <Image
+                                                    Margin="0,10,0,0"
+                                                    Aspect="AspectFit"
+                                                    HeightRequest="30"
+                                                    Source="GraduationCap.png" />
                                                 <Label
                                                     FontSize="Medium"
                                                     Style="{StaticResource OpenSans-SemiBoldTextLabel}"

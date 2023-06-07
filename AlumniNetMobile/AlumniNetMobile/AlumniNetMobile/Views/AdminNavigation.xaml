@@ -16,10 +16,17 @@
             <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static fa:FontAwesomeIcons.Calendar}" />
         </views:AdminAddEventsView.IconImageSource>
     </views:AdminAddEventsView>
+
+    <views:AdminValidatePostsView>
+        <views:AdminValidatePostsView.IconImageSource>
+            <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static fa:FontAwesomeIcons.Image}" />
+        </views:AdminValidatePostsView.IconImageSource>
+    </views:AdminValidatePostsView>
+
     <views:AdminSettingsView>
         <views:AdminSettingsView.IconImageSource>
             <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static fa:FontAwesomeIcons.Gear}" />
         </views:AdminSettingsView.IconImageSource>
     </views:AdminSettingsView>
-    <ContentPage Title="Tab 3" />
+
 </TabbedPage>

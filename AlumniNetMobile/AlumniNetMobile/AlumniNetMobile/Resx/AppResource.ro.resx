@@ -189,6 +189,9 @@
   <data name="NoInternetConnectionMessage" xml:space="preserve">
     <value>Nu s-a găsit conexiune la internet!</value>
   </data>
+  <data name="NoPostsForReview" xml:space="preserve">
+    <value>Nu sunt postari ce necesita validare</value>
+  </data>
   <data name="Recent" xml:space="preserve">
     <value>Recent:</value>
   </data>

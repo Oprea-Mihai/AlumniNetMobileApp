@@ -277,6 +277,15 @@ namespace AlumniNetMobile.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no posts awaiting for a review.
+        /// </summary>
+        internal static string NoPostsForReview {
+            get {
+                return ResourceManager.GetString("NoPostsForReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recent:.
         /// </summary>
         internal static string Recent {
