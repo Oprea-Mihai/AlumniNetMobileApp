@@ -34,6 +34,7 @@ namespace AlumniNetMobile
                     {
                         MainPage = new NavigationPage(new Navigation());
                     }
+                    Connectivity.ConnectivityChanged += OnConnectivityChanged;
                 }
             }
             catch (Exception e)
@@ -42,6 +43,21 @@ namespace AlumniNetMobile
             }
         }
 
+        private void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess == NetworkAccess.Internet)
+            {
+                var authenticationService = DependencyService.Resolve<IAuthenticationService>();
+                if (!authenticationService.IsSignedIn())
+                    MainPage = new NavigationPage(new LoginView());
+                else
+                    MainPage = new NavigationPage(new Navigation());
+            }
+            else
+            {
+                MainPage = new NavigationPage(new NoConnection());
+            }
+        }
 
         protected override void OnStart()
         {
