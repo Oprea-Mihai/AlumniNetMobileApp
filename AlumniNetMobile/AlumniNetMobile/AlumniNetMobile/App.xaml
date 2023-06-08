@@ -22,6 +22,25 @@
                 <Setter Property="BorderColor" Value="Black" />
             </Style>
 
+            <Style x:Key="DayOfWeekLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="WidthRequest" Value="65" />
+                <Setter Property="TextColor" Value="#1C698A" />
+                <Setter Property="FontFamily" Value="OpenSansSemiBold" />
+            </Style>
+
+            <Style x:Key="CalendarText" TargetType="Button">
+                <Setter Property="TextColor" Value="#0C5071" />
+                <Setter Property="FontFamily" Value="Montserrat" />
+                <Setter Property="Padding" Value="0,0,220,0" />
+                <Style.Triggers>
+                    <Trigger TargetType="Button" Property="Text" Value="Tab to select a start date">
+                        <Setter Property="TextColor" Value="#5AA7C8" />
+                        <Setter Property="Padding" Value="0,0,170,0" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <Style x:Key="LanguageDropdownStyle" TargetType="input:Dropdown">
                 <Setter Property="PlaceholderColor" Value="#0C5071" />
                 <Setter Property="Color" Value="#0C5071" />

@@ -228,6 +228,9 @@
   <data name="SelectPicture" xml:space="preserve">
     <value>Alegeti o imagine</value>
   </data>
+  <data name="SelectStartDate" xml:space="preserve">
+    <value>Selectati data evenimentului</value>
+  </data>
   <data name="SelectStudyProgram" xml:space="preserve">
     <value>Selectati un program de studii</value>
   </data>

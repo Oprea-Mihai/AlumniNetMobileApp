@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace AlumniNetMobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AdminAddEventsView : ContentPage
+    public partial class AdminManageEventsView : ContentPage
     {
-        public AdminAddEventsView()
+        public AdminManageEventsView()
         {
             InitializeComponent();
-            BindingContext = new AdminAddEventsViewModel();
+            BindingContext = new AdminManageEventsViewModel();
         }
     }
 }

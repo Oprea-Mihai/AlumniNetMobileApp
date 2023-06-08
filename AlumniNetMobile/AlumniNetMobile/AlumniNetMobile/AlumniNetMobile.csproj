@@ -52,6 +52,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\AdminManageEventsView.xaml.cs">
+      <DependentUpon>AdminManageEventsView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\DeleteSpecializationPopupView.xaml.cs">
       <DependentUpon>DeleteSpecializationPopupView.xaml</DependentUpon>
     </Compile>
@@ -74,7 +77,10 @@
     <EmbeddedResource Update="Views\AddPostView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\AdminAddEventsView.xaml">
+    <EmbeddedResource Update="Views\AdminManageEventsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AdminAddEventView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AdminNavigation.xaml">

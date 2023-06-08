@@ -228,6 +228,9 @@
   <data name="SelectPicture" xml:space="preserve">
     <value>Select a picture</value>
   </data>
+  <data name="SelectStartDate" xml:space="preserve">
+    <value>Select event date</value>
+  </data>
   <data name="SelectStudyProgram" xml:space="preserve">
     <value>Select a study program</value>
   </data>

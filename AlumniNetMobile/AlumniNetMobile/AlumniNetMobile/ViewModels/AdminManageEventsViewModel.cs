@@ -5,10 +5,10 @@ using System.Text;
 
 namespace AlumniNetMobile.ViewModels
 {
-    public partial class AdminAddEventsViewModel : ObservableObject
+    public partial class AdminManageEventsViewModel : ObservableObject
     {
         #region Constructors
-        public AdminAddEventsViewModel()
+        public AdminManageEventsViewModel()
         {
 
         }

@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AlumniNetMobile.Views.AdminAddEventView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:local="clr-namespace:AlumniNetMobile.Converters"
+    xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="#E5E5E5">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AdminAddEventViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <Style x:Key="PickerStyle" TargetType="Picker">
+            <Setter Property="FontFamily" Value="Montserrat" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style x:Key="EmptyStyle" TargetType="Label">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=Black, Light=White}" />
+                                <Setter Property="TextColor" Value="#1C698A" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=Black, Light=White}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <Style
+            x:Key="SelectedStyle"
+            BasedOn="{StaticResource EmptyStyle}"
+            TargetType="Label">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="Black" />
+                                <Setter Property="BackgroundColor" Value="LightSteelBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <Style
+            x:Key="UnavailableStyle"
+            BasedOn="{StaticResource EmptyStyle}"
+            TargetType="Label">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#B0B0B0" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <Style
+            x:Key="TodayStyle"
+            BasedOn="{StaticResource EmptyStyle}"
+            TargetType="Label">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#1C698A" />
+                                <Setter Property="FontAttributes" Value="Bold" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <!--  This is setting up the converter to use the styles above  -->
+        <local:CalendarItemStyleConverter
+            x:Key="CalendarItemStyleConverter"
+            DayStyle="{StaticResource EmptyStyle}"
+            EmptyStyle="{StaticResource EmptyStyle}"
+            HeaderStyle="{StaticResource EmptyStyle}"
+            SelectedStyle="{StaticResource SelectedStyle}"
+            TodayStyle="{StaticResource TodayStyle}"
+            UnavailableStyle="{StaticResource UnavailableStyle}" />
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Button
+                    BackgroundColor="Transparent"
+                    HeightRequest="24"
+                    WidthRequest="24">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.Calendar}"
+                            Size="24"
+                            Color="#5AA7C8" />
+                    </Button.ImageSource>
+                </Button>
+                <Button
+                    x:Name="labelStartDate"
+                    Margin="10,0,0,0"
+                    AutomationId="showStartDateButton"
+                    BackgroundColor="Transparent"
+                    Command="{Binding StartDateButtonClickedCommand}"
+                    FontSize="16"
+                    Style="{StaticResource CalendarText}"
+                    Text="{Binding StartDateButtonText}"
+                    TextTransform="None"
+                    VerticalOptions="Center"
+                    WidthRequest="395" />
+            </StackLayout>
+
+
+            <!--  CALENDAR  -->
+            <StackLayout
+                Margin="35,0,35,0"
+                IsVisible="{Binding IsCalendarVisible}"
+                Spacing="0">
+                <!--  Set up the top row with the buttons to change the month and label show the current month  -->
+                <Frame Padding="0" BorderColor="#E1E1E1">
+                    <StackLayout Orientation="Horizontal">
+                        <Button
+                            BackgroundColor="#FFFFFF"
+                            BorderColor="#E1E1E1"
+                            BorderWidth="1"
+                            Command="{Binding CalendarPreviousMonthCommand}"
+                            FontFamily="FontAwesome"
+                            FontSize="22"
+                            HeightRequest="36"
+                            HorizontalOptions="StartAndExpand"
+                            IsEnabled="{Binding IsAwaiting}"
+                            WidthRequest="32.3">
+                            <Button.ImageSource>
+                                <FontImageSource
+                                    FontFamily="FontAwesome"
+                                    Glyph="{x:Static fa:FontAwesomeIcons.AngleLeft}"
+                                    Size="24"
+                                    Color="#1C698A" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Label
+                            FontFamily="OpenSansSemiBold"
+                            FontSize="16"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding CalendarMonthText}"
+                            TextColor="#1C698A"
+                            VerticalTextAlignment="Center" />
+                        <Button
+                            BackgroundColor="#FFFFFF"
+                            BorderColor="#E1E1E1"
+                            BorderWidth="1"
+                            Command="{Binding CalendarNextMonthCommand}"
+                            FontFamily="FontAwesome"
+                            HeightRequest="36"
+                            HorizontalOptions="EndAndExpand"
+                            IsEnabled="{Binding IsAwaiting}"
+                            WidthRequest="32.3">
+                            <Button.ImageSource>
+                                <FontImageSource
+                                    FontFamily="FontAwesome"
+                                    Glyph="{x:Static fa:FontAwesomeIcons.AngleRight}"
+                                    Size="24"
+                                    Color="#1C698A" />
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
+                </Frame>
+
+                <!--  This is the collection view that is the main view for the control, it is setup to be a vertical grid with 7 columns  -->
+                <Frame Padding="1" BorderColor="#E1E1E1">
+                    <StackLayout>
+                        <StackLayout Margin="0,22,0,6.5" Orientation="Horizontal">
+                            <Label Margin="8,0,0,0" Style="{StaticResource DayOfWeekLabel}">SUN</Label>
+                            <Label Style="{StaticResource DayOfWeekLabel}">MON</Label>
+                            <Label Style="{StaticResource DayOfWeekLabel}">TUE</Label>
+                            <Label Style="{StaticResource DayOfWeekLabel}">WED</Label>
+                            <Label Style="{StaticResource DayOfWeekLabel}">THU</Label>
+                            <Label Style="{StaticResource DayOfWeekLabel}">FRI</Label>
+                            <Label Style="{StaticResource DayOfWeekLabel}">SAT</Label>
+                        </StackLayout>
+                        <Line
+                            Stroke="#1C698A"
+                            StrokeThickness="1"
+                            WidthRequest="100"
+                            X1="0"
+                            X2="3020"
+                            Y1="0"
+                            Y2="0" />
+                        <CollectionView
+                            x:Name="LayoutRoot"
+                            AutomationId="selectDateInCalendarButton"
+                            HeightRequest="205"
+                            ItemsLayout="VerticalGrid, 7"
+                            ItemsSource="{Binding CalendarItems}"
+                            SelectedItem="{Binding CalendarSelectedItem}"
+                            SelectionChangedCommand="{Binding CalendarDateChangedCommand}"
+                            SelectionMode="Single"
+                            WidthRequest="300">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <!--  The Style is bound the item type using the converter above to convert it to a converter  -->
+                                    <Grid Padding="9,2,9,0" BackgroundColor="White">
+                                        <Label
+                                            Margin="0,1,0,5"
+                                            FontFamily="OpenSans"
+                                            FontSize="15"
+                                            HeightRequest="26"
+                                            HorizontalTextAlignment="Center"
+                                            Style="{Binding DisplayType, Converter={StaticResource CalendarItemStyleConverter}}"
+                                            Text="{Binding Label}"
+                                            WidthRequest="47.53" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Select the invitation mode" />
+
+            <StackLayout Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding EveryoneChecked}" Color="Black">
+                    <CheckBox.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding EveryoneCheckedChangedCommand}" EventName="CheckedChanged" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label
+                    Style="{StaticResource DarkBlueMontserratBold}"
+                    Text="Everyone"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding YearChecked}" Color="Black">
+                    <CheckBox.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding YearCheckedChangedCommand}" EventName="CheckedChanged" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label
+                    Style="{StaticResource DarkBlueMontserratBold}"
+                    Text="By year"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding FacultyChecked}" Color="Black">
+                    <CheckBox.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding FacultyCheckedChangedCommand}" EventName="CheckedChanged" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label
+                    Style="{StaticResource DarkBlueMontserratBold}"
+                    Text="By faculty"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding NameChecked}" Color="Black">
+                    <CheckBox.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding NameCheckedChangedCommand}" EventName="CheckedChanged" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label
+                    Style="{StaticResource DarkBlueMontserratBold}"
+                    Text="By name"
+                    VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="0"
+                Padding="10,0,0,0"
+                HeightRequest="90"
+                Orientation="Horizontal">
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.School}"
+                            Size="30"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+                <renderer:BorderlessEditor
+                    Margin="10,15,0,0"
+                    HeightRequest="70"
+                    Placeholder="{x:Static resx:AppResource.FacultyName}"
+                    Text="{Binding SearchedFacultyName}"
+                    WidthRequest="300">
+                    <renderer:BorderlessEditor.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
+                        <xct:UserStoppedTypingBehavior
+                            Command="{Binding SearchFacultyCommand}"
+                            MinimumLengthThreshold="2"
+                            StoppedTypingTimeThreshold="300" />
+                    </renderer:BorderlessEditor.Behaviors>
+                </renderer:BorderlessEditor>
+            </StackLayout>
+            <Label
+                HorizontalOptions="Center"
+                IsVisible="{Binding FacultyNotFoundVisible}"
+                Text="{x:Static resx:AppResource.FacultyNotFound}"
+                TextColor="DarkRed" />
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

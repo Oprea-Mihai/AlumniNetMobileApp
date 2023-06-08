@@ -394,6 +394,15 @@ namespace AlumniNetMobile.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select event date.
+        /// </summary>
+        internal static string SelectStartDate {
+            get {
+                return ResourceManager.GetString("SelectStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a study program.
         /// </summary>
         internal static string SelectStudyProgram {

@@ -11,11 +11,11 @@
     NavigationPage.HasNavigationBar="False"
     SelectedTabColor="#0074f2">
     <!--  Pages can be added as references or inline  -->
-    <views:AdminAddEventsView>
-        <views:AdminAddEventsView.IconImageSource>
+    <views:AdminManageEventsView>
+        <views:AdminManageEventsView.IconImageSource>
             <FontImageSource FontFamily="FontAwesome" Glyph="{x:Static fa:FontAwesomeIcons.Calendar}" />
-        </views:AdminAddEventsView.IconImageSource>
-    </views:AdminAddEventsView>
+        </views:AdminManageEventsView.IconImageSource>
+    </views:AdminManageEventsView>
 
     <views:AdminValidatePostsView>
         <views:AdminValidatePostsView.IconImageSource>

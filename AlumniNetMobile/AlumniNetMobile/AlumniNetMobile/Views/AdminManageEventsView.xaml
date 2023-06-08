@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AlumniNetMobile.Views.AdminManageEventsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fa="clr-namespace:FontAwesome"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:models="clr-namespace:AlumniNetMobile.Models"
+    xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AdminManageEventsViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <CollectionView
+                Margin="7,10,7,10"
+                ItemsSource="{Binding Events}"
+                SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
+                SelectionMode="Single">
+
+                <CollectionView.Behaviors>
+                    <xct:EventToCommandBehavior Command="{Binding OpenSelectedEventCommand}" EventName="SelectionChanged" />
+                </CollectionView.Behaviors>
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="10"
+                        Orientation="Vertical"
+                        Span="2"
+                        VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:EventInviteModel">
+                        <Frame
+                            BackgroundColor="White"
+                            BorderColor="Goldenrod"
+                            CornerRadius="5"
+                            HasShadow="True"
+                            IsClippedToBounds="True"
+                            Style="{StaticResource EventFrameStyle}">
+                            <Grid Margin="-20,-30,-20,-20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ffimageloading:CachedImage
+                                    Margin="1"
+                                    DownsampleToViewSize="true"
+                                    ErrorPlaceholder="error.png"
+                                    HeightRequest="200"
+                                    LoadingPlaceholder="loading.png"
+                                    RetryCount="3"
+                                    RetryDelay="250"
+                                    Source="{Binding ImageSource}"
+                                    WidthRequest="200" />
+                                <Label
+                                    Grid.Row="1"
+                                    Margin="6,0,0,0"
+                                    FontFamily="Montserrat"
+                                    FontSize="12"
+                                    Text="{Binding EventName}"
+                                    TextColor="#1C698A" />
+                                <StackLayout Grid.Row="2" Orientation="Horizontal">
+                                    <Label
+                                        Margin="7,0,0,12"
+                                        FontFamily="Montserrat"
+                                        FontSize="9"
+                                        Text="{Binding StartDate}"
+                                        TextColor="#1C698A" />
+                                    <Button
+                                        Margin="0,0,5,5"
+                                        Padding="-5"
+                                        BorderColor="Gray"
+                                        BorderWidth="1"
+                                        FontSize="10"
+                                        HeightRequest="30"
+                                        HorizontalOptions="End"
+                                        MinimumWidthRequest="70"
+                                        Style="{StaticResource EventInviteButton}"
+                                        Text="{Binding Status}"
+                                        VerticalOptions="End" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
