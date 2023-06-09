@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fa="clr-namespace:FontAwesome"
     xmlns:local="clr-namespace:AlumniNetMobile.Converters"
+    xmlns:models="clr-namespace:AlumniNetMobile.Models"
     xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
+    xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="#E5E5E5">
@@ -285,40 +287,115 @@
                     VerticalOptions="Center" />
             </StackLayout>
 
-            <StackLayout
-                Grid.Row="0"
-                Padding="10,0,0,0"
-                HeightRequest="90"
-                Orientation="Horizontal">
-                <Image>
-                    <Image.Source>
-                        <FontImageSource
-                            FontFamily="FontAwesome"
-                            Glyph="{x:Static fa:FontAwesomeIcons.School}"
-                            Size="30"
-                            Color="Black" />
-                    </Image.Source>
-                </Image>
-                <renderer:BorderlessEditor
-                    Margin="10,15,0,0"
-                    HeightRequest="70"
-                    Placeholder="{x:Static resx:AppResource.FacultyName}"
-                    Text="{Binding SearchedFacultyName}"
-                    WidthRequest="300">
-                    <renderer:BorderlessEditor.Behaviors>
-                        <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
-                        <xct:UserStoppedTypingBehavior
-                            Command="{Binding SearchFacultyCommand}"
-                            MinimumLengthThreshold="2"
-                            StoppedTypingTimeThreshold="300" />
-                    </renderer:BorderlessEditor.Behaviors>
-                </renderer:BorderlessEditor>
+            <!--  Sections for invite methods  -->
+            <StackLayout Margin="0,20,0,0" HorizontalOptions="Center">
+
+                <!--  Everyone invited  -->
+                <StackLayout IsVisible="{Binding EveryoneChecked}">
+                    <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Every alumn will reveive an invite to this event!" />
+                </StackLayout>
+
+                <!--  Invite by year  -->
+                <StackLayout IsVisible="{Binding YearChecked}">
+                    <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Select the promotion years to invite" />
+                    <CollectionView
+                        ItemsSource="{Binding AvailablePromotionYears}"
+                        SelectedItems="{Binding SelectedPromotionYears}"
+                        SelectionMode="Multiple">
+                        <CollectionView.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
+                        </CollectionView.Behaviors>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
+                                        <Label Text="{Binding}" VerticalTextAlignment="Center" />
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+
+                <!--  Invite by faculty  -->
+                <StackLayout
+                    Grid.Row="0"
+                    Padding="10,0,0,0"
+                    IsVisible="{Binding FacultyChecked}"
+                    Orientation="Horizontal">
+                    <Image>
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="FontAwesome"
+                                Glyph="{x:Static fa:FontAwesomeIcons.School}"
+                                Size="30"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                    <renderer:BorderlessEditor
+                        Margin="10,0,0,0"
+                        Placeholder="Search for a faculty name"
+                        Text="{Binding SearchedFacultyName}"
+                        VerticalOptions="Center"
+                        WidthRequest="300">
+                        <renderer:BorderlessEditor.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
+                            <xct:UserStoppedTypingBehavior
+                                Command="{Binding SearchFacultyCommand}"
+                                MinimumLengthThreshold="2"
+                                StoppedTypingTimeThreshold="300" />
+                        </renderer:BorderlessEditor.Behaviors>
+                    </renderer:BorderlessEditor>
+                </StackLayout>
+                <Label
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding FacultyNotFoundVisible}"
+                    Text="{x:Static resx:AppResource.FacultyNotFound}"
+                    TextColor="DarkRed" />
+                <CollectionView
+                    HeightRequest="100"
+                    IsVisible="{Binding AreFacultySugestionsVisible}"
+                    ItemsSource="{Binding DisplayedFacultyNames}"
+                    SelectedItem="{Binding SelectedFaculty}"
+                    SelectionMode="Single"
+                    VerticalOptions="StartAndExpand">
+                    <CollectionView.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
+                    </CollectionView.Behaviors>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:FacultyModel">
+                            <StackLayout>
+                                <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
+                                    <Label Text="{Binding FacultyName}" VerticalTextAlignment="Center" />
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                
+                <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Selected faculties" />
+                <CollectionView
+                    HeightRequest="100"
+                    ItemsSource="{Binding SelectedFacultyNames}"
+                    SelectedItem="{Binding SelectedFaculty}"
+                    SelectionMode="Single"
+                    VerticalOptions="StartAndExpand">
+                    <CollectionView.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
+                    </CollectionView.Behaviors>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:FacultyModel">
+                            <StackLayout>
+                                <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
+                                    <Label Text="{Binding FacultyName}" VerticalTextAlignment="Center" />
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <!--  Invite by name  -->
+                <StackLayout IsVisible="{Binding NameChecked}" />
             </StackLayout>
-            <Label
-                HorizontalOptions="Center"
-                IsVisible="{Binding FacultyNotFoundVisible}"
-                Text="{x:Static resx:AppResource.FacultyNotFound}"
-                TextColor="DarkRed" />
 
         </StackLayout>
 

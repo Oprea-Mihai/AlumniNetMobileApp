@@ -9,8 +9,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Resources;
+using System.Text;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using static System.Net.Mime.MediaTypeNames;
 using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
 
 namespace AlumniNetMobile.ViewModels
@@ -30,7 +33,9 @@ namespace AlumniNetMobile.ViewModels
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             _manageData = new ManageData();
 
-
+            AvailablePromotionYears = new ObservableRangeCollection<int>();
+            DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>();
+            SelectedFacultyNames = new ObservableRangeCollection<FacultyModel>();
         }
         #endregion
 
@@ -245,6 +250,31 @@ namespace AlumniNetMobile.ViewModels
             get { return _displayedFacultyNames; }
             set { SetProperty(ref _displayedFacultyNames, value); }
         }
+
+        public ObservableRangeCollection<FacultyModel> _selectedFacultyNames;
+
+        public ObservableRangeCollection<FacultyModel> SelectedFacultyNames
+        {
+            get { return _selectedFacultyNames; }
+            set { SetProperty(ref _selectedFacultyNames, value); }
+        }
+
+        public ObservableRangeCollection<int> _availablePromotionYears;
+
+        public ObservableRangeCollection<int> AvailablePromotionYears
+        {
+            get { return _availablePromotionYears; }
+            set { SetProperty(ref _availablePromotionYears, value); }
+        }
+
+        public ObservableRangeCollection<int> _selectedPromotionYears;
+
+        public ObservableRangeCollection<int> SelectedPromotionYears
+        {
+            get { return _selectedPromotionYears; }
+            set { SetProperty(ref _selectedPromotionYears, value); }
+        }
+
         #endregion
 
         #region Commands
@@ -263,10 +293,18 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
-        public void YearCheckedChanged()
+        public async Task YearCheckedChangedAsync()
         {
             if (YearChecked == true)
+            {
+                //string token = await _authenticationService.GetCurrentTokenAsync();
+                _manageData.SetStrategy(new GetData());
+                List<int> years = await _manageData.GetDataAndDeserializeIt<List<int>>
+                    ("FinishedStudy/GetAllFinishingYears", "", "");
+
+                AvailablePromotionYears.ReplaceRange(years);
                 EveryoneChecked = NameChecked = FacultyChecked = false;
+            }
         }
 
         [RelayCommand]
@@ -280,7 +318,11 @@ namespace AlumniNetMobile.ViewModels
         public void FacultyCheckedChanged()
         {
             if (FacultyChecked == true)
+            {
                 EveryoneChecked = NameChecked = YearChecked = false;
+               
+            }
+
         }
 
         [RelayCommand]
@@ -293,28 +335,40 @@ namespace AlumniNetMobile.ViewModels
         public async void SearchFaculty()
         {
             FacultyNotFoundVisible = false;
-            if (wasFacultyTextChanged == true || _programToUpdate == null)
+            if (wasFacultyTextChanged == true)
             {
-                WasFacultySelected = false;
                 SelectedFaculty = null;
             }
 
             if (wasFacultyTextChanged)
             {
-                string token = await _authenticationService.GetCurrentTokenAsync();
-                _manageData.SetStrategy(new GetData());
-                List<FacultyModel> names = (await _manageData.GetDataAndDeserializeIt<List<FacultyModel>>
-                    ($"Faculty/GetFacultiesSearchSuggestions?searchedString={SearchedFacultyName}", "", token));
-                if (names.Count() != 0)
-                {
-                    DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>(names);
-                    AreFacultySugestionsVisible = true;
-                }
-                else
-                {
-                    AreFacultySugestionsVisible = false;
-                    FacultyNotFoundVisible = true;
-                }
+                //to delete
+                DisplayedFacultyNames.ReplaceRange(new List<FacultyModel>
+                { new FacultyModel {FacultyId=1, FacultyName="Test1" },
+                new FacultyModel {FacultyId=2, FacultyName="Test2" }});
+
+                //to keep
+
+                DisplayedFacultyNames.RemoveRange(DisplayedFacultyNames.
+                    Where(x=>SelectedFacultyNames.Any(y=>y.FacultyName==x.FacultyName)).ToList());
+                
+                AreFacultySugestionsVisible = true;
+
+                //!!!UNCOMMENT WHEN INTERNET CONNECTION RESORED|DELETE THE ABOVE
+                //string token = await _authenticationService.GetCurrentTokenAsync();
+                //_manageData.SetStrategy(new GetData());
+                //List<FacultyModel> names = (await _manageData.GetDataAndDeserializeIt<List<FacultyModel>>
+                //    ($"Faculty/GetFacultiesSearchSuggestions?searchedString={SearchedFacultyName}", "", token));
+                //if (names.Count() != 0)
+                //{
+                //    DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>(names);
+                //    AreFacultySugestionsVisible = true;
+                //}
+                //else
+                //{
+                //    AreFacultySugestionsVisible = false;
+                //    FacultyNotFoundVisible = true;
+                //}
             }
         }
 
@@ -323,15 +377,13 @@ namespace AlumniNetMobile.ViewModels
         {
             if (SelectedFaculty == null)
                 return;
-            _isFacultySelected = true;
             SearchedFacultyName = SelectedFaculty.FacultyName;
-            _programToUpdate.FacultyName = SelectedFaculty.FacultyName;
-            _programToUpdate.FacultyId = SelectedFaculty.FacultyId;
+            if (!SelectedFacultyNames.Contains(SelectedFaculty))
+            SelectedFacultyNames.Add(SelectedFaculty);
+            DisplayedFacultyNames.Remove(SelectedFaculty);
             SelectedFaculty = null;
-            AreFacultySugestionsVisible = false;
+            //AreFacultySugestionsVisible = false;
             wasFacultyTextChanged = false;
-            WasFacultySelected = true;
-            CheckValidForSaving();
         }
         #endregion
 
