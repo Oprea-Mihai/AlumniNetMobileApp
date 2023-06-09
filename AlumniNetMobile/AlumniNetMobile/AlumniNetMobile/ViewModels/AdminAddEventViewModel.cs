@@ -298,12 +298,13 @@ namespace AlumniNetMobile.ViewModels
             if (YearChecked == true)
             {
                 //string token = await _authenticationService.GetCurrentTokenAsync();
-                _manageData.SetStrategy(new GetData());
-                List<int> years = await _manageData.GetDataAndDeserializeIt<List<int>>
-                    ("FinishedStudy/GetAllFinishingYears", "", "");
+                //_manageData.SetStrategy(new GetData());
+                //List<int> years = await _manageData.GetDataAndDeserializeIt<List<int>>
+                //    ("FinishedStudy/GetAllFinishingYears", "", "");
+                List<int> years = new List<int> { 2001, 2002, 2003, 2004 };
 
                 AvailablePromotionYears.ReplaceRange(years);
-                EveryoneChecked = NameChecked = FacultyChecked = false;
+                EveryoneChecked = NameChecked = false;
             }
         }
 
@@ -319,8 +320,7 @@ namespace AlumniNetMobile.ViewModels
         {
             if (FacultyChecked == true)
             {
-                EveryoneChecked = NameChecked = YearChecked = false;
-               
+                EveryoneChecked = NameChecked = false;
             }
 
         }
@@ -345,13 +345,18 @@ namespace AlumniNetMobile.ViewModels
                 //to delete
                 DisplayedFacultyNames.ReplaceRange(new List<FacultyModel>
                 { new FacultyModel {FacultyId=1, FacultyName="Test1" },
-                new FacultyModel {FacultyId=2, FacultyName="Test2" }});
+                new FacultyModel {FacultyId=2, FacultyName="Test2" },
+                new FacultyModel {FacultyId=2, FacultyName="Test2" },
+                new FacultyModel {FacultyId=2, FacultyName="Test2" },
+                new FacultyModel {FacultyId=2, FacultyName="Test2" },
+                new FacultyModel {FacultyId=2, FacultyName="Test2" }
+                });
 
                 //to keep
 
                 DisplayedFacultyNames.RemoveRange(DisplayedFacultyNames.
-                    Where(x=>SelectedFacultyNames.Any(y=>y.FacultyName==x.FacultyName)).ToList());
-                
+                    Where(x => SelectedFacultyNames.Any(y => y.FacultyName == x.FacultyName)).ToList());
+
                 AreFacultySugestionsVisible = true;
 
                 //!!!UNCOMMENT WHEN INTERNET CONNECTION RESORED|DELETE THE ABOVE
@@ -379,12 +384,43 @@ namespace AlumniNetMobile.ViewModels
                 return;
             SearchedFacultyName = SelectedFaculty.FacultyName;
             if (!SelectedFacultyNames.Contains(SelectedFaculty))
-            SelectedFacultyNames.Add(SelectedFaculty);
+                SelectedFacultyNames.Add(SelectedFaculty);
             DisplayedFacultyNames.Remove(SelectedFaculty);
+            if (DisplayedFacultyNames.Count == 0)
+                AreFacultySugestionsVisible = false;
             SelectedFaculty = null;
             //AreFacultySugestionsVisible = false;
             wasFacultyTextChanged = false;
         }
+
+        [RelayCommand]
+        public async void CreateEvent()
+        {
+            _manageData.SetStrategy(new CreateData());
+            string token = await _authenticationService.GetCurrentTokenAsync();
+
+            //send invites
+            if (EveryoneChecked)
+            {
+            }
+            else
+                if (FacultyChecked && YearChecked)
+            {
+            }
+            else
+                if (FacultyChecked)
+            {
+            }
+            else
+                if (YearChecked)
+            {
+            }
+            else
+                if (NameChecked)
+            {
+            }
+        }
+
         #endregion
 
     }
