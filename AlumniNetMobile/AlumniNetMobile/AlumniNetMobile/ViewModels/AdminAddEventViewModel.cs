@@ -32,6 +32,7 @@ namespace AlumniNetMobile.ViewModels
             _areFacultySugestionsVisible = false;
             wasFacultyTextChanged = false;
             IsImageVisible = false;
+            ShowDetails = true;
 
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             _manageData = new ManageData();
@@ -245,6 +246,9 @@ namespace AlumniNetMobile.ViewModels
         private bool _facultyChecked;
 
         [ObservableProperty]
+        private bool _showDetails;
+
+        [ObservableProperty]
         bool _isRemoveButtonVisible;
 
         [ObservableProperty]
@@ -296,7 +300,7 @@ namespace AlumniNetMobile.ViewModels
         #region Commands
 
         [RelayCommand]
-        public void StartDateButtonClicked()//to show first calendar
+        public void StartDateButtonClicked()
         {
             IsCalendarVisible = !IsCalendarVisible;
         }
@@ -313,11 +317,10 @@ namespace AlumniNetMobile.ViewModels
         {
             if (YearChecked == true)
             {
-                //string token = await _authenticationService.GetCurrentTokenAsync();
-                //_manageData.SetStrategy(new GetData());
-                //List<int> years = await _manageData.GetDataAndDeserializeIt<List<int>>
-                //    ("FinishedStudy/GetAllFinishingYears", "", "");
-                List<int> years = new List<int> { 2001, 2002, 2003, 2004 };
+                string token = await _authenticationService.GetCurrentTokenAsync();
+                _manageData.SetStrategy(new GetData());
+                List<int> years = await _manageData.GetDataAndDeserializeIt<List<int>>
+                    ("FinishedStudy/GetAllFinishingYears", "", token);
 
                 AvailablePromotionYears.ReplaceRange(years);
                 EveryoneChecked = NameChecked = false;
@@ -338,6 +341,7 @@ namespace AlumniNetMobile.ViewModels
             {
                 EveryoneChecked = NameChecked = false;
             }
+            ShowDetails = !FacultyChecked;
 
         }
 
@@ -358,47 +362,34 @@ namespace AlumniNetMobile.ViewModels
 
             if (wasFacultyTextChanged)
             {
-                //to delete
-                DisplayedFacultyNames.ReplaceRange(new List<FacultyModel>
-                { new FacultyModel {FacultyId=1, FacultyName="Test1" },
-                new FacultyModel {FacultyId=2, FacultyName="Test2" },
-                new FacultyModel {FacultyId=2, FacultyName="Test2" },
-                new FacultyModel {FacultyId=2, FacultyName="Test2" },
-                new FacultyModel {FacultyId=2, FacultyName="Test2" },
-                new FacultyModel {FacultyId=2, FacultyName="Test2" }
-                });
-
-                //to keep
-
-                DisplayedFacultyNames.RemoveRange(DisplayedFacultyNames.
+                string token = await _authenticationService.GetCurrentTokenAsync();
+                _manageData.SetStrategy(new GetData());
+                List<FacultyModel> names = (await _manageData.GetDataAndDeserializeIt<List<FacultyModel>>
+                    ($"Faculty/GetFacultiesSearchSuggestions?searchedString={SearchedFacultyName}", "", token));
+                if (names.Count() != 0)
+                {
+                    DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>(names);
+                    DisplayedFacultyNames.RemoveRange(DisplayedFacultyNames.
                     Where(x => SelectedFacultyNames.Any(y => y.FacultyName == x.FacultyName)).ToList());
-
-                AreFacultySugestionsVisible = true;
-
-                //!!!UNCOMMENT WHEN INTERNET CONNECTION RESORED|DELETE THE ABOVE
-                //string token = await _authenticationService.GetCurrentTokenAsync();
-                //_manageData.SetStrategy(new GetData());
-                //List<FacultyModel> names = (await _manageData.GetDataAndDeserializeIt<List<FacultyModel>>
-                //    ($"Faculty/GetFacultiesSearchSuggestions?searchedString={SearchedFacultyName}", "", token));
-                //if (names.Count() != 0)
-                //{
-                //    DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>(names);
-                //    AreFacultySugestionsVisible = true;
-                //}
-                //else
-                //{
-                //    AreFacultySugestionsVisible = false;
-                //    FacultyNotFoundVisible = true;
-                //}
+                   
+                    if (DisplayedFacultyNames.Count() > 0)
+                        AreFacultySugestionsVisible = true;
+                    else
+                        AreFacultySugestionsVisible = false;
+                }
+                else
+                {
+                    AreFacultySugestionsVisible = false;
+                    FacultyNotFoundVisible = true;
+                }
             }
         }
 
         [RelayCommand]
-        public async void FacultySelected()
+        public void FacultySelected()
         {
             if (SelectedFaculty == null)
                 return;
-            SearchedFacultyName = SelectedFaculty.FacultyName;
             if (!SelectedFacultyNames.Contains(SelectedFaculty))
                 SelectedFacultyNames.Add(SelectedFaculty);
             DisplayedFacultyNames.Remove(SelectedFaculty);

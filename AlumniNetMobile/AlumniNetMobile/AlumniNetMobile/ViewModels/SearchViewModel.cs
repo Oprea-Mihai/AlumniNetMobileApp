@@ -50,7 +50,7 @@ namespace AlumniNetMobile.ViewModels
                 ($"User/GetUserSearchResults?searchedString={searchedString}", "", token);
             foreach (SearchUserModel user in _users)
             {
-                if (user.ProfilePicture != string.Empty)
+                if (user.ProfilePicture != string.Empty&&user.ProfilePicture is not null)
                 { GetData getData = new GetData();
                     Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={user.ProfilePicture}", token);
                     user.ImageSource = ImageSource.FromStream(() => file);
