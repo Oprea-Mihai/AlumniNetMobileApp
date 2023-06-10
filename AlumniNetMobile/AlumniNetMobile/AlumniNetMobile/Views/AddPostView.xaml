@@ -73,6 +73,7 @@
                     BackgroundColor="Transparent"
                     BorderColor="Transparent"
                     BorderWidth="0"
+                    Command="{Binding CancelCommand}"
                     FontAttributes="Bold"
                     FontFamily="Montserrat-SemiBold"
                     HeightRequest="40"

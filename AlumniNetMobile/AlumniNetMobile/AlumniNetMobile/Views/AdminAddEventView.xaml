@@ -103,6 +103,29 @@
 
     <ContentPage.Content>
         <StackLayout Margin="10">
+
+            <Image
+                Aspect="AspectFill"
+                BackgroundColor="LightGray"
+                HeightRequest="200"
+                IsVisible="{Binding IsImageVisible}"
+                Source="{Binding SelectedImage}" />
+            <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                <Button
+                    BackgroundColor="#1C698A"
+                    Command="{Binding OpenPickerCommand}"
+                    CornerRadius="5"
+                    Text="Select picture"
+                    TextColor="White" />
+                <Button
+                    BackgroundColor="#8A1C23"
+                    Command="{Binding RemovePictureCommand}"
+                    CornerRadius="5"
+                    IsVisible="{Binding IsRemoveButtonVisible}"
+                    Text="Remove picture"
+                    TextColor="White" />
+            </StackLayout>
+
             <Frame BackgroundColor="#F0F0F0" HeightRequest="55">
                 <renderers:BorderlessEditor
                     FontSize="16"

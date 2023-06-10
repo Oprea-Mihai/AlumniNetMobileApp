@@ -17,26 +17,26 @@ namespace AlumniNetMobile
             try
             {
 
-                MainPage = new AdminAddEventView();
+                //MainPage = new AdminAddEventView();
                 //uncommment this for the original logic 
 
-                //if (Connectivity.NetworkAccess <= NetworkAccess.ConstrainedInternet)
-                //{
-                //    MainPage = new NavigationPage(new NoConnection());
-                //}
-                //else
-                //{
-                //    var authenticationService = DependencyService.Resolve<IAuthenticationService>();
-                //    if (!authenticationService.IsSignedIn())
-                //    {
-                //        MainPage = new NavigationPage(new LoginView());
-                //    }
-                //    else
-                //    {
-                //        MainPage = new NavigationPage(new Navigation());
-                //    }
-                //    Connectivity.ConnectivityChanged += OnConnectivityChanged;
-                //}
+                if (Connectivity.NetworkAccess <= NetworkAccess.ConstrainedInternet)
+                {
+                    MainPage = new NavigationPage(new NoConnection());
+                }
+                else
+                {
+                    var authenticationService = DependencyService.Resolve<IAuthenticationService>();
+                    if (!authenticationService.IsSignedIn())
+                    {
+                        MainPage = new NavigationPage(new LoginView());
+                    }
+                    else
+                    {
+                        MainPage = new NavigationPage(new Navigation());
+                    }
+                    Connectivity.ConnectivityChanged += OnConnectivityChanged;
+                }
             }
             catch (Exception e)
             {

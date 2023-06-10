@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
@@ -30,8 +31,11 @@ namespace AlumniNetMobile.ViewModels
             SearchedFacultyName = "";
             _areFacultySugestionsVisible = false;
             wasFacultyTextChanged = false;
+            IsImageVisible = false;
+
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             _manageData = new ManageData();
+            _photoPickerService = DependencyService.Resolve<IPhotoPickerService>();
 
             AvailablePromotionYears = new ObservableRangeCollection<int>();
             DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>();
@@ -40,7 +44,10 @@ namespace AlumniNetMobile.ViewModels
         #endregion
 
         #region Private fields     
+        private IPhotoPickerService _photoPickerService;
         private bool wasFacultyTextChanged;
+        private MemoryStream _memoryStream;
+        private Stream _selectedFile;
         private ManageData _manageData;
         private IAuthenticationService _authenticationService;
         #endregion
@@ -211,6 +218,9 @@ namespace AlumniNetMobile.ViewModels
         private CalendarItemModel _calendarSelectedDate;
 
         [ObservableProperty]
+        ImageSource _selectedImage;
+
+        [ObservableProperty]
         private string _startDateButtonText;
 
         [ObservableProperty]
@@ -218,6 +228,9 @@ namespace AlumniNetMobile.ViewModels
 
         [ObservableProperty]
         private bool _isCalendarVisible;
+
+        [ObservableProperty]
+        private bool _isImageVisible;
 
         [ObservableProperty]
         private bool _yearChecked;
@@ -230,6 +243,9 @@ namespace AlumniNetMobile.ViewModels
 
         [ObservableProperty]
         private bool _facultyChecked;
+
+        [ObservableProperty]
+        bool _isRemoveButtonVisible;
 
         [ObservableProperty]
         private string _searchedFacultyName;
@@ -392,6 +408,23 @@ namespace AlumniNetMobile.ViewModels
             //AreFacultySugestionsVisible = false;
             wasFacultyTextChanged = false;
         }
+
+        [RelayCommand]
+        public async void OpenPicker()
+        {
+
+            _selectedFile = await _photoPickerService.GetImageStreamAsync();
+            if (_selectedFile != null)
+            {
+                _memoryStream = new MemoryStream();
+                await _selectedFile.CopyToAsync(_memoryStream);
+                _selectedFile.Seek(0, SeekOrigin.Begin);
+                SelectedImage = ImageSource.FromStream(() => _selectedFile);
+                IsImageVisible = true;
+                IsRemoveButtonVisible = true;
+            }
+        }
+
 
         [RelayCommand]
         public async void CreateEvent()

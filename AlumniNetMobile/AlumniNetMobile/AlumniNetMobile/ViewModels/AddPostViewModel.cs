@@ -117,6 +117,13 @@ namespace AlumniNetMobile.ViewModels
                 Console.WriteLine(ex.Message);
             }
         }
+
+        [RelayCommand]
+        public async void Cancel()
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
+
         #endregion
     }
 }
