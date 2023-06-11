@@ -1,14 +1,17 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.DataHandlingStrategy;
+using AlumniNetMobile.DTOs;
 using AlumniNetMobile.Models;
 using AlumniNetMobile.Resx;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +34,11 @@ namespace AlumniNetMobile.ViewModels
             SearchedFacultyName = "";
             _areFacultySugestionsVisible = false;
             wasFacultyTextChanged = false;
+            IsErrorMessageVisible = false;
             IsImageVisible = false;
             ShowDetails = true;
+            EventDescription = "";
+            EventTitle = "";
 
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             _manageData = new ManageData();
@@ -209,7 +215,38 @@ namespace AlumniNetMobile.ViewModels
             return rm.GetString(key, CultureInfo.CurrentCulture);
         }
 
+        private async Task SendInvites(int eventId)
+        {
+            _manageData.SetStrategy(new CreateData());
+            string token = await _authenticationService.GetCurrentTokenAsync();
 
+            //send invites
+            if (EveryoneChecked)
+            {
+            }
+            else
+                if (FacultyChecked && YearChecked)
+            {
+            }
+            else
+                if (FacultyChecked)
+            {
+            }
+            else
+                if (YearChecked)
+            {
+            }
+            else
+                if (NameChecked)
+            {
+            }
+            else
+            {
+                IsErrorMessageVisible = true;
+                return;
+            }
+
+        }
 
         #endregion
 
@@ -225,10 +262,19 @@ namespace AlumniNetMobile.ViewModels
         private string _startDateButtonText;
 
         [ObservableProperty]
+        private string _eventDescription;
+
+        [ObservableProperty]
+        private string _eventTitle;
+
+        [ObservableProperty]
         private DateTime _startDate;
 
         [ObservableProperty]
         private bool _isCalendarVisible;
+
+        [ObservableProperty]
+        private bool _isErrorMessageVisible;
 
         [ObservableProperty]
         private bool _isImageVisible;
@@ -317,13 +363,14 @@ namespace AlumniNetMobile.ViewModels
         {
             if (YearChecked == true)
             {
+                EveryoneChecked = NameChecked = false;
+                ShowDetails = !YearChecked;
                 string token = await _authenticationService.GetCurrentTokenAsync();
                 _manageData.SetStrategy(new GetData());
                 List<int> years = await _manageData.GetDataAndDeserializeIt<List<int>>
                     ("FinishedStudy/GetAllFinishingYears", "", token);
 
                 AvailablePromotionYears.ReplaceRange(years);
-                EveryoneChecked = NameChecked = false;
             }
         }
 
@@ -371,7 +418,7 @@ namespace AlumniNetMobile.ViewModels
                     DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>(names);
                     DisplayedFacultyNames.RemoveRange(DisplayedFacultyNames.
                     Where(x => SelectedFacultyNames.Any(y => y.FacultyName == x.FacultyName)).ToList());
-                   
+
                     if (DisplayedFacultyNames.Count() > 0)
                         AreFacultySugestionsVisible = true;
                     else
@@ -420,29 +467,43 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void CreateEvent()
         {
-            _manageData.SetStrategy(new CreateData());
+            IsErrorMessageVisible = false;
+            if (_selectedFile == null ||
+                EventTitle == "" ||
+                EventDescription == "" ||
+                StartDate == new DateTime())
+            {
+                IsErrorMessageVisible = true;
+                return;
+            }
+
+            if (!(EveryoneChecked || YearChecked || FacultyChecked || NameChecked))
+            {
+                IsErrorMessageVisible = true;
+                return;
+            }
+
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+            UpdateData updateData = new UpdateData();
             string token = await _authenticationService.GetCurrentTokenAsync();
 
+            string image = await updateData.ManageStreamData
+                 ($"Event/UploadEventImage", _memoryStream, token);
+
+            EventDTO eventToCreate = new EventDTO
+            {
+                EventName = EventTitle,
+                Description = EventDescription,
+                StartDate= StartDate,
+                Image = image,
+            };
+
+            string json = JsonConvert.SerializeObject(eventToCreate);
+            _manageData.SetStrategy(new CreateData());
+           int eventId= await _manageData.GetDataAndDeserializeIt<int>("Event/CreateEvent", json, token);
             //send invites
-            if (EveryoneChecked)
-            {
-            }
-            else
-                if (FacultyChecked && YearChecked)
-            {
-            }
-            else
-                if (FacultyChecked)
-            {
-            }
-            else
-                if (YearChecked)
-            {
-            }
-            else
-                if (NameChecked)
-            {
-            }
+
+            await SendInvites(eventId);
         }
 
         #endregion

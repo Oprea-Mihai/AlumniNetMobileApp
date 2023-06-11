@@ -103,7 +103,7 @@
 
     <ContentPage.Content>
         <StackLayout Margin="10">
-            <StackLayout IsVisible="{Binding ShowDetails}">
+            <StackLayout IsVisible="{Binding ShowDetails}" Margin="0,0,0,10">
                 <Image
                     Aspect="AspectFill"
                     BackgroundColor="LightGray"
@@ -135,6 +135,7 @@
                     <renderers:BorderlessEditor
                         FontSize="16"
                         Placeholder="Event title"
+                        Text="{Binding EventTitle}"
                         VerticalOptions="CenterAndExpand" />
                 </Frame>
 
@@ -146,6 +147,7 @@
                     <renderers:BorderlessEditor
                         FontSize="16"
                         Placeholder="Event description"
+                        Text="{Binding EventDescription}"
                         VerticalOptions="FillAndExpand" />
                 </Frame>
                 <StackLayout Orientation="Horizontal">
@@ -443,41 +445,45 @@
                 <StackLayout IsVisible="{Binding NameChecked}" />
             </StackLayout>
 
+            <StackLayout VerticalOptions="EndAndExpand">
+                <Label
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsErrorMessageVisible}"
+                    Text="Could not create this event. Check the provided details for mistakes"
+                    TextColor="DarkRed" />
 
-            <StackLayout
-                Margin="0,0,10,30"
-                HeightRequest="40"
-                Orientation="Horizontal"
-                VerticalOptions="EndAndExpand">
-                <Button
-                    Padding="2,0,2,0"
-                    BackgroundColor="Transparent"
-                    BorderColor="Black"
-                    BorderWidth="1"
-                    Command="{Binding CancelCommand}"
-                    CornerRadius="5"
-                    FontFamily="Montserrat"
-                    FontSize="16"
-                    HorizontalOptions="StartAndExpand"
-                    Text="{x:Static resx:AppResource.Cancel}"
-                    TextColor="Black"
-                    TextTransform="None"
-                    WidthRequest="100" />
-                <Button
-                    Padding="2,0,2,0"
-                    BackgroundColor="#1C698A"
-                    Command="{Binding SaveCommand}"
-                    CornerRadius="5"
-                    FontFamily="Montserrat"
-                    FontSize="16"
-                    HorizontalOptions="EndAndExpand"
-                    IsEnabled="{Binding SaveButtonEnabled}"
-                    Text="{x:Static resx:AppResource.Save}"
-                    TextColor="White"
-                    TextTransform="None"
-                    WidthRequest="100" />
+                <StackLayout
+                    Margin="0,0,10,30"
+                    HeightRequest="40"
+                    Orientation="Horizontal">
+                    <Button
+                        Padding="2,0,2,0"
+                        BackgroundColor="Transparent"
+                        BorderColor="Black"
+                        BorderWidth="1"
+                        Command="{Binding CancelCommand}"
+                        CornerRadius="5"
+                        FontFamily="Montserrat"
+                        FontSize="16"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{x:Static resx:AppResource.Cancel}"
+                        TextColor="Black"
+                        TextTransform="None"
+                        WidthRequest="100" />
+                    <Button
+                        Padding="10,0"
+                        BackgroundColor="#1C698A"
+                        Command="{Binding CreateEventCommand}"
+                        CornerRadius="5"
+                        FontFamily="Montserrat"
+                        FontSize="16"
+                        HorizontalOptions="EndAndExpand"
+                        IsEnabled="{Binding SaveButtonEnabled}"
+                        Text="Create event"
+                        TextColor="White"
+                        TextTransform="None" />
+                </StackLayout>
             </StackLayout>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
