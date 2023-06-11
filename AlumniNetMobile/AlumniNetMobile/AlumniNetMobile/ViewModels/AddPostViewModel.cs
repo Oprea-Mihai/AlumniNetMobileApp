@@ -101,7 +101,7 @@ namespace AlumniNetMobile.ViewModels
 
             if (_selectedFile != null)
             {
-                _memoryStream.Seek(0, SeekOrigin.Begin); // Reset the position of the memory stream to the beginning
+                _memoryStream.Seek(0, SeekOrigin.Begin); 
                 UpdateData updateData = new UpdateData();
                 toPost.Image = await updateData.ManageStreamData($"Post/UploadPostImage", _memoryStream, token);
             }
