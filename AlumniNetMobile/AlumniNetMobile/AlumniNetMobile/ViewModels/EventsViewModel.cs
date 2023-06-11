@@ -6,8 +6,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -70,7 +68,7 @@ namespace AlumniNetMobile.ViewModels
         public async void PageAppearing()
         {
             _manageData.SetStrategy(new GetData());
-            string token=await _authenticationService.GetCurrentTokenAsync();
+            string token = await _authenticationService.GetCurrentTokenAsync();
             List<EventInviteModel> events = await _manageData.
                 GetDataAndDeserializeIt<List<EventInviteModel>>("Event/GetEventsForUser", "", token);
 
@@ -84,7 +82,7 @@ namespace AlumniNetMobile.ViewModels
                     eventModel.ImageSource = ImageSource.FromStream(() => file);
                 }
             }
-                Events.ReplaceRange(events);
+            Events.ReplaceRange(events);
         }
 
         #endregion

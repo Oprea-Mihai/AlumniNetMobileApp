@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Xamarin.Forms;
 
-namespace AlumniNetMobile.DTOs
+namespace AlumniNetMobile.Models
 {
-    public class EventDTO
+    public class EventModel
     {
         public int EventId { get; set; }
 
@@ -14,8 +13,10 @@ namespace AlumniNetMobile.DTOs
 
         public string Description { get; set; } = null!;
 
-        public string? Image { get; set; }
+        public string Image { get; set; }
 
         public string EventName { get; set; } = null!;
+        public ImageSource ImageSource { get; set; }
+
     }
 }

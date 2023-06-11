@@ -13,6 +13,10 @@
         <viewmodels:AdminManageEventsViewModel />
     </ContentPage.BindingContext>
 
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+
     <ContentPage.Content>
         <StackLayout>
             <Button
@@ -51,7 +55,7 @@
                         VerticalItemSpacing="10" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:EventInviteModel">
+                    <DataTemplate x:DataType="models:EventModel">
                         <Frame
                             BackgroundColor="White"
                             BorderColor="Goldenrod"
@@ -72,12 +76,12 @@
                                     Margin="1"
                                     DownsampleToViewSize="true"
                                     ErrorPlaceholder="error.png"
-                                    HeightRequest="200"
+                                    HeightRequest="350"
                                     LoadingPlaceholder="loading.png"
                                     RetryCount="3"
                                     RetryDelay="250"
                                     Source="{Binding ImageSource}"
-                                    WidthRequest="200" />
+                                    WidthRequest="300" />
                                 <Label
                                     Grid.Row="1"
                                     Margin="6,0,0,0"
@@ -92,18 +96,7 @@
                                         FontSize="9"
                                         Text="{Binding StartDate}"
                                         TextColor="#1C698A" />
-                                    <Button
-                                        Margin="0,0,5,5"
-                                        Padding="-5"
-                                        BorderColor="Gray"
-                                        BorderWidth="1"
-                                        FontSize="10"
-                                        HeightRequest="30"
-                                        HorizontalOptions="End"
-                                        MinimumWidthRequest="70"
-                                        Style="{StaticResource EventInviteButton}"
-                                        Text="{Binding Status}"
-                                        VerticalOptions="End" />
+
                                 </StackLayout>
                             </Grid>
                         </Frame>

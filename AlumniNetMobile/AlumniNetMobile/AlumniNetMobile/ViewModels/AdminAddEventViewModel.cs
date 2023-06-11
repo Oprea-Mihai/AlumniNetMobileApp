@@ -535,7 +535,7 @@ namespace AlumniNetMobile.ViewModels
             string image = await updateData.ManageStreamData
                  ($"Event/UploadEventImage", _memoryStream, token);
 
-            EventDTO eventToCreate = new EventDTO
+            EventModel eventToCreate = new EventModel
             {
                 EventName = EventTitle,
                 Description = EventDescription,

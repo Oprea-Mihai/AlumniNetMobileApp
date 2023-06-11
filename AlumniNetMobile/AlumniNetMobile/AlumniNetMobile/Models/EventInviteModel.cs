@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace AlumniNetMobile.Models
 {
-   public class EventInviteModel
+    public class EventInviteModel
     {
         public int EventId { get; set; }
         public string EventName { get; set; }
