@@ -8,6 +8,8 @@ using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -39,12 +41,14 @@ namespace AlumniNetMobile.ViewModels
             ShowDetails = true;
             EventDescription = "";
             EventTitle = "";
-
+            YearsVisible = true;
+            SelectedYearsVisible = false;
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
             _manageData = new ManageData();
             _photoPickerService = DependencyService.Resolve<IPhotoPickerService>();
 
             AvailablePromotionYears = new ObservableRangeCollection<int>();
+            SelectedPromotionYears = new ObservableRangeCollection<int>();
             DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>();
             SelectedFacultyNames = new ObservableRangeCollection<FacultyModel>();
         }
@@ -223,18 +227,32 @@ namespace AlumniNetMobile.ViewModels
             //send invites
             if (EveryoneChecked)
             {
+                await _manageData.GetDataAndDeserializeIt<string>
+                    ($"InvitedUser/SendInvitesToEveryone?eventId={eventId}", "", token);
             }
             else
                 if (FacultyChecked && YearChecked)
             {
+                List<int> facultyIDs = SelectedFacultyNames.Select(x => x.FacultyId).ToList();
+                //await _manageData.GetDataAndDeserializeIt<string>
+                //   ($"InvitedUser/SendInvitesByFacultyAndYear?" +
+                //   $"eventId={eventId}&facultyIDs={facultyIDs}&years={SelectedPromotionYears.ToList()}", "", token);
             }
             else
                 if (FacultyChecked)
             {
+                List<int> facultyIDs = SelectedFacultyNames.Select(x => x.FacultyId).ToList();
+                await _manageData.GetDataAndDeserializeIt<string>
+                   ($"InvitedUser/SendInvitesByFaculty?" +
+                   $"eventId={eventId}&facultyIDs={facultyIDs}", "", token);
             }
             else
                 if (YearChecked)
             {
+                List<int> facultyIDs = SelectedFacultyNames.Select(x => x.FacultyId).ToList();
+                //await _manageData.GetDataAndDeserializeIt<string>
+                //   ($"InvitedUser/SendInvitesByYear?" +
+                //   $"eventId={eventId}&years={SelectedPromotionYears.ToList()}", "", token);
             }
             else
                 if (NameChecked)
@@ -301,6 +319,15 @@ namespace AlumniNetMobile.ViewModels
         private string _searchedFacultyName;
 
         [ObservableProperty]
+        private int _selectedYear;
+
+        [ObservableProperty]
+        private bool _yearsVisible;
+
+        [ObservableProperty]
+        private bool _selectedYearsVisible;
+
+        [ObservableProperty]
         private FacultyModel _selectedFaculty;
 
         [ObservableProperty]
@@ -333,13 +360,17 @@ namespace AlumniNetMobile.ViewModels
             set { SetProperty(ref _availablePromotionYears, value); }
         }
 
-        public ObservableRangeCollection<int> _selectedPromotionYears;
+        private ObservableRangeCollection<int> _selectedPromotionYears;
 
         public ObservableRangeCollection<int> SelectedPromotionYears
         {
             get { return _selectedPromotionYears; }
-            set { SetProperty(ref _selectedPromotionYears, value); }
+            set
+            {
+                SetProperty(ref _selectedPromotionYears, value);
+            }
         }
+
 
         #endregion
 
@@ -361,10 +392,10 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async Task YearCheckedChangedAsync()
         {
+            ShowDetails = !(FacultyChecked || YearChecked);
             if (YearChecked == true)
             {
                 EveryoneChecked = NameChecked = false;
-                ShowDetails = !YearChecked;
                 string token = await _authenticationService.GetCurrentTokenAsync();
                 _manageData.SetStrategy(new GetData());
                 List<int> years = await _manageData.GetDataAndDeserializeIt<List<int>>
@@ -388,7 +419,7 @@ namespace AlumniNetMobile.ViewModels
             {
                 EveryoneChecked = NameChecked = false;
             }
-            ShowDetails = !FacultyChecked;
+            ShowDetails = !(FacultyChecked || YearChecked);
 
         }
 
@@ -448,6 +479,20 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
+        public void YearSelected()
+        {
+            if (SelectedYear == 0)
+                return;
+
+            AvailablePromotionYears.Remove(SelectedYear);
+            SelectedYearsVisible = true;
+            SelectedPromotionYears.Add(SelectedYear);
+            SelectedYear = 0;
+            if (AvailablePromotionYears.Count == 0)
+                YearsVisible = false;
+        }
+
+        [RelayCommand]
         public async void OpenPicker()
         {
 
@@ -494,16 +539,17 @@ namespace AlumniNetMobile.ViewModels
             {
                 EventName = EventTitle,
                 Description = EventDescription,
-                StartDate= StartDate,
+                StartDate = StartDate,
                 Image = image,
             };
 
             string json = JsonConvert.SerializeObject(eventToCreate);
             _manageData.SetStrategy(new CreateData());
-           int eventId= await _manageData.GetDataAndDeserializeIt<int>("Event/CreateEvent", json, token);
+            int eventId = await _manageData.GetDataAndDeserializeIt<int>("Event/CreateEvent", json, token);
             //send invites
 
             await SendInvites(eventId);
+            await Xamarin.Forms.Application.Current.MainPage.Navigation.PopAsync();
         }
 
         #endregion

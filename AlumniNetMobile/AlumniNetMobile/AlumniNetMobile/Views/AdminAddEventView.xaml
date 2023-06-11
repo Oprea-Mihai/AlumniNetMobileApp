@@ -103,7 +103,7 @@
 
     <ContentPage.Content>
         <StackLayout Margin="10">
-            <StackLayout IsVisible="{Binding ShowDetails}" Margin="0,0,0,10">
+            <StackLayout Margin="0,0,0,10" IsVisible="{Binding ShowDetails}">
                 <Image
                     Aspect="AspectFill"
                     BackgroundColor="LightGray"
@@ -336,7 +336,7 @@
             </StackLayout>
 
             <!--  Sections for invite methods  -->
-            <StackLayout Margin="0,20,0,0" HorizontalOptions="Center">
+            <StackLayout HorizontalOptions="Center">
 
                 <!--  Everyone invited  -->
                 <StackLayout IsVisible="{Binding EveryoneChecked}">
@@ -344,15 +344,41 @@
                 </StackLayout>
 
                 <!--  Invite by year  -->
-                <StackLayout IsVisible="{Binding YearChecked}">
-                    <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Select the promotion years to invite" />
+                <StackLayout Margin="0,10,0,0" IsVisible="{Binding YearChecked}">
+                    <Label
+                        IsVisible="{Binding YearsVisible}"
+                        Style="{StaticResource DarkBlueMontserratBold}"
+                        Text="Select the promotion years to invite" />
                     <CollectionView
+                        HeightRequest="250"
+                        IsVisible="{Binding YearsVisible}"
                         ItemsSource="{Binding AvailablePromotionYears}"
-                        SelectedItems="{Binding SelectedPromotionYears}"
-                        SelectionMode="Multiple">
+                        SelectedItem="{Binding SelectedYear}"
+                        SelectionMode="Single">
                         <CollectionView.Behaviors>
-                            <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
+                            <xct:EventToCommandBehavior Command="{Binding YearSelectedCommand}" EventName="SelectionChanged" />
                         </CollectionView.Behaviors>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
+                                        <Label Text="{Binding}" VerticalTextAlignment="Center" />
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Label
+                        Margin="0,10,0,0"
+                        IsVisible="{Binding SelectedYearsVisible}"
+                        Style="{StaticResource DarkBlueMontserratBold}"
+                        Text="Selected years:" />
+                    <CollectionView
+                        HeightRequest="250"
+                        IsVisible="{Binding SelectedYearsVisible}"
+                        ItemsSource="{Binding SelectedPromotionYears}"
+                        SelectionMode="None">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout>
@@ -366,7 +392,7 @@
                 </StackLayout>
 
                 <!--  Invite by faculty  -->
-                <StackLayout Margin="0,10,0,0" IsVisible="{Binding FacultyChecked}">
+                <StackLayout IsVisible="{Binding FacultyChecked}">
                     <StackLayout
                         Grid.Row="0"
                         Padding="10,0,0,0"
