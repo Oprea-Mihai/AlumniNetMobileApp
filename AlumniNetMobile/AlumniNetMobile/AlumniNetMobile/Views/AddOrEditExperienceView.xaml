@@ -8,7 +8,8 @@
     xmlns:renderer="clr-namespace:AlumniNetMobile.Renderers"
     xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="#E5E5E5">
 
     <ContentPage.BindingContext>
         <viewmodels:AddOrEditExperienceViewModel />

@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Resources;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -29,28 +30,27 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public AdminAddEventViewModel()
         {
-            IsCalendarVisible = false;
-            CalendarItems = new ObservableRangeCollection<CalendarItemModel>();
-            CalendarMonth = DateTime.Now;
-            StartDateButtonText = GetLocalizedString("SelectStartDate");
-            SearchedFacultyName = "";
-            _areFacultySugestionsVisible = false;
-            wasFacultyTextChanged = false;
-            IsErrorMessageVisible = false;
+            CommonInitialization();
+            SaveButtonText = "Create event";
             IsImageVisible = false;
-            ShowDetails = true;
             EventDescription = "";
             EventTitle = "";
-            YearsVisible = true;
-            SelectedYearsVisible = false;
-            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
-            _manageData = new ManageData();
-            _photoPickerService = DependencyService.Resolve<IPhotoPickerService>();
+            IsDeleteButtonVisible = false;
+            SelectedTime = new TimeSpan();
+        }
 
-            AvailablePromotionYears = new ObservableRangeCollection<int>();
-            SelectedPromotionYears = new ObservableRangeCollection<int>();
-            DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>();
-            SelectedFacultyNames = new ObservableRangeCollection<FacultyModel>();
+        public AdminAddEventViewModel(EventModel selectedEvent)
+        {
+            CommonInitialization();
+            _selectedEvent = selectedEvent;
+            StartDateButtonText = selectedEvent.StartDate.ToString("dd-MM-yyyy");
+            EventDescription = selectedEvent.Description;
+            EventTitle = selectedEvent.EventName;
+            IsImageVisible = true;
+            IsRemoveButtonVisible = true;
+            IsDeleteButtonVisible = true;
+            SaveButtonText = "Update event";
+            SelectedTime = selectedEvent.StartDate.TimeOfDay;
         }
         #endregion
 
@@ -58,6 +58,7 @@ namespace AlumniNetMobile.ViewModels
         private IPhotoPickerService _photoPickerService;
         private bool wasFacultyTextChanged;
         private MemoryStream _memoryStream;
+        private EventModel _selectedEvent;
         private Stream _selectedFile;
         private ManageData _manageData;
         private IAuthenticationService _authenticationService;
@@ -212,6 +213,29 @@ namespace AlumniNetMobile.ViewModels
         #endregion
 
         #region Methods...
+        private void CommonInitialization()
+        {
+
+            IsCalendarVisible = false;
+            CalendarItems = new ObservableRangeCollection<CalendarItemModel>();
+            CalendarMonth = DateTime.Now;
+            StartDateButtonText = GetLocalizedString("SelectStartDate");
+            SearchedFacultyName = "";
+            AreFacultySugestionsVisible = false;
+            wasFacultyTextChanged = false;
+            IsErrorMessageVisible = false;
+            ShowDetails = true;
+            YearsVisible = true;
+            SelectedYearsVisible = false;
+            _authenticationService = DependencyService.Resolve<IAuthenticationService>();
+            _manageData = new ManageData();
+            _photoPickerService = DependencyService.Resolve<IPhotoPickerService>();
+            AvailablePromotionYears = new ObservableRangeCollection<int>();
+            SelectedPromotionYears = new ObservableRangeCollection<int>();
+            DisplayedFacultyNames = new ObservableRangeCollection<FacultyModel>();
+            SelectedFacultyNames = new ObservableRangeCollection<FacultyModel>();
+
+        }
 
         private static string GetLocalizedString(string key)
         {
@@ -269,7 +293,7 @@ namespace AlumniNetMobile.ViewModels
         #endregion
 
         #region Observables
-
+        
         [ObservableProperty]
         private CalendarItemModel _calendarSelectedDate;
 
@@ -283,13 +307,23 @@ namespace AlumniNetMobile.ViewModels
         private string _eventDescription;
 
         [ObservableProperty]
+        private TimeSpan _selectedTime;
+
+        [ObservableProperty]
         private string _eventTitle;
+
+
+        [ObservableProperty]
+        private string _saveButtonText;
 
         [ObservableProperty]
         private DateTime _startDate;
 
         [ObservableProperty]
         private bool _isCalendarVisible;
+
+        [ObservableProperty]
+        private bool _isDeleteButtonVisible;
 
         [ObservableProperty]
         private bool _isErrorMessageVisible;
@@ -508,6 +542,15 @@ namespace AlumniNetMobile.ViewModels
             }
         }
 
+        [RelayCommand]
+        public void RemovePicture()
+        {
+            IsRemoveButtonVisible = false;
+            SelectedImage = null;
+            IsImageVisible = false;
+            _selectedFile = null;
+
+        }
 
         [RelayCommand]
         public async void CreateEvent()
@@ -535,11 +578,13 @@ namespace AlumniNetMobile.ViewModels
             string image = await updateData.ManageStreamData
                  ($"Event/UploadEventImage", _memoryStream, token);
 
+            DateTime eventDate = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day,
+                SelectedTime.Hours, SelectedTime.Minutes, SelectedTime.Seconds);
             EventModel eventToCreate = new EventModel
             {
                 EventName = EventTitle,
                 Description = EventDescription,
-                StartDate = StartDate,
+                StartDate = eventDate,
                 Image = image,
             };
 
@@ -552,6 +597,22 @@ namespace AlumniNetMobile.ViewModels
             await Xamarin.Forms.Application.Current.MainPage.Navigation.PopAsync();
         }
 
+
+        [RelayCommand]
+        public async Task PageAppearing()
+        {
+            if (_selectedEvent != null)
+            {
+                string token = await _authenticationService.GetCurrentTokenAsync();
+                string picKey = _selectedEvent.Image;
+                if (picKey != null && picKey != "")
+                {
+                    GetData getData = new GetData();
+                    Stream file = await getData.ManageStreamData($"Files/GetFileByKey?key={picKey}", token);
+                    SelectedImage = ImageSource.FromStream(() => file);
+                }
+            }
+        }
         #endregion
 
     }

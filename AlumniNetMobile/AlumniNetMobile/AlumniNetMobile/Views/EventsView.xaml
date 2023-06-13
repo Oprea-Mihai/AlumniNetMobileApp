@@ -64,6 +64,7 @@
                                     </Grid.ColumnDefinitions>
                                     <ffimageloading:CachedImage
                                         Margin="1"
+                                        Aspect="AspectFill"
                                         DownsampleToViewSize="true"
                                         ErrorPlaceholder="error.png"
                                         HeightRequest="200"

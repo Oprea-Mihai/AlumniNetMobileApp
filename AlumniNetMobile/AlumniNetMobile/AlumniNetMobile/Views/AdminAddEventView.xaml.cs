@@ -1,4 +1,5 @@
-﻿using AlumniNetMobile.ViewModels;
+﻿using AlumniNetMobile.Models;
+using AlumniNetMobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,12 @@ namespace AlumniNetMobile.Views
         {
             InitializeComponent();
             BindingContext = new AdminAddEventViewModel();
+        }
+
+        public AdminAddEventView(EventModel selectedEvent)
+        {
+            InitializeComponent();
+            BindingContext = new AdminAddEventViewModel(selectedEvent);
         }
     }
 }
