@@ -61,8 +61,8 @@ namespace AlumniNetMobile.ViewModels
             if (SelectedEvent == null)
                 return;
             var ev = SelectedEvent;
-            //SelectedEvent = null;
-            //await Application.Current.MainPage.Navigation.PushAsync(new EventDetailsView(ev));
+            SelectedEvent = null;
+            await Application.Current.MainPage.Navigation.PushAsync(new AdminAddEventView(ev));
         }
 
 
