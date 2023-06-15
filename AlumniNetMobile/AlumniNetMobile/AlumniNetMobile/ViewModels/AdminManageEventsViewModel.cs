@@ -73,7 +73,7 @@ namespace AlumniNetMobile.ViewModels
             _manageData.SetStrategy(new GetData());
             string token = await _authenticationService.GetCurrentTokenAsync();
             List<EventModel> events = await _manageData.
-                GetDataAndDeserializeIt<List<EventModel>>("Event/GetAllEvents", "", token);
+                GetDataAndDeserializeIt<List<EventModel>>("Event/GetAllEventsWithInviteResults", "", token);
 
             foreach (EventModel eventModel in events)
             {

@@ -26,7 +26,7 @@ namespace AlumniNetMobile.ViewModels
             _selectedEvent = selectedEvent;
 
             Title = selectedEvent.EventName;
-            StartDate = selectedEvent.StartDate;
+            StartDate = selectedEvent.StartDateString;
             Description = selectedEvent.Description;
         }
 

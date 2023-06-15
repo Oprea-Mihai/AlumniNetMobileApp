@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace AlumniNetMobile.Models
 {
@@ -7,7 +8,8 @@ namespace AlumniNetMobile.Models
         public int EventId { get; set; }
         public string EventName { get; set; }
         public string Description { get; set; }
-        public string StartDate { get; set; }
+        public DateTime StartDate{ get; set; }
+        public string StartDateString { get; set; }
         public string Image { get; set; }
         public string Status { get; set; }
         public int InviteId { get; set; }

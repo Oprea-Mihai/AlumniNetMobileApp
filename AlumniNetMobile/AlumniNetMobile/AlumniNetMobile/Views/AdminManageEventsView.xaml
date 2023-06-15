@@ -96,7 +96,7 @@
                                         Margin="7,0,0,12"
                                         FontFamily="Montserrat"
                                         FontSize="9"
-                                        Text="{Binding StartDate}"
+                                        Text="{Binding StartDate, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}"
                                         TextColor="#1C698A" />
 
                                 </StackLayout>

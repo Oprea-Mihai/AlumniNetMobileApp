@@ -4,7 +4,9 @@ using AlumniNetMobile.Models;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -74,7 +76,9 @@ namespace AlumniNetMobile.ViewModels
 
             foreach (EventInviteModel eventModel in events)
             {
-                var picKey = eventModel.Image;
+
+               eventModel.StartDateString = eventModel.StartDate.ToString("dd-MM-yyyy HH:mm");
+                    var picKey = eventModel.Image;
                 if (picKey != null && picKey != "")
                 {
                     GetData getData = new GetData();

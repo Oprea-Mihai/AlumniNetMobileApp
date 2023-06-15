@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:local="clr-namespace:AlumniNetMobile.Converters"
     xmlns:models="clr-namespace:AlumniNetMobile.Models"
     xmlns:resx="clr-namespace:AlumniNetMobile.Resx"
     xmlns:viewmodels="clr-namespace:AlumniNetMobile.ViewModels"
@@ -13,6 +14,7 @@
     <ContentPage.BindingContext>
         <viewmodels:EventsViewModel />
     </ContentPage.BindingContext>
+
 
     <ContentPage.Behaviors>
         <xct:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing" />
@@ -85,7 +87,7 @@
                                             Margin="7,0,0,12"
                                             FontFamily="Montserrat"
                                             FontSize="9"
-                                            Text="{Binding StartDate}"
+                                            Text="{Binding StartDateString}"
                                             TextColor="#1C698A" />
                                         <Button
                                             Margin="0,0,5,5"
