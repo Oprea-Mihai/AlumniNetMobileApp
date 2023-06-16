@@ -64,9 +64,10 @@
                             HasShadow="True"
                             IsClippedToBounds="True"
                             Style="{StaticResource EventFrameStyle}">
-                            <Grid Margin="-20,-30,-20,-20">
+                            <Grid Margin="-20,-30,-20,-20" RowSpacing="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
@@ -98,7 +99,80 @@
                                         FontSize="9"
                                         Text="{Binding StartDate, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}"
                                         TextColor="#1C698A" />
+                                </StackLayout>
 
+                                <StackLayout
+                                    Grid.Row="3"
+                                    HorizontalOptions="Center"
+                                    Orientation="Horizontal"
+                                    Spacing="0">
+                                    <StackLayout
+                                        BackgroundColor="#199F36"
+                                        HeightRequest="35"
+                                        Orientation="Horizontal"
+                                        WidthRequest="60">
+                                        <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                            <Image.Source>
+                                                <FontImageSource
+                                                    FontFamily="FontAwesome"
+                                                    Glyph="{x:Static fa:FontAwesomeIcons.Check}"
+                                                    Size="15"
+                                                    Color="White" />
+                                            </Image.Source>
+                                        </Image>
+                                        <Label
+                                            FontFamily="Montserrat"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Text="100"
+                                            TextColor="White"
+                                            VerticalOptions="CenterAndExpand" />
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        BackgroundColor="#FF6700"
+                                        HeightRequest="35"
+                                        Orientation="Horizontal"
+                                        WidthRequest="60">
+                                        <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                            <Image.Source>
+                                                <FontImageSource
+                                                    FontFamily="FontAwesome"
+                                                    Glyph="{x:Static fa:FontAwesomeIcons.Clock}"
+                                                    Size="15"
+                                                    Color="White" />
+                                            </Image.Source>
+                                        </Image>
+                                        <Label
+                                            FontFamily="Montserrat"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Text="23"
+                                            TextColor="White"
+                                            VerticalOptions="CenterAndExpand" />
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        BackgroundColor="#8A1C23"
+                                        HeightRequest="35"
+                                        HorizontalOptions="Center"
+                                        Orientation="Horizontal"
+                                        Spacing="0"
+                                        WidthRequest="60">
+                                        <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                            <Image.Source>
+                                                <FontImageSource
+                                                    FontFamily="FontAwesome"
+                                                    Glyph="{x:Static fa:FontAwesomeIcons.X}"
+                                                    Size="15"
+                                                    Color="White" />
+                                            </Image.Source>
+                                        </Image>
+                                        <Label
+                                            FontFamily="Montserrat"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Text="3"
+                                            TextColor="White"
+                                            VerticalOptions="CenterAndExpand" />
+                                    </StackLayout>
                                 </StackLayout>
                             </Grid>
                         </Frame>
