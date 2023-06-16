@@ -123,7 +123,7 @@
                                         <Label
                                             FontFamily="Montserrat"
                                             HorizontalOptions="CenterAndExpand"
-                                            Text="100"
+                                            Text="{Binding Accepted}"
                                             TextColor="White"
                                             VerticalOptions="CenterAndExpand" />
                                     </StackLayout>
@@ -145,7 +145,7 @@
                                         <Label
                                             FontFamily="Montserrat"
                                             HorizontalOptions="CenterAndExpand"
-                                            Text="23"
+                                            Text="{Binding Pending}"
                                             TextColor="White"
                                             VerticalOptions="CenterAndExpand" />
                                     </StackLayout>
@@ -169,7 +169,7 @@
                                         <Label
                                             FontFamily="Montserrat"
                                             HorizontalOptions="CenterAndExpand"
-                                            Text="3"
+                                            Text="{Binding Rejected}"
                                             TextColor="White"
                                             VerticalOptions="CenterAndExpand" />
                                     </StackLayout>
