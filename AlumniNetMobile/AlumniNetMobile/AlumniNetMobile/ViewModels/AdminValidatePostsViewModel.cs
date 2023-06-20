@@ -180,6 +180,7 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void PageAppearing()
         {
+            NoPostsAvailableVisible = false;
             await InitializeAsync();
         }
 
