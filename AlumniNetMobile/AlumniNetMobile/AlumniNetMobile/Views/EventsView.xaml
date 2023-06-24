@@ -28,7 +28,7 @@
                 FontSize="20"
                 Text="{x:Static resx:AppResource.AlumniEvents}"
                 TextColor="#1C698A" />
-            <RefreshView Command="{Binding InitializeAsyncCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <RefreshView Command="{Binding PageAppearingCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
                 <CollectionView
                     Margin="7,10,7,10"
                     ItemsSource="{Binding Events}"

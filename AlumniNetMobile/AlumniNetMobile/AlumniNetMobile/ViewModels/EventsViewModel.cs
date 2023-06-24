@@ -69,6 +69,9 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void PageAppearing()
         {
+            if (IsBusy) return;
+
+            IsBusy = true;
             _manageData.SetStrategy(new GetData());
             string token = await _authenticationService.GetCurrentTokenAsync();
             List<EventInviteModel> events = await _manageData.
@@ -77,8 +80,8 @@ namespace AlumniNetMobile.ViewModels
             foreach (EventInviteModel eventModel in events)
             {
 
-               eventModel.StartDateString = eventModel.StartDate.ToString("dd-MM-yyyy HH:mm");
-                    var picKey = eventModel.Image;
+                eventModel.StartDateString = eventModel.StartDate.ToString("dd-MM-yyyy HH:mm");
+                var picKey = eventModel.Image;
                 if (picKey != null && picKey != "")
                 {
                     GetData getData = new GetData();
@@ -87,6 +90,8 @@ namespace AlumniNetMobile.ViewModels
                 }
             }
             Events.ReplaceRange(events);
+
+            IsBusy = false;
         }
 
         #endregion

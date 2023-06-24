@@ -121,7 +121,8 @@
                     </StackLayout>
 
                     <Label
-                        FontSize="16"
+                        FontFamily="OpenSans"
+                        FontSize="14"
                         IsVisible="{Binding IsNotEditing}"
                         LineBreakMode="TailTruncation"
                         MaxLines="3"
