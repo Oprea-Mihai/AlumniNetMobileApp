@@ -1,6 +1,7 @@
 ﻿using AlumniNetMobile.Common;
 using AlumniNetMobile.DataHandlingStrategy;
 using AlumniNetMobile.Models;
+using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -120,6 +121,18 @@ namespace AlumniNetMobile.ViewModels
 
             _currentIndex++;
             IsBusy = false;
+        }
+
+        [RelayCommand]
+        public void SearchButtonClicked()
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new SearchView());
+        }
+
+        [RelayCommand]
+        public async Task AddPostButtonClicked()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new AddPostView());
         }
 
         [RelayCommand]

@@ -80,7 +80,7 @@ namespace AlumniNetMobile.ViewModels
                     postsWithImgs.Add(post);
                 }
             }
-            Posts = new ObservableRangeCollection<PostModel>();
+           // Posts = new ObservableRangeCollection<PostModel>();
             Posts.AddRange(postsWithImgs);
         }
 
@@ -146,16 +146,17 @@ namespace AlumniNetMobile.ViewModels
         }
 
         [RelayCommand]
+        public async Task AddPostButtonClicked()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new AddPostView());
+        }
+
+        [RelayCommand]
         public void LikeButtonClicked(PostModel obj)
         {
             IsLikeButtonClicked = !IsLikeButtonClicked;
         }
 
-        [RelayCommand]
-        public async Task AddPostButtonClicked()
-        {
-            await Application.Current.MainPage.Navigation.PushAsync(new AddPostView());
-        }
 
         [RelayCommand]
         public async void LoadMorePostsAsync()

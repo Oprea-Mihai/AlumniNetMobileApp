@@ -43,7 +43,7 @@
                             Command="{Binding AddPostButtonClickedCommand}"
                             CornerRadius="30"
                             HeightRequest="40"
-                            WidthRequest="40">
+                            WidthRequest="45">
                             <Button.ImageSource>
                                 <FontImageSource
                                     FontFamily="FontAwesome"
@@ -54,10 +54,11 @@
                         </Button>
                         <Button
                             BackgroundColor="White"
+                            Margin="0,0,8,0"
                             Command="{Binding SearchButtonClickedCommand}"
                             CornerRadius="30"
                             HeightRequest="40"
-                            WidthRequest="40">
+                            WidthRequest="45">
                             <Button.ImageSource>
                                 <FontImageSource
                                     FontFamily="FontAwesome"
@@ -69,32 +70,26 @@
                     </StackLayout>
                 </Grid>
             </StackLayout>
-            <StackLayout Margin="0,10,0,10">
-                <RefreshView Command="{Binding InitializeCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <StackLayout Margin="5,0,5,1.5" HorizontalOptions="CenterAndExpand">
+                <!--  Command="{Binding InitializeCommand}"  -->
+                <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}">
                     <CollectionView
                         x:Name="postsCollectionView"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding Posts}"
-                        RemainingItemsThreshold="1">
-                        <!--  RemainingItemsThresholdReachedCommand="{Binding LoadMorePostsAsyncCommand}"  -->
+                        RemainingItemsThreshold="2"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadMorePostsAsyncCommand}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="0,4,0,10" BackgroundColor="Transparent">
                                     <Frame
                                         Margin="0,5,0,5"
-                                        Padding="20,10,20,0"
+                                        Padding="15,10,15,10"
                                         BackgroundColor="White"
                                         BorderColor="Gray"
                                         CornerRadius="10">
                                         <StackLayout>
                                             <StackLayout Orientation="Horizontal">
-                                                <!--<Frame
-                                                    Padding="0"
-                                                    CornerRadius="300"
-                                                    HeightRequest="30"
-                                                    IsClippedToBounds="True">
-                                                    <Image Aspect="AspectFit" Source="GraduationCap.png" />
-                                                </Frame>-->
                                                 <Image
                                                     Margin="0,10,0,0"
                                                     Aspect="AspectFit"
@@ -128,7 +123,13 @@
                                                 Source="{Binding ImageSource}"
                                                 TransformPlaceholders="False"
                                                 WidthRequest="200" />
-                                            <StackLayout
+                                            <Label
+                                                FontSize="12"
+                                                HorizontalOptions="End"
+                                                Style="{StaticResource StandardTextLabel}"
+                                                Text="{Binding PostingDate, StringFormat='{}{0:dd-MM-yyyy HH:mm}'}"
+                                                TextColor="Black" />
+                                            <!--<StackLayout
                                                 Margin="0,5,0,5"
                                                 HorizontalOptions="End"
                                                 Orientation="Horizontal"
@@ -161,7 +162,6 @@
                                                     </Button.ImageSource>
                                                 </Button>
                                                 <StackLayout>
-                                                    <!--  BackgroundColor="{Binding IsLikeButtonClicked, Converter={StaticResource booleanToColorConverter}}"  -->
                                                     <Button
                                                         BackgroundColor="Transparent"
                                                         Command="{Binding BindingContext.LikeButtonClickedCommand, Source={x:Reference postsCollectionView}}"
@@ -182,7 +182,7 @@
                                                         HorizontalOptions="Center"
                                                         Text="123" />
                                                 </StackLayout>
-                                            </StackLayout>
+                                            </StackLayout>-->
                                         </StackLayout>
                                     </Frame>
                                 </StackLayout>

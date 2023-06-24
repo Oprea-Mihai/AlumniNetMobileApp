@@ -13,10 +13,10 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+        <RefreshView IsEnabled="True" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <StackLayout>
                 <SearchBar
-                    Placeholder="Cautati nume / specializare / an"
+                    Placeholder="Cautati dupa nume"
                     SearchCommand="{Binding SearchCommand}"
                     Text="{Binding SearchedName}">
                     <SearchBar.Behaviors>
@@ -51,13 +51,11 @@
                                     Margin="5,0"
                                     Padding="0"
                                     BackgroundColor="Transparent"
-                                    CornerRadius="100"
-                                    IsClippedToBounds="True">
-                                    <Image
-                                        Aspect="AspectFit"
-                                        HeightRequest="90"
-                                        Source="{Binding ImageSource}"
-                                        WidthRequest="90" />
+                                    CornerRadius="130"
+                                    HeightRequest="85"
+                                    IsClippedToBounds="True"
+                                    WidthRequest="90">
+                                    <Image Aspect="AspectFill" Source="{Binding ImageSource}" />
                                 </Frame>
                                 <StackLayout
                                     Orientation="Vertical"
