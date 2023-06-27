@@ -107,445 +107,447 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Margin="10">
-            <StackLayout Margin="0,0,0,10" IsVisible="{Binding ShowDetails}">
-                <Image
-                    Aspect="AspectFill"
-                    BackgroundColor="LightGray"
-                    HeightRequest="200"
-                    IsVisible="{Binding IsImageVisible}"
-                    Source="{Binding SelectedImage}" />
-                <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
-                    <Button
-                        BackgroundColor="#1C698A"
-                        Command="{Binding OpenPickerCommand}"
-                        CornerRadius="5"
-                        Text="Select picture"
-                        TextColor="White" />
-                    <Button
-                        BackgroundColor="#8A1C23"
-                        Command="{Binding RemovePictureCommand}"
-                        CornerRadius="5"
-                        IsVisible="{Binding IsRemoveButtonVisible}"
-                        Text="Remove picture"
-                        TextColor="White" />
-                </StackLayout>
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <StackLayout Margin="10">
+                <StackLayout Margin="0,0,0,10" IsVisible="{Binding ShowDetails}">
+                    <Image
+                        Aspect="AspectFill"
+                        BackgroundColor="LightGray"
+                        HeightRequest="200"
+                        IsVisible="{Binding IsImageVisible}"
+                        Source="{Binding SelectedImage}" />
+                    <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                        <Button
+                            BackgroundColor="#1C698A"
+                            Command="{Binding OpenPickerCommand}"
+                            CornerRadius="5"
+                            Text="Select picture"
+                            TextColor="White" />
+                        <Button
+                            BackgroundColor="#8A1C23"
+                            Command="{Binding RemovePictureCommand}"
+                            CornerRadius="5"
+                            IsVisible="{Binding IsRemoveButtonVisible}"
+                            Text="Remove picture"
+                            TextColor="White" />
+                    </StackLayout>
 
-                <Frame
-                    Padding="5"
-                    BackgroundColor="#F0F0F0"
-                    HeightRequest="45"
-                    Style="{StaticResource FrameCardNoRequests}">
+                    <Frame
+                        Padding="5"
+                        BackgroundColor="#F0F0F0"
+                        HeightRequest="45"
+                        Style="{StaticResource FrameCardNoRequests}">
 
-                    <renderers:BorderlessEditor
-                        FontSize="16"
-                        Placeholder="Event title"
-                        Text="{Binding EventTitle}"
-                        VerticalOptions="CenterAndExpand" />
-                </Frame>
-
-                <Frame
-                    Padding="5"
-                    BackgroundColor="#F0F0F0"
-                    HeightRequest="75"
-                    Style="{StaticResource FrameCardNoRequests}">
-                    <renderers:BorderlessEditor
-                        FontSize="16"
-                        Placeholder="Event description"
-                        Text="{Binding EventDescription}"
-                        VerticalOptions="FillAndExpand" />
-                </Frame>
-                <StackLayout Orientation="Horizontal">
-                    <Button
-                        BackgroundColor="Transparent"
-                        Command="{Binding StartDateButtonClickedCommand}"
-                        HeightRequest="24"
-                        WidthRequest="24">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="FontAwesome"
-                                Glyph="{x:Static fa:FontAwesomeIcons.Calendar}"
-                                Size="24"
-                                Color="#5AA7C8" />
-                        </Button.ImageSource>
-                    </Button>
-                    <Button
-                        BackgroundColor="Transparent"
-                        Command="{Binding StartDateButtonClickedCommand}"
-                        FontSize="16"
-                        HorizontalOptions="StartAndExpand"
-                        Style="{StaticResource CalendarText}"
-                        Text="{Binding StartDateButtonText}"
-                        TextTransform="None"
-                        VerticalOptions="Center" />
-                    <Button
-                        BackgroundColor="Transparent"
-                        HeightRequest="24"
-                        WidthRequest="24">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="FontAwesome"
-                                Glyph="{x:Static fa:FontAwesomeIcons.Clock}"
-                                Size="24"
-                                Color="#5AA7C8" />
-                        </Button.ImageSource>
-                    </Button>
-                    <TimePicker HorizontalOptions="FillAndExpand" Time="{Binding SelectedTime}" />
-                </StackLayout>
-
-
-
-                <!--  CALENDAR  -->
-                <StackLayout
-                    Margin="35,0,35,0"
-                    IsVisible="{Binding IsCalendarVisible}"
-                    MinimumHeightRequest="300"
-                    Spacing="0">
-                    <!--  Set up the top row with the buttons to change the month and label show the current month  -->
-                    <Frame Padding="0" BorderColor="#E1E1E1">
-                        <StackLayout Orientation="Horizontal">
-                            <Button
-                                BackgroundColor="#FFFFFF"
-                                BorderColor="#E1E1E1"
-                                BorderWidth="1"
-                                Command="{Binding CalendarPreviousMonthCommand}"
-                                FontFamily="FontAwesome"
-                                FontSize="22"
-                                HeightRequest="36"
-                                HorizontalOptions="StartAndExpand"
-                                IsEnabled="{Binding IsAwaiting}"
-                                WidthRequest="32.3">
-                                <Button.ImageSource>
-                                    <FontImageSource
-                                        FontFamily="FontAwesome"
-                                        Glyph="{x:Static fa:FontAwesomeIcons.AngleLeft}"
-                                        Size="24"
-                                        Color="#1C698A" />
-                                </Button.ImageSource>
-                            </Button>
-                            <Label
-                                FontFamily="OpenSansSemiBold"
-                                FontSize="16"
-                                HorizontalTextAlignment="Center"
-                                Text="{Binding CalendarMonthText}"
-                                TextColor="#1C698A"
-                                VerticalTextAlignment="Center" />
-                            <Button
-                                BackgroundColor="#FFFFFF"
-                                BorderColor="#E1E1E1"
-                                BorderWidth="1"
-                                Command="{Binding CalendarNextMonthCommand}"
-                                FontFamily="FontAwesome"
-                                HeightRequest="36"
-                                HorizontalOptions="EndAndExpand"
-                                IsEnabled="{Binding IsAwaiting}"
-                                WidthRequest="32.3">
-                                <Button.ImageSource>
-                                    <FontImageSource
-                                        FontFamily="FontAwesome"
-                                        Glyph="{x:Static fa:FontAwesomeIcons.AngleRight}"
-                                        Size="24"
-                                        Color="#1C698A" />
-                                </Button.ImageSource>
-                            </Button>
-                        </StackLayout>
+                        <renderers:BorderlessEditor
+                            FontSize="16"
+                            Placeholder="Event title"
+                            Text="{Binding EventTitle}"
+                            VerticalOptions="CenterAndExpand" />
                     </Frame>
 
-                    <!--  This is the collection view that is the main view for the control, it is setup to be a vertical grid with 7 columns  -->
-                    <Frame Padding="1" BorderColor="#E1E1E1">
-                        <StackLayout>
-                            <StackLayout Margin="0,22,0,6.5" Orientation="Horizontal">
-                                <Label Margin="8,0,0,0" Style="{StaticResource DayOfWeekLabel}">SUN</Label>
-                                <Label Style="{StaticResource DayOfWeekLabel}">MON</Label>
-                                <Label Style="{StaticResource DayOfWeekLabel}">TUE</Label>
-                                <Label Style="{StaticResource DayOfWeekLabel}">WED</Label>
-                                <Label Style="{StaticResource DayOfWeekLabel}">THU</Label>
-                                <Label Style="{StaticResource DayOfWeekLabel}">FRI</Label>
-                                <Label Style="{StaticResource DayOfWeekLabel}">SAT</Label>
+                    <Frame
+                        Padding="5"
+                        BackgroundColor="#F0F0F0"
+                        HeightRequest="75"
+                        Style="{StaticResource FrameCardNoRequests}">
+                        <renderers:BorderlessEditor
+                            FontSize="16"
+                            Placeholder="Event description"
+                            Text="{Binding EventDescription}"
+                            VerticalOptions="FillAndExpand" />
+                    </Frame>
+                    <StackLayout Orientation="Horizontal">
+                        <Button
+                            BackgroundColor="Transparent"
+                            Command="{Binding StartDateButtonClickedCommand}"
+                            HeightRequest="24"
+                            WidthRequest="24">
+                            <Button.ImageSource>
+                                <FontImageSource
+                                    FontFamily="FontAwesome"
+                                    Glyph="{x:Static fa:FontAwesomeIcons.Calendar}"
+                                    Size="24"
+                                    Color="#5AA7C8" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button
+                            BackgroundColor="Transparent"
+                            Command="{Binding StartDateButtonClickedCommand}"
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource CalendarText}"
+                            Text="{Binding StartDateButtonText}"
+                            TextTransform="None"
+                            VerticalOptions="Center" />
+                        <Button
+                            BackgroundColor="Transparent"
+                            HeightRequest="24"
+                            WidthRequest="24">
+                            <Button.ImageSource>
+                                <FontImageSource
+                                    FontFamily="FontAwesome"
+                                    Glyph="{x:Static fa:FontAwesomeIcons.Clock}"
+                                    Size="24"
+                                    Color="#5AA7C8" />
+                            </Button.ImageSource>
+                        </Button>
+                        <TimePicker HorizontalOptions="FillAndExpand" Time="{Binding SelectedTime}" />
+                    </StackLayout>
+
+
+
+                    <!--  CALENDAR  -->
+                    <StackLayout
+                        Margin="35,0,35,0"
+                        IsVisible="{Binding IsCalendarVisible}"
+                        MinimumHeightRequest="300"
+                        Spacing="0">
+                        <!--  Set up the top row with the buttons to change the month and label show the current month  -->
+                        <Frame Padding="0" BorderColor="#E1E1E1">
+                            <StackLayout Orientation="Horizontal">
+                                <Button
+                                    BackgroundColor="#FFFFFF"
+                                    BorderColor="#E1E1E1"
+                                    BorderWidth="1"
+                                    Command="{Binding CalendarPreviousMonthCommand}"
+                                    FontFamily="FontAwesome"
+                                    FontSize="22"
+                                    HeightRequest="36"
+                                    HorizontalOptions="StartAndExpand"
+                                    IsEnabled="{Binding IsAwaiting}"
+                                    WidthRequest="32.3">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="FontAwesome"
+                                            Glyph="{x:Static fa:FontAwesomeIcons.AngleLeft}"
+                                            Size="24"
+                                            Color="#1C698A" />
+                                    </Button.ImageSource>
+                                </Button>
+                                <Label
+                                    FontFamily="OpenSansSemiBold"
+                                    FontSize="16"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding CalendarMonthText}"
+                                    TextColor="#1C698A"
+                                    VerticalTextAlignment="Center" />
+                                <Button
+                                    BackgroundColor="#FFFFFF"
+                                    BorderColor="#E1E1E1"
+                                    BorderWidth="1"
+                                    Command="{Binding CalendarNextMonthCommand}"
+                                    FontFamily="FontAwesome"
+                                    HeightRequest="36"
+                                    HorizontalOptions="EndAndExpand"
+                                    IsEnabled="{Binding IsAwaiting}"
+                                    WidthRequest="32.3">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="FontAwesome"
+                                            Glyph="{x:Static fa:FontAwesomeIcons.AngleRight}"
+                                            Size="24"
+                                            Color="#1C698A" />
+                                    </Button.ImageSource>
+                                </Button>
                             </StackLayout>
-                            <Line
-                                Stroke="#1C698A"
-                                StrokeThickness="1"
-                                WidthRequest="100"
-                                X1="0"
-                                X2="3020"
-                                Y1="0"
-                                Y2="0" />
-                            <CollectionView
-                                x:Name="LayoutRoot"
-                                AutomationId="selectDateInCalendarButton"
-                                ItemsLayout="VerticalGrid, 7"
-                                ItemsSource="{Binding CalendarItems}"
-                                SelectedItem="{Binding CalendarSelectedItem}"
-                                SelectionChangedCommand="{Binding CalendarDateChangedCommand}"
-                                SelectionMode="Single"
+                        </Frame>
+
+                        <!--  This is the collection view that is the main view for the control, it is setup to be a vertical grid with 7 columns  -->
+                        <Frame Padding="1" BorderColor="#E1E1E1">
+                            <StackLayout>
+                                <StackLayout Margin="0,22,0,6.5" Orientation="Horizontal">
+                                    <Label Margin="8,0,0,0" Style="{StaticResource DayOfWeekLabel}">SUN</Label>
+                                    <Label Style="{StaticResource DayOfWeekLabel}">MON</Label>
+                                    <Label Style="{StaticResource DayOfWeekLabel}">TUE</Label>
+                                    <Label Style="{StaticResource DayOfWeekLabel}">WED</Label>
+                                    <Label Style="{StaticResource DayOfWeekLabel}">THU</Label>
+                                    <Label Style="{StaticResource DayOfWeekLabel}">FRI</Label>
+                                    <Label Style="{StaticResource DayOfWeekLabel}">SAT</Label>
+                                </StackLayout>
+                                <Line
+                                    Stroke="#1C698A"
+                                    StrokeThickness="1"
+                                    WidthRequest="100"
+                                    X1="0"
+                                    X2="3020"
+                                    Y1="0"
+                                    Y2="0" />
+                                <CollectionView
+                                    x:Name="LayoutRoot"
+                                    AutomationId="selectDateInCalendarButton"
+                                    ItemsLayout="VerticalGrid, 7"
+                                    ItemsSource="{Binding CalendarItems}"
+                                    SelectedItem="{Binding CalendarSelectedItem}"
+                                    SelectionChangedCommand="{Binding CalendarDateChangedCommand}"
+                                    SelectionMode="Single"
+                                    WidthRequest="300">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <!--  The Style is bound the item type using the converter above to convert it to a converter  -->
+                                            <Grid Padding="9,2,9,0" BackgroundColor="White">
+                                                <Label
+                                                    Margin="0,1,0,5"
+                                                    FontFamily="OpenSans"
+                                                    FontSize="15"
+                                                    HeightRequest="26"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{Binding DisplayType, Converter={StaticResource CalendarItemStyleConverter}}"
+                                                    Text="{Binding Label}"
+                                                    WidthRequest="47.53" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+
+                </StackLayout>
+                <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Select the invitation mode" />
+
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding EveryoneChecked}" Color="Black">
+                        <CheckBox.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding EveryoneCheckedChangedCommand}" EventName="CheckedChanged" />
+                        </CheckBox.Behaviors>
+                    </CheckBox>
+                    <Label
+                        Style="{StaticResource DarkBlueMontserratBold}"
+                        Text="Everyone"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding YearChecked}" Color="Black">
+                        <CheckBox.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding YearCheckedChangedCommand}" EventName="CheckedChanged" />
+                        </CheckBox.Behaviors>
+                    </CheckBox>
+                    <Label
+                        Style="{StaticResource DarkBlueMontserratBold}"
+                        Text="By year"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding FacultyChecked}" Color="Black">
+                        <CheckBox.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding FacultyCheckedChangedCommand}" EventName="CheckedChanged" />
+                        </CheckBox.Behaviors>
+                    </CheckBox>
+                    <Label
+                        Style="{StaticResource DarkBlueMontserratBold}"
+                        Text="By faculty"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding NameChecked}" Color="Black">
+                        <CheckBox.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding NameCheckedChangedCommand}" EventName="CheckedChanged" />
+                        </CheckBox.Behaviors>
+                    </CheckBox>
+                    <Label
+                        Style="{StaticResource DarkBlueMontserratBold}"
+                        Text="By name"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <!--  Sections for invite methods  -->
+                <StackLayout HorizontalOptions="Center">
+
+                    <!--  Everyone invited  -->
+                    <StackLayout IsVisible="{Binding EveryoneChecked}">
+                        <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Every alumn will reveive an invite to this event!" />
+                    </StackLayout>
+
+                    <!--  Invite by year  -->
+                    <StackLayout Margin="0,10,0,0" IsVisible="{Binding YearChecked}">
+                        <Label
+                            IsVisible="{Binding YearsVisible}"
+                            Style="{StaticResource DarkBlueMontserratBold}"
+                            Text="Select the promotion years to invite" />
+                        <CollectionView
+                            HeightRequest="250"
+                            IsVisible="{Binding YearsVisible}"
+                            ItemsSource="{Binding AvailablePromotionYears}"
+                            SelectedItem="{Binding SelectedYear}"
+                            SelectionMode="Single">
+                            <CollectionView.Behaviors>
+                                <xct:EventToCommandBehavior Command="{Binding YearSelectedCommand}" EventName="SelectionChanged" />
+                            </CollectionView.Behaviors>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
+                                            <Label Text="{Binding}" VerticalTextAlignment="Center" />
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Label
+                            Margin="0,10,0,0"
+                            IsVisible="{Binding SelectedYearsVisible}"
+                            Style="{StaticResource DarkBlueMontserratBold}"
+                            Text="Selected years:" />
+                        <CollectionView
+                            HeightRequest="250"
+                            IsVisible="{Binding SelectedYearsVisible}"
+                            ItemsSource="{Binding SelectedPromotionYears}"
+                            SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
+                                            <Label Text="{Binding}" VerticalTextAlignment="Center" />
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+
+                    <!--  Invite by faculty  -->
+                    <StackLayout IsVisible="{Binding FacultyChecked}">
+                        <StackLayout
+                            Grid.Row="0"
+                            Padding="10,0,0,0"
+                            Orientation="Horizontal">
+                            <Image>
+                                <Image.Source>
+                                    <FontImageSource
+                                        FontFamily="FontAwesome"
+                                        Glyph="{x:Static fa:FontAwesomeIcons.School}"
+                                        Size="30"
+                                        Color="Black" />
+                                </Image.Source>
+                            </Image>
+                            <renderers:BorderlessEditor
+                                Margin="10,0,0,0"
+                                Placeholder="Search for a faculty name"
+                                Text="{Binding SearchedFacultyName}"
+                                VerticalOptions="Center"
                                 WidthRequest="300">
+                                <renderers:BorderlessEditor.Behaviors>
+                                    <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
+                                    <xct:UserStoppedTypingBehavior
+                                        Command="{Binding SearchFacultyCommand}"
+                                        MinimumLengthThreshold="2"
+                                        StoppedTypingTimeThreshold="300" />
+                                </renderers:BorderlessEditor.Behaviors>
+                            </renderers:BorderlessEditor>
+                        </StackLayout>
+                        <Label
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding FacultyNotFoundVisible}"
+                            Text="{x:Static resx:AppResource.FacultyNotFound}"
+                            TextColor="DarkRed" />
+                        <StackLayout VerticalOptions="FillAndExpand">
+                            <CollectionView
+                                IsVisible="{Binding AreFacultySugestionsVisible}"
+                                ItemsSource="{Binding DisplayedFacultyNames}"
+                                SelectedItem="{Binding SelectedFaculty}"
+                                SelectionMode="Single">
+                                <CollectionView.Behaviors>
+                                    <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
+                                </CollectionView.Behaviors>
                                 <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <!--  The Style is bound the item type using the converter above to convert it to a converter  -->
-                                        <Grid Padding="9,2,9,0" BackgroundColor="White">
-                                            <Label
-                                                Margin="0,1,0,5"
-                                                FontFamily="OpenSans"
-                                                FontSize="15"
-                                                HeightRequest="26"
-                                                HorizontalTextAlignment="Center"
-                                                Style="{Binding DisplayType, Converter={StaticResource CalendarItemStyleConverter}}"
-                                                Text="{Binding Label}"
-                                                WidthRequest="47.53" />
-                                        </Grid>
+                                    <DataTemplate x:DataType="models:FacultyModel">
+                                        <StackLayout>
+                                            <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
+                                                <Label Text="{Binding FacultyName}" VerticalTextAlignment="Center" />
+                                            </Frame>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                            <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Selected faculties" />
+                            <CollectionView
+                                ItemsSource="{Binding SelectedFacultyNames}"
+                                SelectedItem="{Binding SelectedFaculty}"
+                                SelectionMode="Single">
+                                <CollectionView.Behaviors>
+                                    <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
+                                </CollectionView.Behaviors>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:FacultyModel">
+                                        <StackLayout>
+                                            <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
+                                                <Label Text="{Binding FacultyName}" VerticalTextAlignment="Center" />
+                                            </Frame>
+                                        </StackLayout>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
                         </StackLayout>
-                    </Frame>
-                </StackLayout>
 
-            </StackLayout>
-            <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Select the invitation mode" />
-
-            <StackLayout Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding EveryoneChecked}" Color="Black">
-                    <CheckBox.Behaviors>
-                        <xct:EventToCommandBehavior Command="{Binding EveryoneCheckedChangedCommand}" EventName="CheckedChanged" />
-                    </CheckBox.Behaviors>
-                </CheckBox>
-                <Label
-                    Style="{StaticResource DarkBlueMontserratBold}"
-                    Text="Everyone"
-                    VerticalOptions="Center" />
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding YearChecked}" Color="Black">
-                    <CheckBox.Behaviors>
-                        <xct:EventToCommandBehavior Command="{Binding YearCheckedChangedCommand}" EventName="CheckedChanged" />
-                    </CheckBox.Behaviors>
-                </CheckBox>
-                <Label
-                    Style="{StaticResource DarkBlueMontserratBold}"
-                    Text="By year"
-                    VerticalOptions="Center" />
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding FacultyChecked}" Color="Black">
-                    <CheckBox.Behaviors>
-                        <xct:EventToCommandBehavior Command="{Binding FacultyCheckedChangedCommand}" EventName="CheckedChanged" />
-                    </CheckBox.Behaviors>
-                </CheckBox>
-                <Label
-                    Style="{StaticResource DarkBlueMontserratBold}"
-                    Text="By faculty"
-                    VerticalOptions="Center" />
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding NameChecked}" Color="Black">
-                    <CheckBox.Behaviors>
-                        <xct:EventToCommandBehavior Command="{Binding NameCheckedChangedCommand}" EventName="CheckedChanged" />
-                    </CheckBox.Behaviors>
-                </CheckBox>
-                <Label
-                    Style="{StaticResource DarkBlueMontserratBold}"
-                    Text="By name"
-                    VerticalOptions="Center" />
-            </StackLayout>
-
-            <!--  Sections for invite methods  -->
-            <StackLayout HorizontalOptions="Center">
-
-                <!--  Everyone invited  -->
-                <StackLayout IsVisible="{Binding EveryoneChecked}">
-                    <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Every alumn will reveive an invite to this event!" />
-                </StackLayout>
-
-                <!--  Invite by year  -->
-                <StackLayout Margin="0,10,0,0" IsVisible="{Binding YearChecked}">
-                    <Label
-                        IsVisible="{Binding YearsVisible}"
-                        Style="{StaticResource DarkBlueMontserratBold}"
-                        Text="Select the promotion years to invite" />
-                    <CollectionView
-                        HeightRequest="250"
-                        IsVisible="{Binding YearsVisible}"
-                        ItemsSource="{Binding AvailablePromotionYears}"
-                        SelectedItem="{Binding SelectedYear}"
-                        SelectionMode="Single">
-                        <CollectionView.Behaviors>
-                            <xct:EventToCommandBehavior Command="{Binding YearSelectedCommand}" EventName="SelectionChanged" />
-                        </CollectionView.Behaviors>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout>
-                                    <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
-                                        <Label Text="{Binding}" VerticalTextAlignment="Center" />
-                                    </Frame>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-
-                    <Label
-                        Margin="0,10,0,0"
-                        IsVisible="{Binding SelectedYearsVisible}"
-                        Style="{StaticResource DarkBlueMontserratBold}"
-                        Text="Selected years:" />
-                    <CollectionView
-                        HeightRequest="250"
-                        IsVisible="{Binding SelectedYearsVisible}"
-                        ItemsSource="{Binding SelectedPromotionYears}"
-                        SelectionMode="None">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout>
-                                    <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
-                                        <Label Text="{Binding}" VerticalTextAlignment="Center" />
-                                    </Frame>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </StackLayout>
-
-                <!--  Invite by faculty  -->
-                <StackLayout IsVisible="{Binding FacultyChecked}">
-                    <StackLayout
-                        Grid.Row="0"
-                        Padding="10,0,0,0"
-                        Orientation="Horizontal">
-                        <Image>
-                            <Image.Source>
-                                <FontImageSource
-                                    FontFamily="FontAwesome"
-                                    Glyph="{x:Static fa:FontAwesomeIcons.School}"
-                                    Size="30"
-                                    Color="Black" />
-                            </Image.Source>
-                        </Image>
-                        <renderers:BorderlessEditor
-                            Margin="10,0,0,0"
-                            Placeholder="Search for a faculty name"
-                            Text="{Binding SearchedFacultyName}"
-                            VerticalOptions="Center"
-                            WidthRequest="300">
-                            <renderers:BorderlessEditor.Behaviors>
-                                <xct:EventToCommandBehavior Command="{Binding FacultyTextChangedCommand}" EventName="TextChanged" />
-                                <xct:UserStoppedTypingBehavior
-                                    Command="{Binding SearchFacultyCommand}"
-                                    MinimumLengthThreshold="2"
-                                    StoppedTypingTimeThreshold="300" />
-                            </renderers:BorderlessEditor.Behaviors>
-                        </renderers:BorderlessEditor>
                     </StackLayout>
+                    <!--  Invite by name  -->
+                    <StackLayout IsVisible="{Binding NameChecked}" />
+                </StackLayout>
+
+                <StackLayout VerticalOptions="EndAndExpand">
                     <Label
                         HorizontalOptions="Center"
-                        IsVisible="{Binding FacultyNotFoundVisible}"
-                        Text="{x:Static resx:AppResource.FacultyNotFound}"
+                        IsVisible="{Binding IsErrorMessageVisible}"
+                        Text="Could not create this event. Check the provided details for mistakes"
                         TextColor="DarkRed" />
-                    <StackLayout VerticalOptions="FillAndExpand">
-                        <CollectionView
-                            IsVisible="{Binding AreFacultySugestionsVisible}"
-                            ItemsSource="{Binding DisplayedFacultyNames}"
-                            SelectedItem="{Binding SelectedFaculty}"
-                            SelectionMode="Single">
-                            <CollectionView.Behaviors>
-                                <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
-                            </CollectionView.Behaviors>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:FacultyModel">
-                                    <StackLayout>
-                                        <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
-                                            <Label Text="{Binding FacultyName}" VerticalTextAlignment="Center" />
-                                        </Frame>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
 
-                        <Label Style="{StaticResource DarkBlueMontserratBold}" Text="Selected faculties" />
-                        <CollectionView
-                            ItemsSource="{Binding SelectedFacultyNames}"
-                            SelectedItem="{Binding SelectedFaculty}"
-                            SelectionMode="Single">
-                            <CollectionView.Behaviors>
-                                <xct:EventToCommandBehavior Command="{Binding FacultySelectedCommand}" EventName="SelectionChanged" />
-                            </CollectionView.Behaviors>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:FacultyModel">
-                                    <StackLayout>
-                                        <Frame BackgroundColor="ForestGreen" Style="{StaticResource SmallFrameCard}">
-                                            <Label Text="{Binding FacultyName}" VerticalTextAlignment="Center" />
-                                        </Frame>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                    <StackLayout
+                        Margin="0,0,10,30"
+                        HeightRequest="40"
+                        Orientation="Horizontal">
+                        <Button
+                            Margin="10,0,0,0"
+                            BackgroundColor="Transparent"
+                            Command="{Binding DeleteCommand}"
+                            HeightRequest="22"
+                            HorizontalOptions="Start"
+                            IsVisible="{Binding IsDeleteButtonVisible}"
+                            WidthRequest="25">
+                            <Button.ImageSource>
+                                <FontImageSource
+                                    FontFamily="FontAwesome"
+                                    Glyph="{x:Static fa:FontAwesomeIcons.Trash}"
+                                    Size="24"
+                                    Color="DarkRed" />
+                            </Button.ImageSource>
+                        </Button>
+
+                        <Button
+                            Padding="2,0,2,0"
+                            BackgroundColor="Transparent"
+                            BorderColor="Black"
+                            BorderWidth="1"
+                            Command="{Binding CancelCommand}"
+                            CornerRadius="5"
+                            FontFamily="Montserrat"
+                            FontSize="16"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{x:Static resx:AppResource.Cancel}"
+                            TextColor="Black"
+                            TextTransform="None"
+                            WidthRequest="100" />
+
+
+                        <Button
+                            Padding="10,0"
+                            BackgroundColor="#1C698A"
+                            Command="{Binding CreateEventCommand}"
+                            CornerRadius="5"
+                            FontFamily="Montserrat"
+                            FontSize="16"
+                            HorizontalOptions="End"
+                            IsEnabled="{Binding SaveButtonEnabled}"
+                            Text="{Binding SaveButtonText}"
+                            TextColor="White"
+                            TextTransform="None" />
                     </StackLayout>
-
-                </StackLayout>
-                <!--  Invite by name  -->
-                <StackLayout IsVisible="{Binding NameChecked}" />
-            </StackLayout>
-
-            <StackLayout VerticalOptions="EndAndExpand">
-                <Label
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding IsErrorMessageVisible}"
-                    Text="Could not create this event. Check the provided details for mistakes"
-                    TextColor="DarkRed" />
-
-                <StackLayout
-                    Margin="0,0,10,30"
-                    HeightRequest="40"
-                    Orientation="Horizontal">
-                    <Button
-                        Margin="10,0,0,0"
-                        BackgroundColor="Transparent"
-                        Command="{Binding DeleteCommand}"
-                        HeightRequest="22"
-                        HorizontalOptions="Start"
-                        IsVisible="{Binding IsDeleteButtonVisible}"
-                        WidthRequest="25">
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="FontAwesome"
-                                Glyph="{x:Static fa:FontAwesomeIcons.Trash}"
-                                Size="24"
-                                Color="DarkRed" />
-                        </Button.ImageSource>
-                    </Button>
-
-                    <Button
-                        Padding="2,0,2,0"
-                        BackgroundColor="Transparent"
-                        BorderColor="Black"
-                        BorderWidth="1"
-                        Command="{Binding CancelCommand}"
-                        CornerRadius="5"
-                        FontFamily="Montserrat"
-                        FontSize="16"
-                        HorizontalOptions="EndAndExpand"
-                        Text="{x:Static resx:AppResource.Cancel}"
-                        TextColor="Black"
-                        TextTransform="None"
-                        WidthRequest="100" />
-
-
-                    <Button
-                        Padding="10,0"
-                        BackgroundColor="#1C698A"
-                        Command="{Binding CreateEventCommand}"
-                        CornerRadius="5"
-                        FontFamily="Montserrat"
-                        FontSize="16"
-                        HorizontalOptions="End"
-                        IsEnabled="{Binding SaveButtonEnabled}"
-                        Text="{Binding SaveButtonText}"
-                        TextColor="White"
-                        TextTransform="None" />
                 </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

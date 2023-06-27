@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -215,7 +216,7 @@ namespace AlumniNetMobile.ViewModels
         #region Methods...
         private void CommonInitialization()
         {
-
+            IsBusy = false;
             IsCalendarVisible = false;
             CalendarItems = new ObservableRangeCollection<CalendarItemModel>();
             CalendarMonth = DateTime.Now;
@@ -293,9 +294,12 @@ namespace AlumniNetMobile.ViewModels
         #endregion
 
         #region Observables
-        
+
         [ObservableProperty]
         private CalendarItemModel _calendarSelectedDate;
+
+        [ObservableProperty]
+        private bool _isBusy;
 
         [ObservableProperty]
         ImageSource _selectedImage;
@@ -601,6 +605,9 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async Task PageAppearing()
         {
+            if(IsBusy) return;
+            IsBusy = true;
+
             if (_selectedEvent != null)
             {
                 string token = await _authenticationService.GetCurrentTokenAsync();
@@ -612,7 +619,26 @@ namespace AlumniNetMobile.ViewModels
                     SelectedImage = ImageSource.FromStream(() => file);
                 }
             }
+
+            IsBusy = false;
         }
+
+        [RelayCommand]
+        public async Task Cancel()
+        {
+            await Xamarin.Forms.Application.Current.MainPage.Navigation.PopAsync();
+        }
+
+        [RelayCommand]
+        public async Task Delete()
+        {
+            string token = await _authenticationService.GetCurrentTokenAsync();
+
+            _manageData.SetStrategy(new DeleteData());
+            await _manageData.GetDataAndDeserializeIt<string>($"Event/DeleteEvent?eventId={_selectedEvent.EventId}","",token);
+            await Xamarin.Forms.Application.Current.MainPage.Navigation.PopAsync();
+        }
+
         #endregion
 
     }

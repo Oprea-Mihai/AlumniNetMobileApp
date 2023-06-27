@@ -19,167 +19,169 @@
     </ContentPage.Behaviors>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Button
-                Margin="0,15,5,0"
-                BackgroundColor="#1C698A"
-                Command="{Binding AddEventCommand}"
-                CornerRadius="5"
-                HeightRequest="40"
-                HorizontalOptions="End"
-                VerticalOptions="Start"
-                WidthRequest="40">
-                <Button.ImageSource>
-                    <FontImageSource
-                        FontFamily="FontAwesome"
-                        Glyph="{x:Static fa:FontAwesomeIcons.Plus}"
-                        Size="20"
-                        Color="White" />
-                </Button.ImageSource>
-            </Button>
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <StackLayout>
+                <Button
+                    Margin="0,15,5,0"
+                    BackgroundColor="#1C698A"
+                    Command="{Binding AddEventCommand}"
+                    CornerRadius="5"
+                    HeightRequest="40"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    WidthRequest="40">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="FontAwesome"
+                            Glyph="{x:Static fa:FontAwesomeIcons.Plus}"
+                            Size="20"
+                            Color="White" />
+                    </Button.ImageSource>
+                </Button>
 
-            <CollectionView
-                Margin="7,10,7,10"
-                ItemsSource="{Binding Events}"
-                SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
-                SelectionMode="Single">
+                <CollectionView
+                    Margin="7,10,7,10"
+                    ItemsSource="{Binding Events}"
+                    SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
+                    SelectionMode="Single">
 
-                <CollectionView.Behaviors>
-                    <xct:EventToCommandBehavior Command="{Binding OpenSelectedEventCommand}" EventName="SelectionChanged" />
-                </CollectionView.Behaviors>
+                    <CollectionView.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding OpenSelectedEventCommand}" EventName="SelectionChanged" />
+                    </CollectionView.Behaviors>
 
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout
-                        HorizontalItemSpacing="10"
-                        Orientation="Vertical"
-                        Span="2"
-                        VerticalItemSpacing="10" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:EventModel">
-                        <Frame
-                            BackgroundColor="White"
-                            BorderColor="Goldenrod"
-                            CornerRadius="5"
-                            HasShadow="True"
-                            IsClippedToBounds="True"
-                            Style="{StaticResource EventFrameStyle}">
-                            <Grid Margin="-20,-30,-20,-20" RowSpacing="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <ffimageloading:CachedImage
-                                    Margin="1"
-                                    Aspect="AspectFill"
-                                    DownsampleToViewSize="true"
-                                    ErrorPlaceholder="error.png"
-                                    HeightRequest="350"
-                                    LoadingPlaceholder="loading.png"
-                                    RetryCount="3"
-                                    RetryDelay="250"
-                                    Source="{Binding ImageSource}"
-                                    WidthRequest="300" />
-                                <Label
-                                    Grid.Row="1"
-                                    Margin="6,0,0,0"
-                                    FontFamily="Montserrat"
-                                    FontSize="12"
-                                    Text="{Binding EventName}"
-                                    TextColor="#1C698A" />
-                                <StackLayout Grid.Row="2" Orientation="Horizontal">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="10"
+                            Orientation="Vertical"
+                            Span="2"
+                            VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:EventModel">
+                            <Frame
+                                BackgroundColor="White"
+                                BorderColor="Goldenrod"
+                                CornerRadius="5"
+                                HasShadow="True"
+                                IsClippedToBounds="True"
+                                Style="{StaticResource EventFrameStyle}">
+                                <Grid Margin="-20,-30,-20,-20" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <ffimageloading:CachedImage
+                                        Margin="1"
+                                        Aspect="AspectFill"
+                                        DownsampleToViewSize="true"
+                                        ErrorPlaceholder="error.png"
+                                        HeightRequest="350"
+                                        LoadingPlaceholder="loading.png"
+                                        RetryCount="3"
+                                        RetryDelay="250"
+                                        Source="{Binding ImageSource}"
+                                        WidthRequest="300" />
                                     <Label
-                                        Margin="7,0,0,12"
+                                        Grid.Row="1"
+                                        Margin="6,0,0,0"
                                         FontFamily="Montserrat"
-                                        FontSize="9"
-                                        Text="{Binding StartDate, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}"
+                                        FontSize="12"
+                                        Text="{Binding EventName}"
                                         TextColor="#1C698A" />
-                                </StackLayout>
-
-                                <StackLayout
-                                    Grid.Row="3"
-                                    HorizontalOptions="Center"
-                                    Orientation="Horizontal"
-                                    Spacing="0">
-                                    <StackLayout
-                                        BackgroundColor="#199F36"
-                                        HeightRequest="35"
-                                        Orientation="Horizontal"
-                                        WidthRequest="60">
-                                        <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                            <Image.Source>
-                                                <FontImageSource
-                                                    FontFamily="FontAwesome"
-                                                    Glyph="{x:Static fa:FontAwesomeIcons.Check}"
-                                                    Size="15"
-                                                    Color="White" />
-                                            </Image.Source>
-                                        </Image>
+                                    <StackLayout Grid.Row="2" Orientation="Horizontal">
                                         <Label
+                                            Margin="7,0,0,12"
                                             FontFamily="Montserrat"
-                                            HorizontalOptions="CenterAndExpand"
-                                            Text="{Binding Accepted}"
-                                            TextColor="White"
-                                            VerticalOptions="CenterAndExpand" />
+                                            FontSize="9"
+                                            Text="{Binding StartDate, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}"
+                                            TextColor="#1C698A" />
                                     </StackLayout>
 
                                     <StackLayout
-                                        BackgroundColor="#FF6700"
-                                        HeightRequest="35"
-                                        Orientation="Horizontal"
-                                        WidthRequest="60">
-                                        <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                            <Image.Source>
-                                                <FontImageSource
-                                                    FontFamily="FontAwesome"
-                                                    Glyph="{x:Static fa:FontAwesomeIcons.Clock}"
-                                                    Size="15"
-                                                    Color="White" />
-                                            </Image.Source>
-                                        </Image>
-                                        <Label
-                                            FontFamily="Montserrat"
-                                            HorizontalOptions="CenterAndExpand"
-                                            Text="{Binding Pending}"
-                                            TextColor="White"
-                                            VerticalOptions="CenterAndExpand" />
-                                    </StackLayout>
-
-                                    <StackLayout
-                                        BackgroundColor="#8A1C23"
-                                        HeightRequest="35"
+                                        Grid.Row="3"
                                         HorizontalOptions="Center"
                                         Orientation="Horizontal"
-                                        Spacing="0"
-                                        WidthRequest="60">
-                                        <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                            <Image.Source>
-                                                <FontImageSource
-                                                    FontFamily="FontAwesome"
-                                                    Glyph="{x:Static fa:FontAwesomeIcons.X}"
-                                                    Size="15"
-                                                    Color="White" />
-                                            </Image.Source>
-                                        </Image>
-                                        <Label
-                                            FontFamily="Montserrat"
-                                            HorizontalOptions="CenterAndExpand"
-                                            Text="{Binding Rejected}"
-                                            TextColor="White"
-                                            VerticalOptions="CenterAndExpand" />
-                                    </StackLayout>
-                                </StackLayout>
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                        Spacing="0">
+                                        <StackLayout
+                                            BackgroundColor="#199F36"
+                                            HeightRequest="35"
+                                            Orientation="Horizontal"
+                                            WidthRequest="60">
+                                            <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                <Image.Source>
+                                                    <FontImageSource
+                                                        FontFamily="FontAwesome"
+                                                        Glyph="{x:Static fa:FontAwesomeIcons.Check}"
+                                                        Size="15"
+                                                        Color="White" />
+                                                </Image.Source>
+                                            </Image>
+                                            <Label
+                                                FontFamily="Montserrat"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="{Binding Accepted}"
+                                                TextColor="White"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </StackLayout>
 
-        </StackLayout>
+                                        <StackLayout
+                                            BackgroundColor="#FF6700"
+                                            HeightRequest="35"
+                                            Orientation="Horizontal"
+                                            WidthRequest="60">
+                                            <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                <Image.Source>
+                                                    <FontImageSource
+                                                        FontFamily="FontAwesome"
+                                                        Glyph="{x:Static fa:FontAwesomeIcons.Clock}"
+                                                        Size="15"
+                                                        Color="White" />
+                                                </Image.Source>
+                                            </Image>
+                                            <Label
+                                                FontFamily="Montserrat"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="{Binding Pending}"
+                                                TextColor="White"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </StackLayout>
+
+                                        <StackLayout
+                                            BackgroundColor="#8A1C23"
+                                            HeightRequest="35"
+                                            HorizontalOptions="Center"
+                                            Orientation="Horizontal"
+                                            Spacing="0"
+                                            WidthRequest="60">
+                                            <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                <Image.Source>
+                                                    <FontImageSource
+                                                        FontFamily="FontAwesome"
+                                                        Glyph="{x:Static fa:FontAwesomeIcons.X}"
+                                                        Size="15"
+                                                        Color="White" />
+                                                </Image.Source>
+                                            </Image>
+                                            <Label
+                                                FontFamily="Montserrat"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="{Binding Rejected}"
+                                                TextColor="White"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

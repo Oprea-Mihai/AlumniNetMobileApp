@@ -4,6 +4,7 @@ using AlumniNetMobile.Models;
 using AlumniNetMobile.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FFImageLoading.Concurrency;
 using System.Collections.Generic;
 using System.IO;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -16,6 +17,8 @@ namespace AlumniNetMobile.ViewModels
         #region Constructors
         public AdminManageEventsViewModel()
         {
+            IsBusy = false;
+
             _manageData = new ManageData();
             _authenticationService = DependencyService.Resolve<IAuthenticationService>();
 
@@ -37,6 +40,9 @@ namespace AlumniNetMobile.ViewModels
 
         [ObservableProperty]
         private EventModel _selectedEvent;
+
+        [ObservableProperty]
+        private bool _isBusy;
 
         ObservableRangeCollection<EventModel> _events;
         public ObservableRangeCollection<EventModel> Events
@@ -70,6 +76,9 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void PageAppearing()
         {
+            if (IsBusy) return;
+            IsBusy = true;
+
             _manageData.SetStrategy(new GetData());
             string token = await _authenticationService.GetCurrentTokenAsync();
             List<EventModel> events = await _manageData.
@@ -86,7 +95,11 @@ namespace AlumniNetMobile.ViewModels
                 }
             }
             Events.ReplaceRange(events);
+        
+            IsBusy = false;
         }
+
+
 
         #endregion
 
