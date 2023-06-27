@@ -216,6 +216,9 @@
   <data name="SaveChanges" xml:space="preserve">
     <value>Salvati modificarile</value>
   </data>
+  <data name="SearchByName" xml:space="preserve">
+    <value>Căutaţi după nume</value>
+  </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Selectati limba</value>
   </data>

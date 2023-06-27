@@ -216,6 +216,9 @@
   <data name="SaveChanges" xml:space="preserve">
     <value>Save changes</value>
   </data>
+  <data name="SearchByName" xml:space="preserve">
+    <value>Search by name</value>
+  </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Select language</value>
   </data>

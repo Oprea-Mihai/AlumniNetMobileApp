@@ -28,6 +28,7 @@ namespace AlumniNetMobile.ViewModels
             Posts = new ObservableRangeCollection<PostModel>();
             _currentIndex = 0;
             _batchSize = 5;
+            IsBusy = false;
         }
         #endregion
 
@@ -192,7 +193,7 @@ namespace AlumniNetMobile.ViewModels
 
         [RelayCommand]
         public async void PageAppearing()
-        {
+        {          
             NoPostsAvailableVisible = false;
             await InitializeAsync();
         }

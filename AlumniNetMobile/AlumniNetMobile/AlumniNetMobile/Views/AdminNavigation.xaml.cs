@@ -15,6 +15,7 @@ namespace AlumniNetMobile.Views
         public AdminNavigation ()
         {
             InitializeComponent();
+            this.CurrentPage = this.Children[1];
         }
     }
 }

@@ -358,6 +358,15 @@ namespace AlumniNetMobile.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search by name.
+        /// </summary>
+        internal static string SearchByName {
+            get {
+                return ResourceManager.GetString("SearchByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select language.
         /// </summary>
         internal static string SelectLanguage {

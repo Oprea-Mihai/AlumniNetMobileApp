@@ -16,7 +16,7 @@
         <RefreshView IsEnabled="True" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <StackLayout>
                 <SearchBar
-                    Placeholder="Cautati dupa nume"
+                    Placeholder="{x:Static resx:AppResource.SearchByName}"
                     SearchCommand="{Binding SearchCommand}"
                     Text="{Binding SearchedName}">
                     <SearchBar.Behaviors>
