@@ -77,7 +77,7 @@
                         x:Name="postsCollectionView"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding Posts}"
-                        RemainingItemsThreshold="2"
+                        RemainingItemsThreshold="4"
                         RemainingItemsThresholdReachedCommand="{Binding LoadMorePostsAsyncCommand}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
