@@ -559,6 +559,8 @@ namespace AlumniNetMobile.ViewModels
         [RelayCommand]
         public async void CreateEvent()
         {
+            if(_selectedEvent == null)
+            { 
             IsErrorMessageVisible = false;
             if (_selectedFile == null ||
                 EventTitle == "" ||
@@ -598,6 +600,60 @@ namespace AlumniNetMobile.ViewModels
             //send invites
 
             await SendInvites(eventId);
+            }
+            else
+            {
+                IsErrorMessageVisible = false;
+
+                if (EventTitle == "" ||
+                    EventDescription == "")
+                {
+                    IsErrorMessageVisible = true;
+                    return;
+                }
+
+                if (!(EveryoneChecked || YearChecked || FacultyChecked || NameChecked))
+                {
+                    IsErrorMessageVisible = true;
+                    return;
+                }
+                string token = await _authenticationService.GetCurrentTokenAsync();
+
+                string image="";
+                if (_selectedFile!=null)
+                { 
+                _memoryStream.Seek(0, SeekOrigin.Begin);
+                UpdateData updateData = new UpdateData();
+
+                image = await updateData.ManageStreamData
+                     ($"Event/UploadEventImage", _memoryStream, token);
+                }
+
+                if (string.IsNullOrEmpty(image))
+                    image = _selectedEvent.Image;
+
+                if (StartDate == new DateTime())
+                    StartDate = _selectedEvent.StartDate;
+
+                DateTime eventDate = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day,
+                    SelectedTime.Hours, SelectedTime.Minutes, SelectedTime.Seconds); 
+
+                EventModel eventToUpdate = new EventModel
+                {
+                    EventName = EventTitle,
+                    Description = EventDescription,
+                    StartDate = eventDate,
+                    Image = image,
+                    EventId=_selectedEvent.EventId,
+                };
+
+                string json = JsonConvert.SerializeObject(eventToUpdate);
+                _manageData.SetStrategy(new UpdateData());
+               await _manageData.GetDataAndDeserializeIt<int>("Event/UpdateEvent", json, token);
+                //send invites
+
+                await SendInvites(_selectedEvent.EventId);
+            }
             await Xamarin.Forms.Application.Current.MainPage.Navigation.PopAsync();
         }
 
