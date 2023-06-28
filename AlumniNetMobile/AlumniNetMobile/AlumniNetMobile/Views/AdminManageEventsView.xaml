@@ -104,14 +104,15 @@
 
                                     <StackLayout
                                         Grid.Row="3"
-                                        HorizontalOptions="Center"
+                                        BackgroundColor="Red"
+                                        HorizontalOptions="Fill"
                                         Orientation="Horizontal"
                                         Spacing="0">
                                         <StackLayout
                                             BackgroundColor="#199F36"
                                             HeightRequest="35"
-                                            Orientation="Horizontal"
-                                            WidthRequest="60">
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
                                             <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                                                 <Image.Source>
                                                     <FontImageSource
@@ -123,7 +124,7 @@
                                             </Image>
                                             <Label
                                                 FontFamily="Montserrat"
-                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalOptions="FillAndExpand"
                                                 Text="{Binding Accepted}"
                                                 TextColor="White"
                                                 VerticalOptions="CenterAndExpand" />
@@ -132,8 +133,8 @@
                                         <StackLayout
                                             BackgroundColor="#FF6700"
                                             HeightRequest="35"
-                                            Orientation="Horizontal"
-                                            WidthRequest="60">
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
                                             <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                                                 <Image.Source>
                                                     <FontImageSource
@@ -145,7 +146,7 @@
                                             </Image>
                                             <Label
                                                 FontFamily="Montserrat"
-                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalOptions="FillAndExpand"
                                                 Text="{Binding Pending}"
                                                 TextColor="White"
                                                 VerticalOptions="CenterAndExpand" />
@@ -154,10 +155,8 @@
                                         <StackLayout
                                             BackgroundColor="#8A1C23"
                                             HeightRequest="35"
-                                            HorizontalOptions="Center"
-                                            Orientation="Horizontal"
-                                            Spacing="0"
-                                            WidthRequest="60">
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
                                             <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                                                 <Image.Source>
                                                     <FontImageSource
@@ -169,7 +168,7 @@
                                             </Image>
                                             <Label
                                                 FontFamily="Montserrat"
-                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalOptions="FillAndExpand"
                                                 Text="{Binding Rejected}"
                                                 TextColor="White"
                                                 VerticalOptions="CenterAndExpand" />
