@@ -31,7 +31,7 @@ namespace AlumniNetMobile.DataHandlingStrategy
             var data = await _manageDataStrategy.ManageData(_httpClient, url, json);
 
             if (data == string.Empty)
-                 Console.WriteLine(url + " returned an empty string"); //DO NOT REMOVE BKPOINT WHILE DEBUGGING
+                Console.WriteLine(url + " returned an empty string"); //DO NOT REMOVE BKPOINT WHILE DEBUGGING
             var deserializedData = JsonConvert.DeserializeObject<T>(data);
 
             return deserializedData;
